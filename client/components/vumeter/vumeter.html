@@ -1,0 +1,15 @@
+<template name="vumeter">
+  <div class="progress">
+  {{#with meter vumeter}}
+    <div class="progress-bar progress-bar-success" style="width: {{green}}%">
+      <span class="sr-only">{{green}}% Complete (success)</span>
+    </div>
+    <div class="progress-bar progress-bar-warning" style="width: {{yellow}}%">
+      <span class="sr-only">{{yellow}}% Complete (warning)</span>
+    </div>
+    <div class="progress-bar progress-bar-danger" style="width: {{red}}%">
+      <span class="sr-only">{{red}}% Complete (danger)</span>
+    </div>
+  {{/with}}
+  </div>
+</template>

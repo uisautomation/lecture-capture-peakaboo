@@ -1,0 +1,4 @@
+```shell
+chmod u+x run
+./run
+```

@@ -1,0 +1,42 @@
+<template name="room">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{displayName}} {{#if recording}}<span class="label label-danger pull-right">Rec</span>{{/if}}</h3>
+        </div>
+        <div class="panel-body">
+          <a href="#" class="thumbnail">
+            <img data-src="holder.js/100%" src="{{thumbnail}}">
+          </a>
+          {{>vumeter}}
+          <label>Rear Mic Boost</label><input type="range" class="audioFaders" name="rear-mic-boost" id="rearMicBoost" min="{{audio.rearMicBoost.limits.min}}" max="{{audio.rearMicBoost.limits.max}}" value={{audio.rearMicBoost.value.left}}>
+          <label>Capture</label><input type="range" class="audioFaders" name="capture" id="capture" min="{{audio.capture.limits.min}}" max="{{audio.capture.limits.max}}" value={{audio.capture.value.left}}>
+          <button type="button" data-toggle="modal" data-target="#mymodal" data-action="restart" data-title="Restart galicaster" data-message="Are you sure you want to restart galicaster on <b>{{displayName}}</b>?" data-confirm="Restart" class="btn btn-warning peakaboo-command">Restart galicaster</button>
+          <button type="button" data-toggle="modal" data-target="#mymodal" data-action="reboot" data-title="Reboot machine" data-message="Are you sure you want to reboot <b>{{displayName}}</b>?" data-confirm="Reboot" class="btn btn-danger peakaboo-command">Reboot machine</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{>confirmModal}}
+</template>
+
+<template name="confirmModal">
+  <div id="mymodal" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title">{{modal.title}}</h4>
+        </div>
+        <div class="modal-body">
+          <p>{{{modal.message}}}</p>
+        </div>
+        <div class="modal-footer">
+          <button id="modalOk" type="button" class="btn btn-danger">{{modal.confirm}}</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

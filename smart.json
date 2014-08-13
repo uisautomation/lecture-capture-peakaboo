@@ -1,0 +1,10 @@
+{
+  "packages": {
+    "bootflat": {},
+    "bootstrap-3": {},
+    "iron-router": {},
+    "accounts-ui-bootstrap-3": {},
+    "npm": {},
+    "persistent-session": {}
+  }
+}
