@@ -1,11 +1,15 @@
+unless Session.get 'room_tab'
+  Session.set 'room_tab', 'controls'
+
 Template.room.events
   'click .peakaboo-command': (e) ->
-    data = e.currentTarget.dataset
     Session.set 'modal',
-      data
+      e.currentTarget.dataset
+  'click .room_tab': (e) ->
+    Session.set 'room_tab', e.currentTarget.dataset.value
     
     
-Template.room.thumbnail = ->
+Template.controls.thumbnail = ->
   switch Session.get 'view'
     when 'view-screen'
       @presentationVideo
@@ -14,7 +18,7 @@ Template.room.thumbnail = ->
     when 'view-galicaster'
       @screen
 
-Template.room.events
+Template.controls.events
   'change .audioFaders': (e) ->
     values = {}
     values["audio.#{e.currentTarget.id}.value"] =
@@ -27,8 +31,6 @@ Template.room.events
       console.log err if err
       console.log result if result
 
-
-
 Template.confirmModal.modal = ->
   Session.get 'modal'
 
@@ -40,3 +42,16 @@ Template.confirmModal.events
       when 'reboot'
         Meteor.call 'rebootMachine', @_id
     $('#mymodal').modal 'hide'
+
+Template.room.view_tab = ->
+  Template[Session.get 'room_tab']
+
+Template.room.tab_set = (id) ->
+  if Session.get('room_tab') is id
+    true
+
+Template.tableRow.mcreated = ->
+  moment(@created).format("DD-MM-YYYY HH:MM")
+
+Template.tableRow.mduration = ->
+  moment(@duration * 1000).format("HH:mm:ss")

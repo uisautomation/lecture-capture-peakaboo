@@ -5,6 +5,7 @@
     "iron-router": {},
     "accounts-ui-bootstrap-3": {},
     "npm": {},
-    "persistent-session": {}
+    "persistent-session": {},
+    "moment": {}
   }
 }

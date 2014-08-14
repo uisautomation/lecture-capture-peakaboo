@@ -13,3 +13,4 @@ accounts-ui-bootstrap-3
 accounts-password
 npm
 persistent-session
+moment

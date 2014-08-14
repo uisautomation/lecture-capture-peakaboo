@@ -1,6 +1,15 @@
 <template name="room">
+  <ul class="nav nav-pills">
+    <li class="{{#if tab_set 'controls'}}active{{/if}}"><a href="#" class="room_tab" data-value="controls">Controls</a></li>
+    <li class="{{#if tab_set 'repository'}}active{{/if}}"><a href="#" class="room_tab" data-value="repository">Repository</a></li>
+  </ul>
+  <hr>
+  {{> view_tab}}
+</template>
+
+<template name="controls">
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">{{displayName}} {{#if recording}}<span class="label label-danger pull-right">Rec</span>{{/if}}</h3>
@@ -9,9 +18,27 @@
           <a href="#" class="thumbnail">
             <img data-src="holder.js/100%" src="{{thumbnail}}">
           </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Audio</h3>
+        </div>
+        <div class="panel-body">
           {{>vumeter}}
           <label>Rear Mic Boost</label><input type="range" class="audioFaders" name="rear-mic-boost" id="rearMicBoost" min="{{audio.rearMicBoost.limits.min}}" max="{{audio.rearMicBoost.limits.max}}" value={{audio.rearMicBoost.value.left}}>
           <label>Capture</label><input type="range" class="audioFaders" name="capture" id="capture" min="{{audio.capture.limits.min}}" max="{{audio.capture.limits.max}}" value={{audio.capture.value.left}}>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Controls</h3>
+        </div>
+        <div class="panel-body">
           <button type="button" data-toggle="modal" data-target="#mymodal" data-action="restart" data-title="Restart galicaster" data-message="Are you sure you want to restart galicaster on <b>{{displayName}}</b>?" data-confirm="Restart" class="btn btn-warning peakaboo-command">Restart galicaster</button>
           <button type="button" data-toggle="modal" data-target="#mymodal" data-action="reboot" data-title="Reboot machine" data-message="Are you sure you want to reboot <b>{{displayName}}</b>?" data-confirm="Reboot" class="btn btn-danger peakaboo-command">Reboot machine</button>
         </div>
@@ -19,6 +46,36 @@
     </div>
   </div>
   {{>confirmModal}}
+</template>
+
+<template name="repository">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Repository</h3>
+        </div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Date</th><th>Name</th><th>Presenter</th><th>Series</th><th>Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+          {{#each repository}}
+            {{>tableRow}}
+          {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="tableRow">
+  <tr>
+    <td>{{mcreated}}</td><td>{{title}}</td><td>{{creator}}</td><td>{{series_title}}</td><td>{{mduration}}</td>
+  </tr>
 </template>
 
 <template name="confirmModal">
