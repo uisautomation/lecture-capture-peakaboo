@@ -5,12 +5,13 @@
 
 standard-app-packages
 insecure
-bootstrap-3
-bootflat
-iron-router
+elie:bootflat@0.0.2
+cmather:iron-router@0.8.2
 coffeescript
 accounts-ui-bootstrap-3
 accounts-password
-npm
-persistent-session
-moment
+u2622:persistent-session@0.1.4
+mrt:moment@2.8.1
+meteorhacks:npm
+npm-container
+mizzao:bootstrap-3
