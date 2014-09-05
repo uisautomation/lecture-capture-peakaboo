@@ -9,11 +9,11 @@ blaze-tools@1.0.0
 blaze@2.0.0
 callback-hook@1.0.0
 check@1.0.0
-cmather:iron-router@0.8.1
 coffeescript@1.0.2
 ctl-helper@1.0.3
 ctl@1.0.1
 ddp@1.0.8
+deps@1.0.2
 ejson@1.0.1
 elie:bootflat@0.0.2
 email@1.0.2
@@ -24,6 +24,10 @@ html-tools@1.0.0
 htmljs@1.0.0
 id-map@1.0.0
 insecure@1.0.0
+iron:core@0.3.4
+iron:dynamic-template@0.4.1
+iron:layout@0.4.1
+iron:router@0.9.3
 jquery@1.0.0
 json@1.0.0
 localstorage@1.0.0
@@ -57,5 +61,6 @@ stylus@1.0.3
 templating@1.0.5
 tracker@1.0.2
 u2622:persistent-session@0.1.4
+ui@1.0.1
 underscore@1.0.0
 webapp@1.0.3

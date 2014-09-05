@@ -6,7 +6,6 @@
 standard-app-packages
 insecure
 elie:bootflat
-cmather:iron-router
 coffeescript
 accounts-ui-bootstrap-3
 accounts-password
@@ -15,3 +14,5 @@ mrt:moment
 meteorhacks:npm
 npm-container
 mizzao:bootstrap-3
+iron:router
+
