@@ -1,1 +1,1 @@
-mrt --settings config/settings.json
+meteor --settings config/settings.json
