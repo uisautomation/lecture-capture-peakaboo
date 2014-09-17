@@ -1,4 +1,4 @@
-Connection = Meteor.require 'ssh2'
+Connection = Meteor.npmRequire 'ssh2'
 
 sshexec = (id, command) ->
   room = Rooms.findOne id
