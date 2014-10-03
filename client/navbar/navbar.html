@@ -24,7 +24,9 @@
             <li><a href="#" id="view-screen">{{#if view 'view-screen'}}{{>tick}}{{/if}} Screen</a></li>
           </ul>
         </li>
+        {{#if roomList}}
         <li><input id="zoom" type="range" min="1" max="4" value="{{zoom}}"></li>
+        {{/if}}
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {{>loginButtons}}

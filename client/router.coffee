@@ -4,8 +4,15 @@ Router.configure
 Router.map ->
   @route 'room_list',
     path: '/'
-  @route 'room',
-    path: '/room/:_id'
+  @route 'room_controls',
+    path: '/room/:_id/controls'
+    template: 'controls'
     data: ->
-      Rooms.findOne @params._id
-    
+      room: Rooms.findOne @params._id
+      controls: true
+  @route 'room_repository',
+    path: '/room/:_id/repository'
+    template: 'repository'
+    data: ->
+      room: Rooms.findOne @params._id
+      repository: true

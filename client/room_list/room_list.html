@@ -10,10 +10,10 @@
   <div class="col-md-{{zoom}}">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title"><a href="{{pathFor 'room' _id}}">{{displayName}}</a> {{#if recording}}<span class="label label-danger pull-right">Rec</span>{{/if}}</h3>
+        <h3 class="panel-title"><a href="{{pathFor 'room_controls' _id}}">{{displayName}}</a> {{#if recording}}<span class="label label-danger pull-right">Rec</span>{{/if}}</h3>
       </div>
       <div class="panel-body">
-        <a href="{{pathFor 'room' _id}}" class="thumbnail">
+        <a href="{{pathFor 'room_controls' _id}}" class="thumbnail">
           <img data-src="holder.js/100%" src="{{thumbnail}}">
         </a>
         {{>vumeter}}
