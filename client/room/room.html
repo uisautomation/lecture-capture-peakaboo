@@ -1,22 +1,24 @@
-<template name="room">
+<template name="room_nav">
   <ul class="nav nav-pills">
-    <li class="{{#if tab_set 'controls'}}active{{/if}}"><a href="#" class="room_tab" data-value="controls">Controls</a></li>
-    <li class="{{#if tab_set 'repository'}}active{{/if}}"><a href="#" class="room_tab" data-value="repository">Repository</a></li>
+    <li class="{{#if controls}}active{{/if}}"><a href="{{pathFor 'room_controls' _id=room._id}}" class="room_tab">Controls</a></li>
+    <li class="{{#if repository}}active{{/if}}"><a href="{{pathFor 'room_repository' _id=room._id}}" class="room_tab">Repository</a></li>
   </ul>
   <hr>
-  {{> view_tab}}
 </template>
 
 <template name="controls">
+  {{> room_nav}}
   <div class="row">
     <div class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">{{displayName}} {{#if recording}}<span class="label label-danger pull-right">Rec</span>{{/if}}</h3>
+          <h3 class="panel-title">{{room.displayName}} {{#if room.recording}}<span class="label label-danger pull-right">Rec</span>{{/if}}</h3>
         </div>
         <div class="panel-body">
           <a href="#" class="thumbnail">
+            {{#with room}}
             <img data-src="holder.js/100%" src="{{thumbnail}}">
+            {{/with}}
           </a>
         </div>
       </div>
@@ -28,8 +30,8 @@
         </div>
         <div class="panel-body">
           {{>vumeter}}
-          <label>Rear Mic Boost</label><input type="range" class="audioFaders" name="rear-mic-boost" id="rearMicBoost" min="{{audio.rearMicBoost.limits.min}}" max="{{audio.rearMicBoost.limits.max}}" value={{audio.rearMicBoost.value.left}}>
-          <label>Capture</label><input type="range" class="audioFaders" name="capture" id="capture" min="{{audio.capture.limits.min}}" max="{{audio.capture.limits.max}}" value={{audio.capture.value.left}}>
+          <label>Rear Mic Boost</label><input type="range" class="audioFaders" name="rear-mic-boost" id="rearMicBoost" min="{{room.audio.rearMicBoost.limits.min}}" max="{{room.audio.rearMicBoost.limits.max}}" value={{room.audio.rearMicBoost.value.left}}>
+          <label>Capture</label><input type="range" class="audioFaders" name="capture" id="capture" min="{{room.audio.capture.limits.min}}" max="{{room.audio.capture.limits.max}}" value={{room.audio.capture.value.left}}>
         </div>
       </div>
     </div>
@@ -39,8 +41,8 @@
           <h3 class="panel-title">Controls</h3>
         </div>
         <div class="panel-body">
-          <button type="button" data-toggle="modal" data-target="#mymodal" data-action="restart" data-title="Restart galicaster" data-message="Are you sure you want to restart galicaster on <b>{{displayName}}</b>?" data-confirm="Restart" class="btn btn-warning peakaboo-command">Restart galicaster</button>
-          <button type="button" data-toggle="modal" data-target="#mymodal" data-action="reboot" data-title="Reboot machine" data-message="Are you sure you want to reboot <b>{{displayName}}</b>?" data-confirm="Reboot" class="btn btn-danger peakaboo-command">Reboot machine</button>
+          <button type="button" data-toggle="modal" data-target="#mymodal" data-action="restart" data-title="Restart galicaster" data-message="Are you sure you want to restart galicaster on <b>{{room.displayName}}</b>?" data-confirm="Restart" class="btn btn-warning peakaboo-command">Restart galicaster</button>
+          <button type="button" data-toggle="modal" data-target="#mymodal" data-action="reboot" data-title="Reboot machine" data-message="Are you sure you want to reboot <b>{{room.displayName}}</b>?" data-confirm="Reboot" class="btn btn-danger peakaboo-command">Reboot machine</button>
         </div>
       </div>
     </div>
@@ -49,6 +51,7 @@
 </template>
 
 <template name="repository">
+  {{> room_nav}}
   <div class="row">
     <div class="col-md-12">
       <div class="panel panel-default">
@@ -62,7 +65,7 @@
             </tr>
           </thead>
           <tbody>
-          {{#each repository}}
+          {{#each room.repository}}
             {{>tableRow}}
           {{/each}}
           </tbody>
