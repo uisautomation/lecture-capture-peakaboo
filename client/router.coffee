@@ -2,8 +2,16 @@ Router.configure
   layoutTemplate: 'layout'
 
 Router.map ->
-  @route 'room_list',
+  @route 'root',
     path: '/'
+    action: ->
+      @redirect '/room_list'
+  @route 'room_list',
+    path: '/room_list'
+  @route 'room',
+    path: '/room/:_id'
+    action: ->
+      @redirect "/room/#{@params._id}/controls"
   @route 'room_controls',
     path: '/room/:_id/controls'
     template: 'controls'

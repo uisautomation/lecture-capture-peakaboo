@@ -16,7 +16,9 @@
         </div>
         <div class="panel-body">
           <a href="#" class="thumbnail">
-            <img data-src="holder.js/100%" src="{{room.thumbnail}}">
+            {{#with room}}
+            <img data-src="holder.js/100%" src="{{thumbnail}}">
+            {{/with}}
           </a>
         </div>
       </div>
