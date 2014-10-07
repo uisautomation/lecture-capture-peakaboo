@@ -29,7 +29,9 @@
           <h3 class="panel-title">Audio</h3>
         </div>
         <div class="panel-body">
+          {{#with room}}
           {{>vumeter}}
+          {{/with}}
           <label>Rear Mic Boost</label><input type="range" class="audioFaders" name="rear-mic-boost" id="rearMicBoost" min="{{room.audio.rearMicBoost.limits.min}}" max="{{room.audio.rearMicBoost.limits.max}}" value={{room.audio.rearMicBoost.value.left}}>
           <label>Capture</label><input type="range" class="audioFaders" name="capture" id="capture" min="{{room.audio.capture.limits.min}}" max="{{room.audio.capture.limits.max}}" value={{room.audio.capture.value.left}}>
         </div>
