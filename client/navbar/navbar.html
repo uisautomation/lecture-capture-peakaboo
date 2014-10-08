@@ -24,10 +24,14 @@
             <li><a href="#" id="view-screen">{{#if view 'view-screen'}}{{>tick}}{{/if}} Screen</a></li>
           </ul>
         </li>
-        {{#if roomList}}
-        <li><input id="zoom" type="range" min="1" max="4" value="{{zoom}}"></li>
-        {{/if}}
       </ul>
+      {{#if roomList}}
+      <form class="navbar-form navbar-left" id="zoom">
+        <button type="button" class="btn btn-default {{#if zoomOutDisabled}}disabled{{/if}}" id="zoomOut">-</button>
+        <span>Zoom</span>
+        <button type="button" class="btn btn-default {{#if zoomInDisabled}}disabled{{/if}}" id="zoomIn">+</button>
+      </form>
+      {{/if}}
       <ul class="nav navbar-nav navbar-right">
         {{>loginButtons}}
       </ul>
