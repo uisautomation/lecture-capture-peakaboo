@@ -4,6 +4,9 @@ unless Session.get 'zoom'
   Session.set 'zoom', 3
 Session.set 'search-query'
 
+minZoom = 1
+maxZoom = 4
+
 Template.navbar.events
   'keyup input#search, click button#searchReset': (e) ->
     Session.set 'search-query', e.currentTarget.value
@@ -12,8 +15,22 @@ Template.navbar.events
       e.preventDefault()
   'click #view a': (e) ->
     Session.set 'view', e.currentTarget.id
-  'change #zoom': (e) ->
-    Session.set 'zoom', e.currentTarget.value
+  'click #zoom button': (e) ->
+    switch e.currentTarget.id
+      when 'zoomOut'
+        if Session.get('zoom') > minZoom
+          Session.set 'zoom', Session.get('zoom') - 1
+      when 'zoomIn'
+        if Session.get('zoom') < maxZoom
+          Session.set 'zoom', Session.get('zoom') + 1
+
+Template.navbar.zoomOutDisabled = ->
+  if Session.get('zoom') is minZoom
+    true
+
+Template.navbar.zoomInDisabled = ->
+  if Session.get('zoom') is maxZoom
+    true
 
 Template.navbar.resetDisabled = ->
   unless Session.get('search-query')
@@ -25,6 +42,3 @@ Template.navbar.view = (id) ->
 
 Template.navbar.roomList = ->
   Router.current().route.name is 'room_list'
-
-Template.navbar.zoom = ->
-  Session.get 'zoom'

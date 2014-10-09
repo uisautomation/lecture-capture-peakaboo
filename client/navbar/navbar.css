@@ -1,3 +1,20 @@
 body {
   padding-top: 70px;
 }
+
+#zoom button {
+  font-family: monospace;
+  background-color: #eee;
+}
+
+#zoom button:hover,
+#zoom button:focus,
+#zoom button:active {
+  background-color: #ddd;
+}
+
+#zoom span {
+  display: inline-block;
+  color: #777;
+  padding: 0 5px;
+}
