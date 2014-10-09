@@ -2,9 +2,10 @@ Template.signin.events
   'click #custom-signin': (evt, tmpl) ->
     evt.preventDefault()
     Session.set 'login.error', ''
-    Meteor.loginWithPassword tmpl.find('#loginEmail').value,
-      tmpl.find('#loginPassword').value,
-      (err) ->
+    email = tmpl.find('#loginEmail').value
+    password = tmpl.find('#loginPassword').value
+    if email
+      Meteor.loginWithPassword email, password, (err) ->
         switch
           when not err then Router.go '/'
           when err.error is 403

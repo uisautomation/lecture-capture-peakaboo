@@ -1,5 +1,5 @@
 Meteor.publish 'RoomsDisplay', (Display) ->
-  if isUserAuthorised {userId: @userId, roles: ['admin', 'view-rooms']}
+  if isUserAuthorised @userId, ['admin', 'view-rooms']
     fields = {}
     switch Display
       when 'view-galicaster'
@@ -18,7 +18,7 @@ Meteor.publish 'RoomsDisplay', (Display) ->
   
   
 Meteor.publish 'GalicasterControl', (RoomId) ->
-  if isUserAuthorised {userId: @userId, roles: ['admin', 'galicaster']}
+  if isUserAuthorised @userId, ['admin', 'galicaster']
     return Rooms.find '_id': RoomId,
       'fields':
         'screen': 0

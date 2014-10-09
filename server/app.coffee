@@ -36,6 +36,6 @@ Meteor.startup ->
     
   Accounts.validateNewUser (user) ->
     try
-      return true if isUserAuthorised roles: ['admin', 'manage-users']
+      return true if isUserAuthorised @userId, ['admin', 'manage-users']
     catch
       throw new Meteor.Error 403, 'Not authorized to create new users'
