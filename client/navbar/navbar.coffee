@@ -23,7 +23,6 @@ Template.navbar.events
       when 'zoomIn'
         if Session.get('zoom') < maxZoom
           Session.set 'zoom', Session.get('zoom') + 1
-    console.log Session.get 'zoom'
 
 Template.navbar.zoomOutDisabled = ->
   if Session.get('zoom') is minZoom

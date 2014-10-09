@@ -18,6 +18,3 @@ Meteor.publish 'RoomsDisplay', (Display) ->
   
 Meteor.publish 'GalicasterControl', (RoomId) ->
   Rooms.find { '_id': RoomId }, 'fields': { 'screen': 0, 'presenterVideo': 0, 'presentationVideo': 0 }
-
-
-# data-last?
