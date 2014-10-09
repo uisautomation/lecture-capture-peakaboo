@@ -20,7 +20,9 @@ sshexec = (id, command) ->
 
 Meteor.methods
   restartGalicaster: (id) ->
-    sshexec id, 'killall python2'
-
+    if isUserAuthorised Meteor.userId(), ['admin', 'control-rooms']
+      sshexec id, 'killall python2'
+      
   rebootMachine: (id) ->
-    sshexec id, 'sudo reboot'
+    if isUserAuthorised Meteor.userId(), ['admin', 'control-rooms']
+      sshexec id, 'sudo reboot'
