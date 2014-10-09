@@ -13,11 +13,9 @@ Template.controls.events
       e.currentTarget.dataset
   'change .audioFaders': (e) ->
     values = {}
-    values["audio.#{e.currentTarget.id}.value"] =
-      'left': e.currentTarget.value
-      'right': e.currentTarget.value
-      
-    Rooms.update { '_id': this._id }, {
+    values["audio.#{e.currentTarget.id}.value.left"] = e.currentTarget.value
+    values["audio.#{e.currentTarget.id}.value.right"] = e.currentTarget.value
+    Rooms.update { '_id': @room._id }, {
       $set: values
     }, (err, result) ->
       console.log err if err
@@ -30,9 +28,9 @@ Template.confirmModal.events
   'click #modalOk': (e) ->
     switch Session.get('modal').action
       when 'restart'
-        Meteor.call 'restartGalicaster', @_id
+        Meteor.call 'restartGalicaster', @room._id
       when 'reboot'
-        Meteor.call 'rebootMachine', @_id
+        Meteor.call 'rebootMachine', @room._id
     $('#mymodal').modal 'hide'
 
 Template.tableRow.mcreated = ->
