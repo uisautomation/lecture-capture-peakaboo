@@ -28,6 +28,8 @@ Router.map ->
   @route 'room_repository',
     path: '/room/:_id/repository'
     template: 'repository'
+    waitOn: ->
+      Meteor.subscribe 'RoomsDisplay', Session.get 'view'
     data: ->
       room: Rooms.findOne @params._id
       repository: true
