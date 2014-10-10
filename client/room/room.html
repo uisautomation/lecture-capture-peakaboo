@@ -93,6 +93,9 @@
         </div>
         <div class="modal-body">
           <p>{{{modal.message}}}</p>
+          {{#if commandError}}
+          <div class="alert alert-danger">{{commandError}}</div>
+          {{/if}}
         </div>
         <div class="modal-footer">
           <button id="modalOk" type="button" class="btn btn-danger">{{modal.confirm}}</button>
