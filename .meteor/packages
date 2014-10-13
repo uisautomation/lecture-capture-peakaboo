@@ -9,11 +9,11 @@ coffeescript
 accounts-ui-bootstrap-3
 accounts-password
 u2622:persistent-session
-mrt:moment
 meteorhacks:npm
 npm-container
 mizzao:bootstrap-3
 iron:router
 digilord:roles
+mrt:moment
 pmgration:ladda-bootstrap
 
