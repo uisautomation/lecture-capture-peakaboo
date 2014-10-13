@@ -21,6 +21,9 @@ Template.controls.events
       console.log err if err
       console.log result if result
 
+Template.controls.rendered = ->
+  @$('[data-toggle="tooltip"]').tooltip()
+
 Template.confirmModal.modal = ->
   Session.get 'modal'
 
