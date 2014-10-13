@@ -9,6 +9,9 @@ Router.map ->
   @route 'signin',
     path: '/signin'
     layoutTemplate: 'layout-signed-out'
+  @route 'users',
+    path: '/users'
+    template: 'accountsAdmin'
   @route 'room_list',
     path: '/room_list'
     waitOn: ->
@@ -35,6 +38,15 @@ Router.map ->
       repository: true
 
 mustBeSignedIn = (pause) ->
-  Router.go('signin') if not Meteor.user() and not Meteor.loggingIn()
+  Router.go 'signin' if not Meteor.user() and not Meteor.loggingIn()
+
+mustBeAdmin = (pause) ->
+  Router.go '/' if not Meteor.user() and not Meteor.loggingIn()
+  try
+    isUserAuthorised Meteor.userId()
+  catch
+    Router.go '/'
   
 Router.onBeforeAction mustBeSignedIn, except: ['signin']
+
+Router.onBeforeAction mustBeAdmin, only: ['users']
