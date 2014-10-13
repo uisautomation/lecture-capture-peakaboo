@@ -51,6 +51,7 @@ npm-bcrypt@0.7.7
 npm-container@1.0.0
 observe-sequence@1.0.2
 ordered-dict@1.0.0
+pmgration:ladda-bootstrap@1.0.0
 random@1.0.0
 reactive-dict@1.0.3
 reactive-var@1.0.2
