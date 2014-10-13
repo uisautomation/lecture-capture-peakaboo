@@ -18,6 +18,16 @@
         </a>
         {{>vumeter}}
       </div>
+      {{#if currentMediaPackage}}
+      {{#with currentMediaPackage}}
+      <div class="panel-footer">
+        <p>Id: {{identifier}}</p>
+        <p>Title: {{title}}</p>
+        <p>Started: {{created}}</p>
+        <p>Creator: {{creator}}</p>
+      </div>
+      {{/with}}
+      {{/if}}
     </div>
   </div>
 </template>
