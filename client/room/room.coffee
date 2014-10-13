@@ -9,11 +9,7 @@ Template.controls.thumbnail = ->
 
 Template.controls.events
   'click .peakaboo-command': (e) ->
-    ###
-    Should unsetting the command-error session be done somewhere better than
-    click of a command button to clear any command error messages from UI?
-    ###
-    Session.set 'command-error', ''
+    unsetCommandError()
     Session.set 'modal',
       e.currentTarget.dataset
   'change .audioFaders': (e) ->
@@ -26,29 +22,37 @@ Template.controls.events
       console.log err if err
       console.log result if result
 
+Template.confirmModal.rendered = ->
+  Ladda.bind 'button.ladda-button'
+
 Template.confirmModal.modal = ->
   Session.get 'modal'
 
 Template.confirmModal.commandError = ->
   Session.get 'command-error'
 
+modalCall = (error, result) ->
+  # When does error occur?
+  if result.error
+    Session.set 'command-error', result.error
+  else
+    $('#mymodal').modal 'hide'
+  $('#modalOk').removeAttr 'disabled'
+  $('#modalOk').removeAttr 'data-loading'
+  $('#modalCancel').show 'slow'
+
+unsetCommandError = ->
+  Session.set 'command-error', ''
+
 Template.confirmModal.events
   'click #modalOk': (e) ->
+    unsetCommandError()
+    $('#modalCancel').hide 'slow'
     switch Session.get('modal').action
       when 'restart'
-        Meteor.call 'restartGalicaster', @room._id, (error, result) ->
-          # When does error occur?
-          if result.error
-            Session.set 'command-error', result.error
-          else
-            $('#mymodal').modal 'hide'
+        Meteor.call 'restartGalicaster', @room._id, modalCall
       when 'reboot'
-        Meteor.call 'rebootMachine', @room._id, (error, result) ->
-          # When does error occur?
-          if result.error
-            Session.set 'command-error', result.error
-          else
-            $('#mymodal').modal 'hide'
+        Meteor.call 'rebootMachine', @room._id, modalCall
 
 Template.tableRow.mcreated = ->
   moment(@created).format("DD-MM-YYYY HH:MM")
