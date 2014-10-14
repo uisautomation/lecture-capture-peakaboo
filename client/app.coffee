@@ -1,13 +1,15 @@
-Session.setTemp 'heartbeat', Math.round new Date().getTime() / 1000
+setHeartbeat = (err, res) ->
+  Session.setTemp 'serverTime', res if not error?
 
+# call once straight away and every 10 seconds thereafter
+Meteor.call 'getServerTime', setHeartbeat
 @heartbeatInterval = Meteor.setInterval ->
-  Session.setTemp 'heartbeat', Math.round new Date().getTime() / 1000
-,
-  10000
+  Meteor.call 'getServerTime', setHeartbeat
+, 10000
   
 Template.registerHelper 'roomOffline', ->
   heartbeat = Template.currentData().heartbeat
-  now = Session.get 'heartbeat'
+  now = Session.get 'serverTime'
   lastUpdate = now - heartbeat
   lastUpdateTime = moment.unix heartbeat
   whenAgo = lastUpdateTime.fromNow true
