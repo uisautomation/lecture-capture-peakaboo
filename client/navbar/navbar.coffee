@@ -24,21 +24,18 @@ Template.navbar.events
         if Session.get('zoom') < maxZoom
           Session.set 'zoom', Session.get('zoom') + 1
 
-Template.navbar.zoomOutDisabled = ->
-  if Session.get('zoom') is minZoom
-    true
+Template.navbar.helpers
+  zoomOutDisabled: ->
+    Session.get('zoom') is minZoom
 
-Template.navbar.zoomInDisabled = ->
-  if Session.get('zoom') is maxZoom
-    true
+  zoomInDisabled: ->
+    Session.get('zoom') is maxZoom
 
-Template.navbar.resetDisabled = ->
-  unless Session.get('search-query')
-    'disabled'
+  resetDisabled: ->
+    'disabled' unless Session.get('search-query')
 
-Template.navbar.view = (id) ->
-  if Session.get('view') is id
-    true
+  view: (id) ->
+    Session.get('view') is id
 
-Template.navbar.roomList = ->
-  Router.current().route.name is 'room_list'
+  roomList: ->
+    Router.current().route.name is 'room_list'
