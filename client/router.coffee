@@ -41,7 +41,8 @@ mustBeSignedIn = (pause) ->
   Router.go 'signin' if not Meteor.user() and not Meteor.loggingIn()
 
 mustBeAdmin = (pause) ->
-  Router.go 'root' if not Roles.userIsInRole Meteor.userId(), ['admin']
+  Router.go 'root' if not Meteor.loggingIn() and
+    not Roles.userIsInRole Meteor.userId(), ['admin']
   
 Router.onBeforeAction mustBeSignedIn, except: ['signin']
 
