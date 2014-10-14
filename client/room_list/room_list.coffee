@@ -18,3 +18,18 @@ Template.room_summary.helpers
         @screen
   zoom: ->
     Session.get 'zoom'
+  metadata: (metadata) ->
+    if metadata
+      if metadata.series_title is 'Choose a Module...'
+        metadata.series_title = ''
+      created = moment.unix(metadata.created)
+      metadata.createdDisplay = created.format "HH:mm"
+      serverNow = Session.get 'serverTime'
+      duration = serverNow - created.unix()
+      metadata.duration = moment.unix(duration).format "HH:mm"
+    metadata
+
+Template.room_summary.rendered = ->
+  @$('[data-toggle="popover"]').popover
+    placement: 'auto right'
+    html: true
