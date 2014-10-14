@@ -1,11 +1,12 @@
-Template.controls.thumbnail = ->
-  switch Session.get 'view'
-    when 'view-screen'
-      @presentationVideo
-    when 'view-camera'
-      @presenterVideo
-    when 'view-galicaster'
-      @screen
+Template.controls.helpers
+  thumbnail: ->
+    switch Session.get 'view'
+      when 'view-screen'
+        @presentationVideo
+      when 'view-camera'
+        @presenterVideo
+      when 'view-galicaster'
+        @screen
 
 Template.controls.events
   'click .peakaboo-command': (e) ->
@@ -28,11 +29,11 @@ Template.controls.rendered = ->
 Template.confirmModal.rendered = ->
   Ladda.bind 'button.ladda-button'
 
-Template.confirmModal.modal = ->
-  Session.get 'modal'
-
-Template.confirmModal.commandError = ->
-  Session.get 'command-error'
+Template.confirmModal.helpers
+  modal: ->
+    Session.get 'modal'
+  commandError: ->
+    Session.get 'command-error'
 
 modalCall = (error, result) ->
   # When does error occur?
@@ -57,8 +58,8 @@ Template.confirmModal.events
       when 'reboot'
         Meteor.call 'rebootMachine', @room._id, modalCall
 
-Template.tableRow.mcreated = ->
-  moment(@created).format("DD-MM-YYYY HH:MM")
-
-Template.tableRow.mduration = ->
-  moment(@duration * 1000).format("HH:mm:ss")
+Template.tableRow.helpers
+  mcreated: ->
+    moment(@created).format("DD-MM-YYYY HH:MM")
+  mduration: ->
+    moment(@duration * 1000).format("HH:mm:ss")
