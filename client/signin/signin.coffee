@@ -15,6 +15,7 @@ Template.signin.events
   'click div.alert>button': (evt, tmpl) ->
     Session.set 'login.error', ''
           
-Template.signin.loginerror = ->
-  Session.get 'login.error'
+Template.signin.helpers
+  loginerror: ->
+    Session.get 'login.error'
   
