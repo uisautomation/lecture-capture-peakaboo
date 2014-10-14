@@ -32,3 +32,6 @@ Meteor.methods
       Async.runSync (done) ->
         sshExec id, 'sudo reboot', 'reboot', (error, result) ->
           done error, result
+
+  getServerTime: ->
+    Math.round new Date() / 1000
