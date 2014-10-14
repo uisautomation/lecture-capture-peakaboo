@@ -13,7 +13,7 @@ meteorhacks:npm
 npm-container
 mizzao:bootstrap-3
 iron:router
-digilord:roles
 mrt:moment
 pmgration:ladda-bootstrap
-
+mrt:accounts-admin-ui-bootstrap-3
+alanning:roles
