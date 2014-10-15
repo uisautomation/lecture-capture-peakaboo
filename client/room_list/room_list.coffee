@@ -24,7 +24,6 @@ Template.room_summary.helpers
       metadata.createdDisplay = created.format "HH:mm"
       serverNow = Session.get 'serverTime'
       duration = serverNow - created.unix()
-      console.log duration
       duration = 0 if duration < 0
       durationMoment = moment.unix(duration)
       durationH = durationMoment.hour()
@@ -45,6 +44,8 @@ Template.room_summary.helpers
         else
           "#{durationM} minutes"
       metadata.durationDisplay = if durationHString then "#{durationHString} #{durationMString}" else "#{durationMString}"
+      if metadata.series_identifier
+        metadata.series_identifier = metadata.series_identifier.replace '__', ':'
     metadata
 
 Template.rec.rendered = ->
