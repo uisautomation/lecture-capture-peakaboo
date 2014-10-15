@@ -45,3 +45,9 @@ Template.registerHelper 'metadata', (metadata) ->
     if metadata.series_identifier
       metadata.series_identifier = metadata.series_identifier.replace '__', ':'
   metadata
+
+Template.registerHelper 'screen', (profile) ->
+  true if profile is 'cam' or profile is 'nocam'
+
+Template.registerHelper 'cam', (profile) ->
+  true if profile is 'cam'
