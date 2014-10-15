@@ -24,6 +24,8 @@ Template.room_summary.helpers
       metadata.createdDisplay = created.format "HH:mm"
       serverNow = Session.get 'serverTime'
       duration = serverNow - created.unix()
+      console.log duration
+      duration = 0 if duration < 0
       durationMoment = moment.unix(duration)
       durationH = durationMoment.hour()
       durationM = durationMoment.minute()
