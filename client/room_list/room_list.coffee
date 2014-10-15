@@ -45,7 +45,7 @@ Template.room_summary.helpers
       metadata.durationDisplay = if durationHString then "#{durationHString} #{durationMString}" else "#{durationMString}"
     metadata
 
-Template.room_summary.rendered = ->
+Template.rec.rendered = ->
   @$('[data-toggle="popover"]').popover
     placement: 'auto left'
     html: true
