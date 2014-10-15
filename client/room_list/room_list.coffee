@@ -24,7 +24,25 @@ Template.room_summary.helpers
       metadata.createdDisplay = created.format "HH:mm"
       serverNow = Session.get 'serverTime'
       duration = serverNow - created.unix()
-      metadata.duration = moment.unix(duration).format "HH:mm"
+      durationMoment = moment.unix(duration)
+      durationH = durationMoment.hour()
+      durationM = durationMoment.minute()
+      durationHString = switch
+        when durationH is 1
+          '1 hour'
+        when durationH > 1
+          "#{durationH} hours"
+        else ''
+      durationMString = switch
+        when durationM is 0 and durationH is 0
+          'Just started...'
+        when durationM is 1
+          '1 minute'
+        when durationM is 0 and durationH > 0
+          ''
+        else
+          "#{durationM} minutes"
+      metadata.durationDisplay = if durationHString then "#{durationHString} #{durationMString}" else "#{durationMString}"
     metadata
 
 Template.room_summary.rendered = ->
