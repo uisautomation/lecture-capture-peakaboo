@@ -27,3 +27,11 @@
 .popover-content li {
   padding: 3px;
 }
+
+.popover-title {
+  background-color: #d9edf7;
+}
+
+#meta {
+  display: none;
+}

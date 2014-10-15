@@ -18,38 +18,11 @@ Template.room_summary.helpers
         @screen
   zoom: ->
     Session.get 'zoom'
-  metadata: (metadata) ->
-    if metadata
-      created = moment.unix(metadata.created)
-      metadata.createdDisplay = created.format "HH:mm"
-      serverNow = Session.get 'serverTime'
-      duration = serverNow - created.unix()
-      duration = 0 if duration < 0
-      durationMoment = moment.unix(duration)
-      durationH = durationMoment.hour()
-      durationM = durationMoment.minute()
-      durationHString = switch
-        when durationH is 1
-          '1 hour'
-        when durationH > 1
-          "#{durationH} hours"
-        else ''
-      durationMString = switch
-        when durationM is 0 and durationH is 0
-          'Just started...'
-        when durationM is 1
-          '1 minute'
-        when durationM is 0 and durationH > 0
-          ''
-        else
-          "#{durationM} minutes"
-      metadata.durationDisplay = if durationHString then "#{durationHString} #{durationMString}" else "#{durationMString}"
-      if metadata.series_identifier
-        metadata.series_identifier = metadata.series_identifier.replace '__', ':'
-    metadata
 
 Template.rec.rendered = ->
   @$('[data-toggle="popover"]').popover
     placement: 'auto left'
     html: true
     container: 'body'
+    content: ->
+      $('#meta').html()
