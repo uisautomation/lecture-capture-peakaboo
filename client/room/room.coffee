@@ -1,4 +1,4 @@
-Template.controls.helpers
+Template.room_controls.helpers
   thumbnail: ->
     switch Session.get 'view'
       when 'view-screen'
@@ -8,7 +8,7 @@ Template.controls.helpers
       when 'view-galicaster'
         @screen
 
-Template.controls.events
+Template.room_controls.events
   'click .peakaboo-command': (e) ->
     unsetCommandError()
     Session.set 'modal',
@@ -23,7 +23,7 @@ Template.controls.events
       console.log err if err
       console.log result if result
 
-Template.controls.rendered = ->
+Template.room_controls.rendered = ->
   @$('[data-toggle="tooltip"]').tooltip()
 
 Template.confirmModal.rendered = ->
