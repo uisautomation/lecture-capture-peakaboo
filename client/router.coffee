@@ -5,7 +5,7 @@ Router.map ->
   @route 'root',
     path: '/'
     action: ->
-      @redirect '/room_list'
+      Router.go 'room_list', {}, {replaceState: true}
   @route 'signin',
     path: '/signin'
     layoutTemplate: 'layout-signed-out'
@@ -19,10 +19,10 @@ Router.map ->
   @route 'room',
     path: '/room/:_id'
     action: ->
-      @redirect "/room/#{@params._id}/controls"
+      Router.go 'room_controls', {_id: @params._id}, {replaceState:true}
   @route 'room_controls',
     path: '/room/:_id/controls'
-    template: 'controls'
+    template: 'room_controls'
     waitOn: ->
       Meteor.subscribe 'RoomsDisplay', Session.get 'view'
     data: ->
@@ -30,7 +30,7 @@ Router.map ->
       controls: true
   @route 'room_repository',
     path: '/room/:_id/repository'
-    template: 'repository'
+    template: 'room_repository'
     waitOn: ->
       Meteor.subscribe 'RoomsDisplay', Session.get 'view'
     data: ->
