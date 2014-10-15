@@ -29,6 +29,6 @@ Template.room_summary.helpers
 
 Template.room_summary.rendered = ->
   @$('[data-toggle="popover"]').popover
-    placement: 'auto right'
+    placement: 'auto left'
     html: true
     container: 'body'
