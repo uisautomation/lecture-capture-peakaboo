@@ -11,6 +11,19 @@
 }
 
 .panel-title > a,
-.panel-title {
+.panel-title,
+.popover-title,
+.popover-content {
   color: black !important; 
+}
+
+.popover-content ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+.popover-content li {
+  padding: 3px;
 }
