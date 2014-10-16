@@ -13,7 +13,7 @@
     <div class="col-md-6">
       <div class="panel {{#if roomOffline}}panel-danger{{else}}panel-default{{/if}}">
         <div class="panel-heading">
-          <h3 class="panel-title">{{displayName}}{{#if roomOffline}} <span data-toggle="tooltip" data-placement="top" title="Last seen: {{roomOffline.time}}"> - offline for: {{roomOffline.ago}}</span>{{/if}} {{#if recording}}<span class="label label-danger pull-right">Rec</span>{{/if}}</h3>
+          <h3 class="panel-title">{{displayName}}{{#if roomOffline}} <span data-toggle="tooltip" data-placement="top" title="Last seen: {{roomOffline.time}}"> - offline for: {{roomOffline.ago}}</span>{{/if}} {{#if recording}}<span class="label label-danger pull-right">Rec</span>{{/if}}{{#if paused}}{{>paused}}{{/if}}</h3>
         </div>
         <div class="panel-body">
           <a href="#" class="thumbnail">
