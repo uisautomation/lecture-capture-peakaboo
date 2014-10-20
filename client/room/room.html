@@ -22,26 +22,44 @@
         </div>
       </div>
     </div>
-    <div class="col-md-3">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">Audio</h3>
-        </div>
-        <div class="panel-body">
-          {{>vumeter}}
-          <label>Rear Mic Boost</label><input type="range" class="audioFaders" name="rear-mic-boost" id="rearMicBoost" min="{{audio.rearMicBoost.limits.min}}" max="{{audio.rearMicBoost.limits.max}}" value="{{audio.rearMicBoost.value.left}}">
-          <label>Capture</label><input type="range" class="audioFaders" name="capture" id="capture" min="{{audio.capture.limits.min}}" max="{{audio.capture.limits.max}}" value="{{audio.capture.value.left}}">
+    <div class="col-md-6">
+      {{#if recording}}
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">Recording metadata</h3>
+            </div>
+            {{#with metadata currentMediaPackage}}
+            {{>metadata}}
+            {{/with}}
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-3">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">Controls</h3>
+      {{/if}}
+      <div class="row">
+        <div class="col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Audio</h3>
+            </div>
+            <div class="panel-body">
+              {{>vumeter}}
+              <label>Rear Mic Boost</label><input type="range" class="audioFaders" name="rear-mic-boost" id="rearMicBoost" min="{{audio.rearMicBoost.limits.min}}" max="{{audio.rearMicBoost.limits.max}}" value="{{audio.rearMicBoost.value.left}}">
+              <label>Capture</label><input type="range" class="audioFaders" name="capture" id="capture" min="{{audio.capture.limits.min}}" max="{{audio.capture.limits.max}}" value="{{audio.capture.value.left}}">
+            </div>
+          </div>
         </div>
-        <div class="panel-body">
-          <button type="button" data-toggle="modal" data-target="#mymodal" data-action="restart" data-title="Restart galicaster" data-message="Are you sure you want to restart galicaster on <b>{{displayName}}</b>?" data-confirm="Restart" class="btn btn-warning peakaboo-command">Restart galicaster</button>
-          <button type="button" data-toggle="modal" data-target="#mymodal" data-action="reboot" data-title="Reboot machine" data-message="Are you sure you want to reboot <b>{{displayName}}</b>?" data-confirm="Reboot" class="btn btn-danger peakaboo-command">Reboot machine</button>
+        <div class="col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Controls</h3>
+            </div>
+            <div class="panel-body">
+              <button type="button" data-toggle="modal" data-target="#mymodal" data-action="restart" data-title="Restart galicaster" data-message="Are you sure you want to restart galicaster on <b>{{displayName}}</b>?" data-confirm="Restart" class="btn btn-warning peakaboo-command">Restart galicaster</button>
+              <button type="button" data-toggle="modal" data-target="#mymodal" data-action="reboot" data-title="Reboot machine" data-message="Are you sure you want to reboot <b>{{displayName}}</b>?" data-confirm="Reboot" class="btn btn-danger peakaboo-command">Reboot machine</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
