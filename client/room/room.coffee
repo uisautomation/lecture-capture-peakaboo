@@ -22,6 +22,15 @@ Template.room_controls.events
     }, (err, result) ->
       console.log err if err
       console.log result if result
+  'click #peakaboo-pause-button': (e, template) ->
+    room = template.data.room
+    newState = not room.paused
+    Rooms.update room._id, {$set: {paused: newState}}
+    e.currentTarget.blur()
+  'click #peakaboo-stop-button': (e, template) ->
+    room = template.data.room
+    Rooms.update room._id, {$set: {recording: false}}
+    e.currentTarget.blur()
 
 Template.room_controls.rendered = ->
   @$('[data-toggle="tooltip"]').tooltip()

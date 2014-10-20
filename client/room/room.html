@@ -59,13 +59,13 @@
               <div class="panel-body peakaboo-controls">
                 <div class="row">
                   <div class="col-xs-4 text-center">
-                    <button type="button" class="btn btn-default" title="Start Recording"><i class="glyphicon glyphicon-record text-danger"></i></button>
+                    <button type="button" id="peakaboo-rec-button" class="btn {{#if recording}}btn-danger{{else}}btn-default{{/if}} {{#if recording}}disabled{{/if}}" title="Start Recording"><i class="glyphicon glyphicon-record text-danger"></i></button>
                   </div>
                   <div class="col-xs-4 text-center">
-                    <button type="button" class="btn btn-default" title="Pause Recording"><i class="glyphicon glyphicon-pause"></i></button>
+                    <button type="button" id="peakaboo-pause-button" class="btn {{#if paused}}btn-info{{else}}btn-default{{/if}} {{#unless recording}}disabled{{/unless}}" title="Pause Recording"><i class="glyphicon glyphicon-pause"></i></button>
                   </div>
                   <div class="col-xs-4 text-center">
-                    <button type="button" class="btn btn-default" title="Stop Recording"><i class="glyphicon glyphicon-stop"></i></button>
+                    <button type="button" id="peakaboo-stop-button" class="btn btn-default {{#unless recording}}disabled{{/unless}}" title="Stop Recording"><i class="glyphicon glyphicon-stop"></i></button>
                   </div>
                 </div>
                 <div class="row margin-top-05">
