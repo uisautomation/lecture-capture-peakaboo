@@ -35,3 +35,37 @@ Meteor.methods
 
   getServerTime: ->
     Math.round new Date() / 1000
+    
+  user_ws: (userId) ->
+    wsURL = Meteor.settings.user_ws.ws + userId
+    picURLs = Meteor.settings.user_ws.pic_urls
+    ws = HTTP.get wsURL
+    res = xml2js.parseStringSync ws.content
+      .formlet
+    sub = res.subtitle[0].split '/'
+    userName = sub[0].trim()
+    personId = sub[1].trim()
+    
+    picURL = ''
+    for url in picURLs
+      url = url + personId + '.jpg'
+      try
+        pic = HTTP.get url
+        if pic.statusCode is 200
+          picURL = url
+          break
+          
+    modules = []
+    if res.row
+      for row in res.row
+        mod = {}
+        for field in row.field
+          mod[field.name[0]] = field.value[0]
+        modules.push mod
+
+    user =
+      user_id: userId
+      user_name: userName
+      pic_url: picURL
+      modules: modules
+    
