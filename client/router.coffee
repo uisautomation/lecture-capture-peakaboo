@@ -61,3 +61,5 @@ mustBeAdmin = ->
 Router.onBeforeAction mustBeSignedIn, except: ['signin']
 
 Router.onBeforeAction mustBeAdmin, only: ['users']
+
+Router.plugin 'loading', loadingTemplate: 'Loading'
