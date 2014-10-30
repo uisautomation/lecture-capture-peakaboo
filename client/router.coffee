@@ -51,7 +51,6 @@ mustBeSignedIn = ->
     @next()
 
 mustBeAdmin = ->
-  console.log 'hello'
   if not Meteor.loggingIn() and
   not Roles.userIsInRole Meteor.userId(), ['admin']
     Router.go 'root'
