@@ -6,7 +6,6 @@
 standard-app-packages
 elie:bootflat
 coffeescript
-accounts-ui-bootstrap-3
 accounts-password
 u2622:persistent-session
 meteorhacks:npm
@@ -17,3 +16,5 @@ mrt:moment
 pmgration:ladda-bootstrap
 mrt:accounts-admin-ui-bootstrap-3
 alanning:roles
+ian:accounts-ui-bootstrap-3
+

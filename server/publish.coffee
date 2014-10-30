@@ -11,12 +11,12 @@ Meteor.publish 'RoomsDisplay', (Display) ->
       when 'view-screen'
         fields.screen = 0
         fields.presenterVideo = 0
-  
+
     return Rooms.find {}, 'fields': fields
-  
+
   @stop()
-  
-  
+
+
 Meteor.publish 'GalicasterControl', (RoomId) ->
   if isUserAuthorised @userId, ['admin', 'galicaster']
     return Rooms.find '_id': RoomId,

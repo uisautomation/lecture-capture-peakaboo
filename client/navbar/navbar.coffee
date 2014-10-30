@@ -38,4 +38,4 @@ Template.navbar.helpers
     Session.get('view') is id
 
   roomList: ->
-    Router.current().route.name is 'room_list'
+    Router.current().route.getName() is 'room_list'

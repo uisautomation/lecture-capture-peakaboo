@@ -1,49 +1,64 @@
 Router.configure
   layoutTemplate: 'layout'
 
-Router.map ->
-  @route 'root',
-    path: '/'
-    action: ->
-      Router.go 'room_list', {}, {replaceState: true}
-  @route 'signin',
-    path: '/signin'
-    layoutTemplate: 'layout-signed-out'
-  @route 'users',
-    path: '/users'
-    template: 'accountsAdmin'
-  @route 'room_list',
-    path: '/room_list'
-    waitOn: ->
-      Meteor.subscribe 'RoomsDisplay', Session.get 'view'
-  @route 'room',
-    path: '/room/:_id'
-    action: ->
-      Router.go 'room_controls', {_id: @params._id}, {replaceState:true}
-  @route 'room_controls',
-    path: '/room/:_id/controls'
-    template: 'room_controls'
-    waitOn: ->
-      Meteor.subscribe 'RoomsDisplay', Session.get 'view'
-    data: ->
-      room: Rooms.findOne @params._id
-      controls: true
-  @route 'room_repository',
-    path: '/room/:_id/repository'
-    template: 'room_repository'
-    waitOn: ->
-      Meteor.subscribe 'RoomsDisplay', Session.get 'view'
-    data: ->
-      room: Rooms.findOne @params._id
-      repository: true
+Router.route '/',
+  name: 'root'
+  action: ->
+    Router.go 'room_list', {}, {replaceState: true}
 
-mustBeSignedIn = (pause) ->
-  Router.go 'signin' if not Meteor.user() and not Meteor.loggingIn()
+Router.route '/signin',
+  name: 'signin'
+  template: 'signin'
+  layoutTemplate: 'layout-signed-out'
 
-mustBeAdmin = (pause) ->
-  Router.go 'root' if not Meteor.loggingIn() and
-    not Roles.userIsInRole Meteor.userId(), ['admin']
-  
+Router.route '/users',
+  name: 'users'
+  template: 'accountsAdmin'
+
+Router.route '/room_list',
+  name: 'room_list'
+  template: 'room_list'
+  subscriptions: ->
+    Meteor.subscribe 'RoomsDisplay', Session.get 'view'
+
+Router.route '/room/:_id',
+  name: 'room'
+  action: ->
+    Router.go 'room_controls', {_id: @params._id}, {replaceState:true}
+
+Router.route '/room/:_id/controls',
+  name: 'room_controls'
+  template: 'room_controls'
+  subscriptions: ->
+    Meteor.subscribe 'RoomsDisplay', Session.get 'view'
+  data: ->
+    room: Rooms.findOne @params._id
+    controls: true
+
+Router.route '/room/:_id/repository',
+  name: 'room_repository'
+  template: 'room_repository'
+  subscriptions: ->
+    Meteor.subscribe 'RoomsDisplay', Session.get 'view'
+  data: ->
+    room: Rooms.findOne @params._id
+    repository: true
+
+mustBeSignedIn = ->
+  if not Meteor.user() and not Meteor.loggingIn()
+    Router.go 'signin'
+  else
+    @next()
+
+mustBeAdmin = ->
+  if not Meteor.loggingIn() and
+  not Roles.userIsInRole Meteor.userId(), ['admin']
+    Router.go 'root'
+  else
+    @next()
+
 Router.onBeforeAction mustBeSignedIn, except: ['signin']
 
 Router.onBeforeAction mustBeAdmin, only: ['users']
+
+Router.plugin 'loading', loadingTemplate: 'Loading'

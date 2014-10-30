@@ -1,4 +1,4 @@
-@Rooms = new Meteor.Collection 'rooms'
+@Rooms = new Mongo.Collection 'rooms'
 
 Rooms.allow
   insert: (userId, doc) ->
