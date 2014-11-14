@@ -1,8 +1,8 @@
 mkdirp = Meteor.npmRequire 'mkdirp'
 Busboy = Meteor.npmRequire "busboy"
-fs = Npm.require "fs"
-os = Npm.require "os"
-path = Npm.require "path"
+fs = Npm.require 'fs'
+os = Npm.require 'os'
+path = Npm.require 'path'
 
 Router.route '/image/:id',
   name: 'image'
@@ -10,22 +10,26 @@ Router.route '/image/:id',
   onBeforeAction: (req, res, next) ->
     {id} = @params
     filenames = []
-    if req.method is "POST"
+    if req.method is 'POST'
       busboy = new Busboy headers: req.headers
-      busboy.on "file", (fieldname, file, filename, encoding, mimetype) ->
+      busboy.on 'file', (fieldname, file, filename, encoding, mimetype) ->
         dir = path.join Meteor.settings.imageDir, id
-        mkdirp.sync dir
-        saveTo = path.join dir, filename
-        file.pipe fs.createWriteStream saveTo
-        filenames.push saveTo
-      busboy.on "field", (fieldname, value) ->
-        req.body[fieldname] = value
-      busboy.on "finish", ->
-        req.filenames = filenames
+        try
+          mkdirp.sync dir
+          saveTo = path.join dir, filename
+          file.pipe fs.createWriteStream saveTo
+          filenames.push saveTo
+        catch error
+          res.statusCode = 500
+          next()
+      busboy.on 'finish', ->
+        if filenames.length
+          res.statusCode = 204
+        else
+          res.statusCode = 400
         next()
-    req.pipe busboy
+      req.pipe busboy
+    else
+      next()
 .post ->
-  if @request.filenames
-    @response.end 'done'
-  else
-    @response.end 'fail'
+  @response.end()
