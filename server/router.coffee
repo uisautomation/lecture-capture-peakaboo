@@ -33,3 +33,17 @@ Router.route '/image/:id',
       next()
 .post ->
   @response.end()
+
+Router.route '/image/:id/:file',
+  where: 'server'
+.get ->
+  {id, file} = @params
+  imagePath = path.join Meteor.settings.imageDir, id, file
+  if fs.existsSync imagePath
+    image = fs.readFileSync imagePath
+    @response.writeHead 200,
+      'Content-Type': 'image/jpg'
+    @response.write image
+  else
+    @response.statusCode = 500
+  @response.end()
