@@ -8,7 +8,7 @@ Template.room_list.rendered = ->
   @$('[data-toggle="tooltip"]').tooltip()
 
 Template.room_summary.helpers
-  image: (room) ->
+  thumbnail: (room) ->
     switch Session.get 'view'
       when 'view-screen'
         file = 'screen.jpg'
@@ -16,15 +16,7 @@ Template.room_summary.helpers
         file = 'presenter.jpg'
       when 'view-galicaster'
         file = 'presentation.jpg'
-    "http://localhost:3000/image/#{room}/#{file}"
-  thumbnail: ->
-    switch Session.get 'view'
-      when 'view-screen'
-        @presentationVideo
-      when 'view-camera'
-        @presenterVideo
-      when 'view-galicaster'
-        @screen
+    "/image/#{room}/#{file}"
   zoom: ->
     Session.get 'zoom'
 
