@@ -13,7 +13,7 @@ Router.route '/image/:roomId',
     if req.method is 'POST'
       busboy = new Busboy headers: req.headers
       busboy.on 'file', (fieldname, file, filename, encoding, mimetype) ->
-        dir = path.join Meteor.settings.imageDir, id
+        dir = path.join Meteor.settings.imageDir, roomId
         try
           mkdirp.sync dir
           saveTo = path.join dir, filename
@@ -38,7 +38,7 @@ Router.route '/image/:roomId/:file',
   where: 'server'
 .get ->
   {roomId, file} = @params
-  imagePath = path.join Meteor.settings.imageDir, id, file
+  imagePath = path.join Meteor.settings.imageDir, roomId, file
   if fs.existsSync imagePath
     image = fs.readFileSync imagePath
     @response.writeHead 200,
