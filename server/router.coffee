@@ -4,11 +4,11 @@ fs = Npm.require 'fs'
 os = Npm.require 'os'
 path = Npm.require 'path'
 
-Router.route '/image/:id',
+Router.route '/image/:roomId',
   name: 'image'
   where: 'server'
   onBeforeAction: (req, res, next) ->
-    {id} = @params
+    {roomId} = @params
     filenames = []
     if req.method is 'POST'
       busboy = new Busboy headers: req.headers
@@ -34,10 +34,10 @@ Router.route '/image/:id',
 .post ->
   @response.end()
 
-Router.route '/image/:id/:file',
+Router.route '/image/:roomId/:file',
   where: 'server'
 .get ->
-  {id, file} = @params
+  {roomId, file} = @params
   imagePath = path.join Meteor.settings.imageDir, id, file
   if fs.existsSync imagePath
     image = fs.readFileSync imagePath
