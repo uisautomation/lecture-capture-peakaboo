@@ -75,7 +75,6 @@ Template.tableRow.helpers
 
 
 userCallback = (err, res) ->
-  console.log res
   Session.setTemp 'recUserName', res.user_name
   Session.setTemp 'recUserPic', res.pic_url
   mods = []
@@ -98,7 +97,7 @@ Template.recordModal.events
 
     userId = $('#user-id').val()
     $('#user-id').val('')
-    
+
     userName = $('#user-name').text().trim()
 
     isPartOf = $('#module-id').val()
@@ -108,7 +107,7 @@ Template.recordModal.events
     Session.setTemp 'recUserPic', ''
     Session.setTemp 'recModules', []
     Session.setTemp 'recWaiting', false
-    
+
     currentMediaPackage =
       title: title
       rightsHolder: userId
@@ -120,10 +119,11 @@ Template.recordModal.events
 
     update =
       recording: true
+      currentProfile: 'cam'
       currentMediaPackage: currentMediaPackage
-      
+
     Rooms.update room._id, $set: update
-    
+
   'keyup #user-id': (e, template) ->
     if @userTimeout then Meteor.clearTimeout @userTimeout
     $('.peakaboo-userdetails').hide()
@@ -132,7 +132,7 @@ Template.recordModal.events
       Meteor.call 'user_ws', e.currentTarget.value, userCallback
     if e.currentTarget.value
       @userTimeout = Meteor.setTimeout timeoutFunc, 1000
-    
+
 Template.recordModal.helpers
   userPic: ->
     Session.get 'recUserPic'
