@@ -9,7 +9,8 @@ Template.room_list.rendered = ->
 
 Template.room_summary.helpers
   thumbnail: ->
-    room = @_id
+    roomId = @_id
+    timestamp = @imageTimestamp or 0
     switch Session.get 'view'
       when 'view-screen'
         file = 'screen.jpg'
@@ -17,7 +18,7 @@ Template.room_summary.helpers
         file = 'presenter.jpg'
       when 'view-galicaster'
         file = 'presentation.jpg'
-    "/image/#{room}/#{file}"
+    "/image/#{roomId}/#{file}?#{timestamp}"
   zoom: ->
     Session.get 'zoom'
 

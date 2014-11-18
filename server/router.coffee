@@ -32,6 +32,14 @@ Router.route '/image/:roomId',
     else
       next()
 .post ->
+  if @response.statusCode is 204
+    {roomId} = @params
+    Rooms.update { '_id': roomId }, {
+      $set: {
+        'imageTimestamp': Date.now()
+      }
+    }, (err, result) ->
+      console.log err if err
   @response.end()
 
 Router.route '/image/:roomId/:file',
