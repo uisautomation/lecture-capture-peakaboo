@@ -8,7 +8,8 @@ Template.room_list.rendered = ->
   @$('[data-toggle="tooltip"]').tooltip()
 
 Template.room_summary.helpers
-  thumbnail: (room) ->
+  thumbnail: ->
+    room = @_id
     switch Session.get 'view'
       when 'view-screen'
         file = 'screen.jpg'

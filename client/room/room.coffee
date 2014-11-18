@@ -1,12 +1,14 @@
 Template.room_controls.helpers
   thumbnail: ->
+    room = @_id
     switch Session.get 'view'
       when 'view-screen'
-        @presentationVideo
+        file = 'screen.jpg'
       when 'view-camera'
-        @presenterVideo
+        file = 'presenter.jpg'
       when 'view-galicaster'
-        @screen
+        file = 'presentation.jpg'
+    "/image/#{room}/#{file}"
 
 Template.room_controls.events
   'click .peakaboo-command': (e) ->
