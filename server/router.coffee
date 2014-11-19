@@ -45,16 +45,16 @@ Router.route '/image/:roomId',
 Router.route '/image/:roomId/:file',
   where: 'server'
 .get ->
-  if @request.cookies.meteor_login_token
-    u = Meteor.users.findOne 'services.resume.loginTokens.hashedToken': Accounts._hashLoginToken @request.cookies.meteor_login_token
-    if u
-      {roomId, file} = @params
-      imagePath = path.join Meteor.settings.imageDir, roomId, file
-      if fs.existsSync imagePath
-        image = fs.readFileSync imagePath
-        @response.writeHead 200,
-          'Content-Type': 'image/jpg'
-        @response.write image
-      else
-        @response.statusCode = 500
+  if @request.cookies.meteor_login_token and Meteor.users.findOne {'services.resume.loginTokens.hashedToken': Accounts._hashLoginToken @request.cookies.meteor_login_token}
+    {roomId, file} = @params
+    imagePath = path.join Meteor.settings.imageDir, roomId, file
+    if fs.existsSync imagePath
+      image = fs.readFileSync imagePath
+      @response.writeHead 200,
+        'Content-Type': 'image/jpg'
+      @response.write image
+    else
+      @response.writeHead 302, 'Location': '/images/no_image_available.png'
+  else
+    @response.writeHead 403
   @response.end()
