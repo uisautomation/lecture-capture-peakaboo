@@ -1,5 +1,5 @@
 mkdirp = Meteor.npmRequire 'mkdirp'
-Busboy = Meteor.npmRequire "busboy"
+Busboy = Meteor.npmRequire 'busboy'
 fs = Npm.require 'fs'
 os = Npm.require 'os'
 path = Npm.require 'path'
@@ -45,13 +45,16 @@ Router.route '/image/:roomId',
 Router.route '/image/:roomId/:file',
   where: 'server'
 .get ->
-  {roomId, file} = @params
-  imagePath = path.join Meteor.settings.imageDir, roomId, file
-  if fs.existsSync imagePath
-    image = fs.readFileSync imagePath
-    @response.writeHead 200,
-      'Content-Type': 'image/jpg'
-    @response.write image
-  else
-    @response.statusCode = 500
+  if @request.cookies.meteor_login_token
+    u = Meteor.users.findOne 'services.resume.loginTokens.hashedToken': Accounts._hashLoginToken @request.cookies.meteor_login_token
+    if u
+      {roomId, file} = @params
+      imagePath = path.join Meteor.settings.imageDir, roomId, file
+      if fs.existsSync imagePath
+        image = fs.readFileSync imagePath
+        @response.writeHead 200,
+          'Content-Type': 'image/jpg'
+        @response.write image
+      else
+        @response.statusCode = 500
   @response.end()
