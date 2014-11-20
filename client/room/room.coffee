@@ -31,6 +31,8 @@ Template.room_controls.events
     room = template.data.room
     Rooms.update room._id, {$set: {recording: false}}
     e.currentTarget.blur()
+  'click #peakaboo-rec-button': (e, template) ->
+    cleanRecModal()
 
 Template.room_controls.rendered = ->
   @$('[data-toggle="tooltip"]').tooltip()
@@ -73,40 +75,43 @@ Template.tableRow.helpers
   mduration: ->
     moment(@duration * 1000).format("HH:mm:ss")
 
+cleanRecModal = () ->
+  Session.setTemp 'recUserName', ''
+  Session.setTemp 'recUserPic', ''
+  Session.setTemp 'recModules', []
+  Session.setTemp 'recWaiting', false
+  Session.setTemp 'recError', false
+  $('#rec-title').val('')
+  $('#user-id').val('')
 
 userCallback = (err, res) ->
-  Session.setTemp 'recUserName', res.user_name
-  Session.setTemp 'recUserPic', res.pic_url
-  mods = []
-  if res.modules.length
-    mods = [
-      course_code: ''
-      module: 'Choose a module...'
-    ].concat res.modules
-  Session.setTemp 'recModules', mods
   Session.setTemp 'recWaiting', false
-  $('.peakaboo-userdetails').show 'slow'
+  if res
+    Session.setTemp 'recUserName', res.user_name
+    Session.setTemp 'recUserPic', res.pic_url
+    mods = []
+    if res.modules.length
+      mods = [
+        course_code: ''
+        module: 'Choose a module...'
+      ].concat res.modules
+    Session.setTemp 'recModules', mods
+    $('.peakaboo-userdetails').show 'slow'
+  else
+    Session.setTemp 'recError', true
 
 Template.recordModal.events
   'click #recordModalOk': (e, template) ->
     room = template.data.room
-    title = $('#rec-title').val()
-    $('#rec-title').val('')
+    title = $('#rec-title').val() or 'Unknown'
     $('.peakaboo-userdetails').hide()
     $('#recordmodal').modal 'hide'
 
-    userId = $('#user-id').val()
-    $('#user-id').val('')
-
+    userId = unless Session.get 'recError' then $('#user-id').val() else ''
     userName = $('#user-name').text().trim()
 
     isPartOf = $('#module-id').val()
     series_title = $('#module-id option:selected').text()
-
-    Session.setTemp 'recUserName', ''
-    Session.setTemp 'recUserPic', ''
-    Session.setTemp 'recModules', []
-    Session.setTemp 'recWaiting', false
 
     currentMediaPackage =
       title: title
@@ -127,8 +132,9 @@ Template.recordModal.events
   'keyup #user-id': (e, template) ->
     if @userTimeout then Meteor.clearTimeout @userTimeout
     $('.peakaboo-userdetails').hide()
+    Session.setTemp 'recWaiting', true
+    Session.setTemp 'recError', false
     timeoutFunc = ->
-      Session.setTemp 'recWaiting', true
       Meteor.call 'user_ws', e.currentTarget.value, userCallback
     if e.currentTarget.value
       @userTimeout = Meteor.setTimeout timeoutFunc, 1000
@@ -142,3 +148,7 @@ Template.recordModal.helpers
     Session.get 'recModules'
   waiting: ->
     Session.get 'recWaiting'
+  error: ->
+    Session.get 'recError'
+  disabled: ->
+    'disabled' if Session.get 'recWaiting'

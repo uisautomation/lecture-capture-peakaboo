@@ -163,7 +163,6 @@
                 <input id="rec-title" name="rec-title" class="form-control input-xlarge" placeholder="Enter a title..." type="text" required="">
                 <span class="add-on"></span>
               </div>
-              
             </div>
           </div>
 
@@ -173,6 +172,7 @@
             <div class="controls has-feedback">
               <input id="user-id" name="user-id" type="text" placeholder="User ID" class="form-control input-xlarge">
               {{#if waiting}}<span class="glyphicon glyphicon-refresh glyphicon-spin form-control-feedback"></span>{{/if}}
+              {{#if error}}<span class="glyphicon glyphicon-remove form-control-feedback text-danger"></span>{{/if}}
               <p class="help-block">Enter the ID of the user you want to own the recording or leave blank for nobody</p>
             </div>
           </div>
@@ -204,7 +204,7 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button id="recordModalOk" type="button" class="btn btn-danger">do it yeah</button>
+          <button id="recordModalOk" type="button" class="btn btn-danger" {{disabled}}>Start Recording</button>
           <button id="recordModalCancel" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
       </div>
