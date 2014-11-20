@@ -1,15 +1,16 @@
 Template.room_controls.helpers
   thumbnail: ->
     roomId = @_id
-    timestamp = @imageTimestamp or 0
+    timestamp = @imageTimestamp
     switch Session.get 'view'
       when 'view-screen'
-        file = 'screen.jpg'
+        file = 'screen'
       when 'view-camera'
-        file = 'presenter.jpg'
+        file = 'presenter'
       when 'view-galicaster'
-        file = 'presentation.jpg'
-    "/image/#{roomId}/#{file}?#{timestamp}"
+        file = 'presentation'
+    url = "/image/#{roomId}/#{file}"
+    if timestamp then "#{url}?#{timestamp}" else url
 
 Template.room_controls.events
   'click .peakaboo-command': (e) ->
