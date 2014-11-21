@@ -57,10 +57,10 @@ Template.registerHelper 'thumbnail', ->
   timestamp = Template.currentData().imageTimestamp
   switch Session.get 'view'
     when 'view-screen'
-      file = 'screen'
+      file = 'presentation'
     when 'view-camera'
       file = 'presenter'
     when 'view-galicaster'
-      file = 'presentation'
+      file = 'screen'
   url = "/image/#{roomId}/#{file}"
   if timestamp then "#{url}?#{timestamp}" else url
