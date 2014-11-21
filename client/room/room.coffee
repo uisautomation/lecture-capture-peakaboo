@@ -84,6 +84,7 @@ cleanRecModal = () ->
   Session.setTemp 'recTitle', ''
   $('#rec-title').val('')
   $('#user-id').val('')
+  $('input[name=profile][value=nocam]').prop 'checked', true
 
 userCallback = (err, res) ->
   Session.setTemp 'recWaiting', false
