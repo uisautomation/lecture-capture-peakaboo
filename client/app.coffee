@@ -51,3 +51,16 @@ Template.registerHelper 'screen', (profile) ->
 
 Template.registerHelper 'cam', (profile) ->
   true if profile is 'cam'
+
+Template.registerHelper 'thumbnail', ->
+  roomId = Template.currentData()._id
+  timestamp = Template.currentData().imageTimestamp
+  switch Session.get 'view'
+    when 'view-screen'
+      file = 'screen'
+    when 'view-camera'
+      file = 'presenter'
+    when 'view-galicaster'
+      file = 'presentation'
+  url = "/image/#{roomId}/#{file}"
+  if timestamp then "#{url}?#{timestamp}" else url
