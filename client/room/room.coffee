@@ -81,6 +81,7 @@ cleanRecModal = () ->
   Session.setTemp 'recModules', []
   Session.setTemp 'recWaiting', false
   Session.setTemp 'recError', false
+  Session.setTemp 'recTitle', ''
   $('#rec-title').val('')
   $('#user-id').val('')
 
@@ -92,7 +93,7 @@ userCallback = (err, res) ->
     mods = []
     if res.modules.length
       mods = [
-        course_code: ''
+        course_code: 'none'
         module: 'Choose a module...'
       ].concat res.modules
     Session.setTemp 'recModules', mods
@@ -110,8 +111,13 @@ Template.recordModal.events
     userId = unless Session.get 'recError' then $('#user-id').val() else ''
     userName = $('#user-name').text().trim()
 
-    isPartOf = $('#module-id').val()
-    series_title = $('#module-id option:selected').text()
+    isPartOf = ''
+    series_title = ''
+    if $('#module-id').val() isnt 'none__'
+      isPartOf = $('#module-id').val()
+      series_title = $('#module-id option:selected').text()
+
+    profile = $('input[name=profile]:checked').val()
 
     currentMediaPackage =
       title: title
@@ -124,7 +130,7 @@ Template.recordModal.events
 
     update =
       recording: true
-      currentProfile: 'cam'
+      currentProfile: profile
       currentMediaPackage: currentMediaPackage
 
     Rooms.update room._id, $set: update
@@ -139,6 +145,9 @@ Template.recordModal.events
     if e.currentTarget.value
       @userTimeout = Meteor.setTimeout timeoutFunc, 1000
 
+  'keyup #rec-title': (e, template) ->
+    Session.setTemp 'recTitle', $('#rec-title').val()
+
 Template.recordModal.helpers
   userPic: ->
     Session.get 'recUserPic'
@@ -151,4 +160,4 @@ Template.recordModal.helpers
   error: ->
     Session.get 'recError'
   disabled: ->
-    'disabled' if Session.get 'recWaiting'
+    'disabled' if Session.get('recWaiting') or not Session.get 'recTitle'
