@@ -62,5 +62,10 @@ Template.registerHelper 'thumbnail', ->
       file = 'presenter'
     when 'view-galicaster'
       file = 'screen'
-  url = "/image/#{roomId}/#{file}"
-  if timestamp then "#{url}?#{timestamp}" else url
+  room = Rooms.findOne roomId
+  image = room?.images?[file]
+  if image and image.timestamp < timestamp
+    "/images/no_image_available.png"
+  else
+    url = "/image/#{roomId}/#{file}"
+    if timestamp then "#{url}?#{timestamp}" else url
