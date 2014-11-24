@@ -82,9 +82,8 @@ Router.route '/image/:roomId/:imageType(presentation|presenter|screen)',
         redirect()
 
       # Check if requested image is stale
-      for image of room.images
-        if room.images[image].timestamp > reqImage.timestamp
-          redirect()
+      if room.imageTimestamp > reqImage.timestamp
+        redirect()
       
       unless @response.finished
         imagePath = path.join Meteor.settings.imageDir, roomId, reqImage.filename
