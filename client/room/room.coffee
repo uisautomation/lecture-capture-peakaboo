@@ -87,6 +87,7 @@ cleanRecModal = () ->
   $('input[name=profile][value=nocam]').prop 'checked', true
 
 userCallback = (err, res) ->
+  Session.setTemp 'recError', err
   Session.setTemp 'recWaiting', false
   if res
     Session.setTemp 'recUserName', res.user_name
@@ -99,8 +100,6 @@ userCallback = (err, res) ->
       ].concat res.modules
     Session.setTemp 'recModules', mods
     $('.peakaboo-userdetails').show 'slow'
-  else
-    Session.setTemp 'recError', true
 
 Template.recordModal.events
   'click #recordModalOk': (e, template) ->
