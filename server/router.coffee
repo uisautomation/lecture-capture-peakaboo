@@ -33,7 +33,7 @@ Router.route '/image/:roomId',
           file.on 'end', ->
       busboy.on 'finish', ->
         if Object.keys(images).length
-          req.imageTimestamp = timestamp
+          req.heartbeat = timestamp
           res.statusCode = 204
         else
           res.statusCode = 400
@@ -46,7 +46,7 @@ Router.route '/image/:roomId',
     {roomId} = @params
     Rooms.update { _id: roomId }, {
       $set:
-        heartbeat: @request.imageTimestamp
+        heartbeat: @request.heartbeat
         images: @request.images
     }, (err, result) ->
       console.log err if err
