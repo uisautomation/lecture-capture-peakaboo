@@ -13,7 +13,7 @@
     <div class="col-md-6">
       <div class="panel {{#if roomOffline}}panel-danger{{else}}panel-default{{/if}}">
         <div class="panel-heading">
-          <h3 class="panel-title">{{displayName}}{{#if roomOffline}} <span data-toggle="tooltip" data-placement="top" title="Last seen: {{roomOffline.time}}"> - offline for: {{roomOffline.ago}}</span>{{/if}} {{#if recording}}<span class="label label-danger pull-right">Rec</span>{{/if}}</h3>
+          <h3 class="panel-title">{{displayName}}{{#if roomOffline}} <span data-toggle="tooltip" data-placement="top" title="Last seen: {{roomOffline.time}}"> - offline for: {{roomOffline.ago}}</span>{{/if}} {{#if recording}}<span class="label label-danger pull-right">Rec</span>{{/if}}{{#if paused}}{{>paused}}{{/if}}</h3>
         </div>
         <div class="panel-body">
           <a href="#" class="thumbnail">
@@ -56,8 +56,27 @@
               <h3 class="panel-title">Controls</h3>
             </div>
             <div class="panel-body">
-              <button type="button" data-toggle="modal" data-target="#mymodal" data-action="restart" data-title="Restart galicaster" data-message="Are you sure you want to restart galicaster on <b>{{displayName}}</b>?" data-confirm="Restart" class="btn btn-warning peakaboo-command">Restart galicaster</button>
-              <button type="button" data-toggle="modal" data-target="#mymodal" data-action="reboot" data-title="Reboot machine" data-message="Are you sure you want to reboot <b>{{displayName}}</b>?" data-confirm="Reboot" class="btn btn-danger peakaboo-command">Reboot machine</button>
+              <div class="panel-body peakaboo-controls">
+                <div class="row">
+                  <div class="col-xs-4 text-center">
+                    <button type="button" id="peakaboo-rec-button" data-toggle="modal" data-target="#recordmodal" class="btn {{#if recording}}btn-danger{{else}}btn-default{{/if}} {{#if recording}}disabled{{/if}}" title="Start Recording"><i class="glyphicon glyphicon-record text-danger"></i></button>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <button type="button" id="peakaboo-pause-button" class="btn {{#if paused}}btn-info{{else}}btn-default{{/if}} {{#unless recording}}disabled{{/unless}}" title="Pause Recording"><i class="glyphicon glyphicon-pause"></i></button>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <button type="button" id="peakaboo-stop-button" class="btn btn-default {{#unless recording}}disabled{{/unless}}" title="Stop Recording"><i class="glyphicon glyphicon-stop"></i></button>
+                  </div>
+                </div>
+                <div class="row margin-top-05">
+                  <div class="col-xs-6 text-center">
+                    <button type="button" data-toggle="modal" data-target="#mymodal" data-action="restart" data-title="Restart galicaster" data-message="Are you sure you want to restart galicaster on <b>{{displayName}}</b>?" data-confirm="Restart" class="btn btn-warning peakaboo-command">Restart galicaster</button>
+                  </div>
+                  <div class="col-xs-6 text-center">
+                    <button type="button" data-toggle="modal" data-target="#mymodal" data-action="reboot" data-title="Reboot machine" data-message="Are you sure you want to reboot <b>{{displayName}}</b>?" data-confirm="Reboot" class="btn btn-danger peakaboo-command">Reboot machine</button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -66,6 +85,7 @@
   </div>
   {{/with}}
   {{>confirmModal}}
+  {{>recordModal}}
 </template>
 
 <template name="room_repository">
@@ -115,6 +135,97 @@
         <div class="modal-footer">
           <button id="modalOk" type="button" class="btn btn-danger ladda-button" data-style="expand-left" data-spinner-size="32"><span class="ladda-label">{{modal.confirm}}</span></button>
           <button id="modalCancel" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="recordModal">
+  <div id="recordmodal" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{modal.title}}</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal">
+          <fieldset>
+
+          <!-- Form Name -->
+          <legend>Start Recording</legend>
+
+          <!-- Appended Input-->
+          <div class="control-group">
+            <label class="control-label" for="rec-title">Title</label>
+            <div class="controls">
+              <div class="input-append">
+                <input id="rec-title" name="rec-title" class="form-control input-xlarge" placeholder="Enter a title..." type="text" required="">
+                <span class="add-on"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Sources</label>
+            <div class="controls">
+              <div class="radio">
+                <label>
+                  <input type="radio" name="profile" value="nocam" checked>
+                  <i title="Screen" class="glyphicon glyphicon-picture"></i>
+                </label>
+              </div>
+              {{#if room.camAvailable}}
+              <div class="radio">
+                <label>
+                  <input type="radio" name="profile" value="cam">
+                  <i title="Screen and Camera" class="glyphicon glyphicon-picture"></i> <i title="Camera" class="glyphicon glyphicon-camera"></i>
+                </label>
+              </div>
+              {{/if}}
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="control-group">
+            <label class="control-label" for="user-id">User ID</label>
+            <div class="controls has-feedback">
+              <input id="user-id" name="user-id" type="text" placeholder="User ID" class="form-control input-xlarge">
+              {{#if waiting}}<span class="glyphicon glyphicon-refresh glyphicon-spin form-control-feedback"></span>{{/if}}
+              {{#if error}}<span class="glyphicon glyphicon-remove form-control-feedback text-danger"></span>{{/if}}
+              <p class="help-block">Enter the ID of the user you want to own the recording or leave blank for nobody</p>
+            </div>
+          </div>
+
+          {{#if userName}}
+          <div class="control-group peakaboo-userdetails">
+            <label class="control-label" for="user-id">Name</label>
+            <div class="controls">
+              <p id="user-name" class="form-control-static">{{#if userPic}}<img class="img-circle" width="75px" src="{{userPic}}"> {{/if}}{{userName}}</p>
+            </div>
+          </div>
+          {{/if}}
+
+          <!-- Select Basic -->
+          {{#if modules}}
+          <div class="control-group peakaboo-userdetails">
+            <label class="control-label" for="module-id">Module</label>
+            <div class="controls">
+              <select id="module-id" name="module-id" class="form-control input-xlarge">
+                {{#each modules}}
+                  <option value="{{#if course_code}}{{course_code}}__{{occurrence_code}}{{/if}}">{{module}}</option>
+                {{/each}}
+              </select>
+            </div>
+          </div>
+          {{/if}}
+
+          </fieldset>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button id="recordModalOk" type="button" class="btn btn-danger" {{disabled}}>Start Recording</button>
+          <button id="recordModalCancel" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
       </div>
     </div>

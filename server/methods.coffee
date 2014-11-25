@@ -26,7 +26,7 @@ Meteor.methods
       Async.runSync (done) ->
         sshExec id, 'killall python2', 'restart galicaster', (error, result) ->
           done error, result
-      
+
   rebootMachine: (id) ->
     if isUserAuthorised Meteor.userId(), ['admin', 'control-rooms']
       Async.runSync (done) ->
@@ -35,3 +35,41 @@ Meteor.methods
 
   getServerTime: ->
     Math.round new Date() / 1000
+
+  user_ws: (userId) ->
+    wsURL = Meteor.settings.user_ws.ws + userId
+    picURLs = Meteor.settings.user_ws.pic_urls
+    ws = HTTP.get wsURL
+    res = xml2js.parseStringSync ws.content
+      .formlet
+    subtitle = res?.subtitle?[0]
+    userName = picURL = modules = null
+    if subtitle
+      sub = subtitle.split '/'
+      userName = sub[0].trim()
+      personId = sub[1].trim()
+
+      picURL = ''
+      for url in picURLs
+        url = url + personId + '.jpg'
+        try
+          pic = HTTP.get url
+          if pic.statusCode is 200
+            picURL = url
+            break
+
+      modules = []
+      if res.row
+        for row in res.row
+          mod = {}
+          for field in row.field
+            mod[field.name[0]] = field.value[0]
+          modules.push mod
+    else
+      throw new Meteor.Error 'no-user-found', 'Could not find user using web service.'
+
+    user =
+      user_id: userId
+      user_name: userName
+      pic_url: picURL
+      modules: modules
