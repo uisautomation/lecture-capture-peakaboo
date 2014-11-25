@@ -24,7 +24,6 @@ Router.route '/image/:roomId',
             images[fieldname] =
               filename: filename
               mimetype: mimetype
-              timestamp: timestamp
             req.images = images
           catch error
             res.statusCode = 500
@@ -56,47 +55,42 @@ Router.route '/image/:roomId',
 Router.route '/image/:roomId/:imageType(presentation|presenter|screen)',
   where: 'server'
 .get ->
-  if @request.cookies.meteor_login_token and Meteor.users.findOne {'services.resume.loginTokens.hashedToken': Accounts._hashLoginToken @request.cookies.meteor_login_token}
+  # get hashed login token from client cookie
+  hashedToken = ''
+  if @request.cookies.meteor_login_token?
+    hashedToken = Accounts._hashLoginToken @request.cookies.meteor_login_token
+
+  user = Meteor.users.findOne
+    'services.resume.loginTokens.hashedToken': hashedToken
+
+  if user and isUserAuthorised user._id, ['admin', 'view', 'control']
     {roomId, imageType} = @params
-    
+
     # Find all images that are stored for the room
     room = Rooms.findOne
       _id: roomId
       images:
         $exists: true
+    ,
+      fields:
+        images: 1
+        imageTimestamp: 1
 
     # Requested image
     reqImage = room?.images["#{imageType}"]
+    imagePath = null
+    if reqImage?
+      imagePath = path.join Meteor.settings.imageDir,
+        roomId, reqImage.filename
 
-    response = @response
-    redirect = ->
-      response.writeHead 302, 'Location': '/images/no_image_available.png'
-      response.end()
-
-    if reqImage
-      unless reqImage.filename
-        redirect()
-      unless reqImage.mimetype
-        redirect()
-      unless reqImage.timestamp
-        redirect()
-
-      # Check if requested image is stale
-      if room.imageTimestamp > reqImage.timestamp
-        redirect()
-      
-      unless @response.finished
-        imagePath = path.join Meteor.settings.imageDir, roomId, reqImage.filename
-        if fs.existsSync imagePath
-          file = fs.readFileSync imagePath
-          @response.writeHead 200,
-            'Content-Type': reqImage.mimetype
-          @response.write file
-          @response.end()
-        else
-          redirect()
-    else
-      redirect()
-  else
+    if imagePath and fs.existsSync imagePath
+      file = fs.readFileSync imagePath
+      @response.writeHead 200,
+        'Content-Type': reqImage.mimetype
+      @response.write file
+    else # image doesn't exist
+      @response.writeHead 302, 'Location': '/images/no_image_available.png'
+  else # auth failed
     @response.writeHead 403
-    @response.end()
+
+  @response.end()
