@@ -6,7 +6,7 @@ Meteor.call 'getServerTime', setHeartbeat
 @heartbeatInterval = Meteor.setInterval ->
   Meteor.call 'getServerTime', setHeartbeat
 , 10000
-  
+
 Template.registerHelper 'roomOffline', ->
   heartbeat = Template.currentData().heartbeat
   now = Session.get 'serverTime'
@@ -15,7 +15,7 @@ Template.registerHelper 'roomOffline', ->
   whenAgo = lastUpdateTime.fromNow true
   whenTime = lastUpdateTime.format 'dddd, MMMM Do YYYY, HH:mm:ss'
   if lastUpdate > 15 then {ago: whenAgo, time: whenTime} else null
-  
+
 Template.registerHelper 'metadata', (metadata) ->
   if metadata
     created = moment.unix(metadata.created)
@@ -54,7 +54,8 @@ Template.registerHelper 'cam', (profile) ->
 
 Template.registerHelper 'thumbnail', ->
   roomId = Template.currentData()._id
-  timestamp = Template.currentData().imageTimestamp
+  timestamp = Template.currentData().heartbeat
+  images = Template.currentData().images
   switch Session.get 'view'
     when 'view-screen'
       file = 'presentation'
@@ -62,10 +63,8 @@ Template.registerHelper 'thumbnail', ->
       file = 'presenter'
     when 'view-galicaster'
       file = 'screen'
-  room = Rooms.findOne roomId
-  image = room?.images?[file]
-  if image and image.timestamp < timestamp
-    "/images/no_image_available.png"
+
+  if images?[file]
+    "/image/#{roomId}/#{file}?#{timestamp}"
   else
-    url = "/image/#{roomId}/#{file}"
-    if timestamp then "#{url}?#{timestamp}" else url
+    '/images/no_image_available.png'

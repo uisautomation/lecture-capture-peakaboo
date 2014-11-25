@@ -11,7 +11,7 @@ Router.route '/image/:roomId',
     {roomId} = @params
     images = {}
     if req.method is 'POST'
-      timestamp = Date.now()
+      timestamp = Meteor.call 'getServerTime'
       allowedFieldnames = ['presentation', 'presenter', 'screen']
       busboy = new Busboy headers: req.headers
       busboy.on 'file', (fieldname, file, filename, encoding, mimetype) ->
@@ -46,7 +46,7 @@ Router.route '/image/:roomId',
     {roomId} = @params
     Rooms.update { _id: roomId }, {
       $set:
-        imageTimestamp: @request.imageTimestamp
+        heartbeat: @request.imageTimestamp
         images: @request.images
     }, (err, result) ->
       console.log err if err
