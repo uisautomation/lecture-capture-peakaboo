@@ -43,7 +43,7 @@ Meteor.methods
     res = xml2js.parseStringSync ws.content
       .formlet
     subtitle = res?.subtitle?[0]
-    userId = userName = picURL = modules = null
+    userName = picURL = modules = null
     if subtitle
       sub = subtitle.split '/'
       userName = sub[0].trim()

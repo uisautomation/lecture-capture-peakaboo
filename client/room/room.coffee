@@ -89,7 +89,7 @@ cleanRecModal = () ->
 userCallback = (err, res) ->
   Session.setTemp 'recError', err
   Session.setTemp 'recWaiting', false
-  if res
+  if res and res.user_id is $('#user-id').val()
     Session.setTemp 'recUserName', res.user_name
     Session.setTemp 'recUserPic', res.pic_url
     mods = []
@@ -138,12 +138,14 @@ Template.recordModal.events
   'keyup #user-id': (e, template) ->
     if @userTimeout then Meteor.clearTimeout @userTimeout
     $('.peakaboo-userdetails').hide()
-    Session.setTemp 'recWaiting', true
     Session.setTemp 'recError', false
     timeoutFunc = ->
       Meteor.call 'user_ws', e.currentTarget.value, userCallback
     if e.currentTarget.value
+      Session.setTemp 'recWaiting', true
       @userTimeout = Meteor.setTimeout timeoutFunc, 1000
+    else
+      Session.setTemp 'recWaiting', false
 
   'keyup #rec-title': (e, template) ->
     Session.setTemp 'recTitle', $('#rec-title').val()
