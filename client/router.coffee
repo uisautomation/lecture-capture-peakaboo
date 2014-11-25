@@ -19,7 +19,7 @@ Router.route '/room_list',
   name: 'room_list'
   template: 'room_list'
   subscriptions: ->
-    Meteor.subscribe 'RoomsDisplay', Session.get 'view'
+    Meteor.subscribe 'RoomsDisplay'
 
 Router.route '/room/:_id',
   name: 'room'
@@ -30,7 +30,7 @@ Router.route '/room/:_id/controls',
   name: 'room_controls'
   template: 'room_controls'
   subscriptions: ->
-    Meteor.subscribe 'RoomsDisplay', Session.get 'view'
+    Meteor.subscribe 'RoomsDisplay'
   data: ->
     room: Rooms.findOne @params._id
     controls: true
@@ -39,7 +39,7 @@ Router.route '/room/:_id/repository',
   name: 'room_repository'
   template: 'room_repository'
   subscriptions: ->
-    Meteor.subscribe 'RoomsDisplay', Session.get 'view'
+    Meteor.subscribe 'RoomsDisplay'
   data: ->
     room: Rooms.findOne @params._id
     repository: true

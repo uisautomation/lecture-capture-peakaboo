@@ -1,18 +1,6 @@
-Meteor.publish 'RoomsDisplay', (Display) ->
+Meteor.publish 'RoomsDisplay', ->
   if isUserAuthorised @userId, ['admin', 'view-rooms']
-    fields = {}
-    switch Display
-      when 'view-galicaster'
-        fields.presenterVideo = 0
-        fields.presentationVideo = 0
-      when 'view-camera'
-        fields.screen = 0
-        fields.presentationVideo = 0
-      when 'view-screen'
-        fields.screen = 0
-        fields.presenterVideo = 0
-
-    return Rooms.find {}, 'fields': fields
+    return Rooms.find {}
 
   @stop()
 
