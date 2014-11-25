@@ -6,7 +6,7 @@ Meteor.call 'getServerTime', setHeartbeat
 @heartbeatInterval = Meteor.setInterval ->
   Meteor.call 'getServerTime', setHeartbeat
 , 10000
-  
+
 Template.registerHelper 'roomOffline', ->
   heartbeat = Template.currentData().heartbeat
   now = Session.get 'serverTime'
@@ -15,7 +15,7 @@ Template.registerHelper 'roomOffline', ->
   whenAgo = lastUpdateTime.fromNow true
   whenTime = lastUpdateTime.format 'dddd, MMMM Do YYYY, HH:mm:ss'
   if lastUpdate > 15 then {ago: whenAgo, time: whenTime} else null
-  
+
 Template.registerHelper 'metadata', (metadata) ->
   if metadata
     created = moment.unix(metadata.created)
@@ -51,3 +51,20 @@ Template.registerHelper 'screen', (profile) ->
 
 Template.registerHelper 'cam', (profile) ->
   true if profile is 'cam'
+
+Template.registerHelper 'thumbnail', ->
+  roomId = Template.currentData()._id
+  timestamp = Template.currentData().heartbeat
+  images = Template.currentData().images
+  switch Session.get 'view'
+    when 'view-screen'
+      file = 'presentation'
+    when 'view-camera'
+      file = 'presenter'
+    when 'view-galicaster'
+      file = 'screen'
+
+  if images?[file]
+    "/image/#{roomId}/#{file}?#{timestamp}"
+  else
+    '/images/no_image_available.png'

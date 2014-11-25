@@ -8,14 +8,6 @@ Template.room_list.rendered = ->
   @$('[data-toggle="tooltip"]').tooltip()
 
 Template.room_summary.helpers
-  thumbnail: ->
-    switch Session.get 'view'
-      when 'view-screen'
-        @presentationVideo
-      when 'view-camera'
-        @presenterVideo
-      when 'view-galicaster'
-        @screen
   zoom: ->
     Session.get 'zoom'
 

@@ -1,13 +1,3 @@
-Template.room_controls.helpers
-  thumbnail: ->
-    switch Session.get 'view'
-      when 'view-screen'
-        @presentationVideo
-      when 'view-camera'
-        @presenterVideo
-      when 'view-galicaster'
-        @screen
-
 Template.room_controls.events
   'click .peakaboo-command': (e) ->
     unsetCommandError()
