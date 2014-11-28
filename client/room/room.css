@@ -1,3 +1,11 @@
 .peakaboo-command {
   margin: 10px 10px 0 10px;
 }
+
+.transport-control {
+  margin-bottom: 10px;
+}
+
+.peakaboo-controls hr {
+  margin: 10px 0 10px 0;
+}

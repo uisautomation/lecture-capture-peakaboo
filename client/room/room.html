@@ -58,15 +58,16 @@
             <div class="panel-body peakaboo-controls">
               <div class="row text-center">
                 <div class="col-xs-4">
-                  <button type="button" id="peakaboo-rec-button" data-toggle="modal" data-target="#recordmodal" class="btn {{#if recording}}btn-danger{{else}}btn-default{{/if}} {{#if recording}}disabled{{/if}}" title="Start Recording"><i class="glyphicon glyphicon-record text-danger"></i></button>
+                  <button type="button" id="peakaboo-rec-button" data-toggle="modal" data-target="#recordmodal" class="btn {{#if recording}}btn-danger{{else}}btn-default{{/if}} {{#if recording}}disabled{{/if}} transport-control" title="Start Recording"><i class="glyphicon glyphicon-record text-danger"></i></button>
                 </div>
                 <div class="col-xs-4">
-                  <button type="button" id="peakaboo-pause-button" class="btn {{#if paused}}btn-info{{else}}btn-default{{/if}} {{#unless recording}}disabled{{/unless}}" title="Pause Recording"><i class="glyphicon glyphicon-pause"></i></button>
+                  <button type="button" id="peakaboo-pause-button" class="btn {{#if paused}}btn-info{{else}}btn-default{{/if}} {{#unless recording}}disabled{{/unless}} transport-control" title="Pause Recording"><i class="glyphicon glyphicon-pause"></i></button>
                 </div>
                 <div class="col-xs-4">
-                  <button type="button" id="peakaboo-stop-button" class="btn btn-default {{#unless recording}}disabled{{/unless}}" title="Stop Recording"><i class="glyphicon glyphicon-stop"></i></button>
+                  <button type="button" id="peakaboo-stop-button" class="btn btn-default {{#unless recording}}disabled{{/unless}} transport-control" title="Stop Recording"><i class="glyphicon glyphicon-stop"></i></button>
                 </div>
               </div>
+              <hr>
               <div class="row text-center">
                 <button type="button" data-toggle="modal" data-target="#mymodal" data-action="restart" data-title="Restart galicaster" data-message="Are you sure you want to restart galicaster on <b>{{displayName}}</b>?" data-confirm="Restart" class="btn btn-warning peakaboo-command">Restart galicaster</button>
                 <button type="button" data-toggle="modal" data-target="#mymodal" data-action="reboot" data-title="Reboot machine" data-message="Are you sure you want to reboot <b>{{displayName}}</b>?" data-confirm="Reboot" class="btn btn-danger peakaboo-command">Reboot machine</button>
