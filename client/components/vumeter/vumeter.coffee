@@ -5,3 +5,4 @@ Template.vumeter.helpers
     'green': clamp vumeter, 0, 50
     'yellow': clamp vumeter - 50, 0, 35
     'red': clamp vumeter - 85, 0, 15
+    'blank': 100 - vumeter
