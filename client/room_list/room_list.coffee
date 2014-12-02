@@ -1,8 +1,11 @@
 Template.room_list.helpers
-  room: ->
-    query = Session.get 'search-query'
-    filter = new RegExp query, 'i'
-    Rooms.find { displayName: filter }, { sort: { displayName: 1 } }
+  rooms: ->
+    searchQuery = Session.get 'search-query'
+    query = {}
+    query.displayName =  new RegExp searchQuery, 'i'
+    if Template.currentData().offlineTime
+      query.heartbeat = $lt: Template.currentData().offlineTime
+    Rooms.find query, { sort: { displayName: 1 } }
 
 Template.room_list.rendered = ->
   @$('[data-toggle="tooltip"]').tooltip()

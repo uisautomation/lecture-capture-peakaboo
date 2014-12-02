@@ -1,6 +1,13 @@
-Meteor.publish 'RoomsDisplay', ->
+Meteor.publish 'RoomsDisplay', (filters) ->
   if isUserAuthorised @userId, ['admin', 'view-rooms']
-    return Rooms.find {}
+    query = {}
+    if filters then for filter in filters
+      switch filter
+        when 'recording' then query.recording = true
+        when 'idle' then query.recording = false
+        when 'paused' then query.paused = true
+        when 'quiet' then query.vumeter = $lte: 10
+    return Rooms.find query
 
   @stop()
 
