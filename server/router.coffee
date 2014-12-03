@@ -46,6 +46,7 @@ Router.route '/image/:roomId',
     {roomId} = @params
     Rooms.update { _id: roomId }, {
       $set:
+        offline: false
         heartbeat: @request.heartbeat
         images: @request.images
     }, (err, result) ->

@@ -8,13 +8,17 @@ Meteor.call 'getServerTime', setHeartbeat
 , 10000
 
 Template.registerHelper 'roomOffline', ->
-  heartbeat = Template.currentData().heartbeat
-  now = Session.get 'serverTime'
-  lastUpdate = now - heartbeat
-  lastUpdateTime = moment.unix heartbeat
-  whenAgo = lastUpdateTime.fromNow true
-  whenTime = lastUpdateTime.format 'dddd, MMMM Do YYYY, HH:mm:ss'
-  if lastUpdate > 15 then {ago: whenAgo, time: whenTime} else null
+  data = Template.currentData()
+  offline = data.offline
+  if offline
+    heartbeat = data.heartbeat
+    now = Session.get 'serverTime'
+    lastUpdate = now - heartbeat
+    lastUpdateTime = moment.unix heartbeat
+    whenAgo = lastUpdateTime.fromNow true
+    whenTime = lastUpdateTime.format 'dddd, MMMM Do YYYY, HH:mm:ss'
+    {ago: whenAgo, time: whenTime}
+  else null
 
 Template.registerHelper 'metadata', (metadata) ->
   if metadata

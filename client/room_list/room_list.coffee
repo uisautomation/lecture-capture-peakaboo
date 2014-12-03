@@ -3,8 +3,6 @@ Template.room_list.helpers
     searchQuery = Session.get 'search-query'
     query = {}
     query.displayName =  new RegExp searchQuery, 'i'
-    if Template.currentData().offlineTime
-      query.heartbeat = $lt: Template.currentData().offlineTime
     Rooms.find query, { sort: { displayName: 1 } }
 
 Template.room_list.rendered = ->

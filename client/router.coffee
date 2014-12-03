@@ -20,18 +20,12 @@ Router.route '/room_list',
   template: 'room_list'
   subscriptions: ->
     Meteor.subscribe 'RoomsDisplay'
-  data: ->
-    offlineTime: null
 
 Router.route /^\/room_list\/([\/\w]*)*\/?/, #'/room_list/:room_filter?',
   name: 'room_list_filter'
   template: 'room_list'
   subscriptions: ->
     Meteor.subscribe 'RoomsDisplay', @params[0].split '/'
-  data: ->
-    if 'offline' in @params[0].split '/'
-      now = Session.get 'serverTime'
-    offlineTime: now - 15
 
 Router.route '/room/:_id',
   name: 'room'
