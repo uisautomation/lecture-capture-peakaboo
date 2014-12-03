@@ -9,10 +9,15 @@ Meteor.publish 'RoomsDisplay', (filters) ->
           when 'idle' then query['$or'].push recording: false
           when 'paused' then query['$or'].push paused: true
           when 'unpaused' then query['$or'].push paused: false
-          when 'quiet' then query['$or'].push vumeter: $lte: 10
-          when 'loud' then query['$or'].push vumeter: $gte: 10
+          when 'quiet' then query['$or'].push vumeter: $lte: 5
+          when 'loud' then query['$or'].push vumeter: $gte: 5
           when 'offline' then query['$or'].push offline: true
           when 'online' then query['$or'].push offline: false
+      unless query['$or'].length then query = {}
+    Counts.publish @, 'offline', Rooms.find(offline: true), noReady: true
+    Counts.publish @, 'paused', Rooms.find(paused: true), noReady: true
+    Counts.publish @, 'quiet', Rooms.find(vumeter: $lte: 5), noReady: true
+    Counts.publish @, 'recording', Rooms.find(recording: true), noReady: true
     return Rooms.find query
 
   @stop()

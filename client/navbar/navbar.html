@@ -37,6 +37,23 @@
       </ul>
       {{#if roomList}}
         <form class="navbar-form navbar-right" role="search">
+          <div class="btn-group" data-toggle="buttons">
+            <label id="peakaboo-filter-clear" class="btn btn-default disabled" title="Clear Filters">
+              <input type="checkbox" name="all"> X
+            </label>
+            <label class="btn peakaboo-filter btn-danger {{#unless getPublishedCount 'offline'}}peakaboo-filter-zero{{/unless}}" title="Show Offline">
+              <input type="checkbox" name="offline"><i class="glyphicon glyphicon-off"></i> {{getPublishedCount 'offline'}}
+            </label>
+            <label class="btn btn-info peakaboo-filter {{#unless getPublishedCount 'quiet'}}peakaboo-filter-zero{{/unless}}" title="Show Low Audio">
+              <input type="checkbox" name="quiet"><i class="glyphicon glyphicon-volume-off"></i> {{getPublishedCount 'quiet'}}
+            </label>
+            <label class="btn btn-warning peakaboo-filter {{#unless getPublishedCount 'recording'}}peakaboo-filter-zero{{/unless}}" title="Show Recording">
+              <input type="checkbox" name="recording"><i class="glyphicon glyphicon-record"></i> {{getPublishedCount 'recording'}}
+            </label>
+            <label class="btn btn-primary peakaboo-filter {{#unless getPublishedCount 'paused'}}peakaboo-filter-zero{{/unless}}" title="Show Paused">
+              <input type="checkbox" name="paused"><i class="glyphicon glyphicon-pause"></i> {{getPublishedCount 'paused'}}
+            </label>
+          </div>
           <div class="input-group form-search">
             <span class="input-group-addon"><i class="search-icon glyphicon glyphicon-search"></i></span>
             <input id="search" type="text" class="form-control search-query">
