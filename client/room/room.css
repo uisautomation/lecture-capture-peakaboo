@@ -22,12 +22,8 @@
   height: 32px;
 }
 
-#audio-panel .slider-handle.fader-red {
+#captureSlider .slider-handle.custom, #rearMicBoostSlider .slider-handle.custom {
   background: transparent url('images/fader-red.png') no-repeat;
-}
-
-#audio-panel .slider-handle.fader-blue {
-  background: transparent url('images/fader-blue.png') no-repeat;
 }
 
 #audio-panel .slider-handle.custom::before {

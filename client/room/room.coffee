@@ -42,7 +42,6 @@ Template.room_controls.rendered = ->
     $(@).slider
       id: $(@).attr 'data-slider-id'
       reversed: true
-    $(@).parent().find('.slider-handle').addClass $(@).attr 'data-slider-class'
   slidersRendered = true
 
 Template.confirmModal.rendered = ->
