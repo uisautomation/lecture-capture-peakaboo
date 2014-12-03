@@ -8,9 +8,10 @@ Template.room_controls.events
   'change .slider': (e) ->
     if slidersRendered
       values = {}
-      level = $("input[data-slider-id='#{e.currentTarget.id}']").slider 'getValue'
-      values["audio.#{e.currentTarget.id}.value.left"] = level
-      values["audio.#{e.currentTarget.id}.value.right"] = level
+      input = $("input[data-slider-id='#{e.currentTarget.id}']")
+      level = input.slider 'getValue'
+      values["audio.#{input.attr('id')}.value.left"] = level
+      values["audio.#{input.attr('id')}.value.right"] = level
       Rooms.update { '_id': @._id }, {
         $set: values
       }, (err, result) ->
