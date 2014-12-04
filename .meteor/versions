@@ -80,6 +80,7 @@ srp@1.0.1
 standard-app-packages@1.0.3
 stylus@1.0.5
 templating@1.0.9
+tmeasday:publish-counts@0.3.4
 tracker@1.0.3
 u2622:persistent-session@0.2.1
 ui@1.0.4

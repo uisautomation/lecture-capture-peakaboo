@@ -23,6 +23,23 @@ Template.navbar.events
       when 'zoomIn'
         if Session.get('zoom') < maxZoom
           Session.set 'zoom', Session.get('zoom') + 1
+  'change .peakaboo-filter': ->
+    url = Router.routes['room_list'].path()
+    filters = $('input:checked:not([name="all"])')
+    if filters.length
+      $('#peakaboo-filter-clear').removeClass('disabled')
+      for filter in filters
+        url += '/' + filter.name
+    else
+      $('#peakaboo-filter-clear').addClass('disabled')
+    Router.go url
+
+  'click #peakaboo-filter-clear': (e) ->
+    e.stopImmediatePropagation()
+    $('#peakaboo-filter-clear').addClass 'disabled'
+    $('.peakaboo-filter').removeClass 'active'
+    $('.peakaboo-filter input').prop 'checked', false
+    Router.go 'room_list'
 
 Template.navbar.helpers
   zoomOutDisabled: ->
@@ -38,4 +55,14 @@ Template.navbar.helpers
     Session.get('view') is id
 
   roomList: ->
-    Router.current().route.getName() is 'room_list'
+    Router.current().route.getName() in ['room_list', 'room_list_filter']
+
+Template.navbar.rendered = ->
+  params = Router.current().params
+  if 0 of params
+    filters = params[0].split '/'
+    for filter in filters
+      selected = $("[name=#{filter}]")
+        .prop('checked', true).parent().addClass 'active'
+      if selected.length
+        $('#peakaboo-filter-clear').removeClass('disabled')

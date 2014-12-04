@@ -21,6 +21,12 @@ Router.route '/room_list',
   subscriptions: ->
     Meteor.subscribe 'RoomsDisplay'
 
+Router.route /^\/room_list\/([\/\w]*)*\/?/, #'/room_list/:room_filter?',
+  name: 'room_list_filter'
+  template: 'room_list'
+  subscriptions: ->
+    Meteor.subscribe 'RoomsDisplay', @params[0].split '/'
+
 Router.route '/room/:_id',
   name: 'room'
   action: ->
