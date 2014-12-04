@@ -1,17 +1,22 @@
+slidersRendered = false
+
 Template.room_controls.events
   'click .peakaboo-command': (e) ->
     unsetCommandError()
     Session.set 'modal',
       e.currentTarget.dataset
-  'change .audioFaders': (e) ->
-    values = {}
-    values["audio.#{e.currentTarget.id}.value.left"] = e.currentTarget.value
-    values["audio.#{e.currentTarget.id}.value.right"] = e.currentTarget.value
-    Rooms.update { '_id': @._id }, {
-      $set: values
-    }, (err, result) ->
-      console.log err if err
-      console.log result if result
+  'change .slider': (e) ->
+    if slidersRendered
+      values = {}
+      input = $("input[data-slider-id='#{e.currentTarget.id}']")
+      level = input.slider 'getValue'
+      values["audio.#{input.attr('id')}.value.left"] = level
+      values["audio.#{input.attr('id')}.value.right"] = level
+      Rooms.update { '_id': @._id }, {
+        $set: values
+      }, (err, result) ->
+        console.log err if err
+        console.log result if result
   'click #peakaboo-pause-button': (e, template) ->
     room = template.data.room
     newState = not room.paused
@@ -24,8 +29,21 @@ Template.room_controls.events
   'click #peakaboo-rec-button': (e, template) ->
     cleanRecModal()
 
+Template.room_controls.helpers
+  setSlider: (id, level) ->
+    $("#{id}").slider 'setValue', level
+    level
+
+Template.room_controls.created = ->
+  slidersRendered = false
+
 Template.room_controls.rendered = ->
   @$('[data-toggle="tooltip"]').tooltip()
+  $('.fader').each ->
+    $(@).slider
+      id: $(@).attr 'data-slider-id'
+      reversed: true
+  slidersRendered = true
 
 Template.confirmModal.rendered = ->
   Ladda.bind 'button.ladda-button'
