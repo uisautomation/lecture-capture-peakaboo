@@ -31,7 +31,6 @@ Template.navbar.events
       for filter in filters
         url += '/' + filter.name
     else
-      console.log 'clear'
       $('#peakaboo-filter-clear').addClass('disabled')
     Router.go url
 
