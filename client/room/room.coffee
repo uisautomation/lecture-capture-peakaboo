@@ -38,10 +38,7 @@ Template.room_controls.created = ->
 
 Template.room_controls.rendered = ->
   @$('[data-toggle="tooltip"]').tooltip()
-  $('.fader').each ->
-    $(@).slider
-      id: $(@).attr 'data-slider-id'
-      reversed: true
+  $('.fader').slider()
   slidersRendered = true
 
 Template.confirmModal.rendered = ->
