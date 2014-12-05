@@ -22,11 +22,11 @@
   height: 32px;
 }
 
-#captureSlider .slider-handle.custom {
+.fader-red .slider-handle.custom {
   background: transparent url('images/fader-red.png') no-repeat;
 }
 
-#headphoneSlider .slider-handle.custom {
+.fader-blue .slider-handle.custom {
   background: transparent url('images/fader-blue.png') no-repeat;
 }
 
