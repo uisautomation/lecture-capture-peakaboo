@@ -31,7 +31,7 @@ Template.room_controls.events
 
 Template.room_controls.helpers
   setSlider: (id, level) ->
-    $("#{id}").slider 'setValue', level
+    $("##{id}").slider 'setValue', level
     level
 
 Template.room_controls.created = ->
