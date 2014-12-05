@@ -10,7 +10,7 @@ Template.room_controls.events
       values = {}
       input = $("input[data-slider-id='#{e.currentTarget.id}']")
       level = input.slider 'getValue'
-      values["audio.#{input.attr('id')}.level"] = level
+      values["audio.#{input.attr('id')}Level"] = level
       Rooms.update { '_id': @._id }, {
         $set: values
       }, (err, result) ->
