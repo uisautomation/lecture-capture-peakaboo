@@ -44,7 +44,9 @@
               <h3 class="panel-title">Audio</h3>
             </div>
             <div class="panel-body">
-              <div class="col-xs-4 text-center fader-red">{{> audiofader}}</div>
+              {{#each audio}}
+              <div class="col-xs-4 text-center">{{> audiofader}}</div>
+              {{/each}}
               <div class="col-xs-4 text-center">{{> vumeter vumeter=vumeter vertical=true}}<label>Level</label></div>
             </div>
           </div>
