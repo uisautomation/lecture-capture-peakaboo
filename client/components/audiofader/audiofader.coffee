@@ -1,4 +1,5 @@
 sliderRendered = false
+allowUpdate = true
 
 @map_pc = (value) ->
   min = -1650
@@ -27,22 +28,26 @@ Template.audiofader.rendered = ->
   sliderRendered = true
 
 Template.audiofader.events
-  'change input': (e) ->
+  'slideStart input': (e) ->
+    allowUpdate = false
+  'slideStop input': (e) ->
     if sliderRendered
       values = {}
-      input = $("input[data-slider-id='#{e.currentTarget.id}Slider']")
-      level = unmap_pc input.slider 'getValue'
-      values["audio.#{input.attr('id')}Level"] = level
-      Rooms.update { '_id': @._id }, {
-        $set: values
-      }, (err, result) ->
-        console.log err if err
+      data = Template.currentData()
+      level = unmap_pc Template.instance().$('input').slider 'getValue'
+      _id = Template.parentData(1)._id
+      Meteor.call 'updateAudioLevel', _id, data.name, level
+      allowUpdate = true
 
 Template.audiofader.helpers
-  setSlider: (id, level) ->
-    level = map_pc level
-    $("##{id}").slider 'setValue', level
+  setSlider: ->
+    if sliderRendered and allowUpdate
+      data = Template.currentData()
+      level = map_pc data.level
+      Template.instance().$('input').slider 'setValue', level
     level
+  faderStyle: ->
+    "peakaboo-fader-#{Template.currentData().type}"
 
 Template.audiofader.created = ->
   sliderRendered = false

@@ -73,3 +73,9 @@ Meteor.methods
       user_name: userName
       pic_url: picURL
       modules: modules
+
+  updateAudioLevel: (_id, channel, level) ->
+    Rooms.update { '_id': _id, 'audio.name': channel }, {
+      $set: 'audio.$.level' : level
+    }, (err, result) ->
+      console.log err if err
