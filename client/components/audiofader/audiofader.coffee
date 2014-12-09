@@ -1,53 +1,77 @@
-sliderRendered = false
-allowUpdate = true
+class AudioFader
 
-@map_pc = (value) ->
-  min = -1650
-  max = 3000
-  db = ((value / 100) * (max - min)) + min
-  normalized = 10 ** ((db - max) / 6000.0)
-  min_norm = 10 ** ((min - max) / 6000.0)
-  normalized = (normalized - min_norm) / (1 - min_norm)
-  Math.round normalized * 100
+  constructor: ->
+    @tmpl = Template.instance()
+    @sliderRendered = false
+    @allowUpdate = true
+
+  setLevel: (level) ->
+    if @sliderRendered and @allowUpdate
+      level = @_mapValue level
+      @tmpl.$('input').slider 'setValue', level
+    level
+
+  getLevel: ->
+    slider = @tmpl.$('input').slider 'getValue'
+    @_unmapValue slider
+
+  saveLevel: ->
+    _id = Template.parentData(1)._id
+    Meteor.call 'updateAudioLevel', _id, @tmpl.data.name, @getLevel()
+    @allowUpdate = true
+
+  slideStart: ->
+    @allowUpdate = false
+
+  slideStop: ->
+    @saveLevel()
+
+  rendered: ->
+    @tmpl.$('.fader').slider()
+    @sliderRendered = true
+
+  _mapValue: (value) ->
+    max = @tmpl.data.max
+    min = @tmpl.data.min
+    db = ((value / 100) * (max - min)) + min
+    normalized = 10 ** ((db - max) / 6000.0)
+    min_norm = 10 ** ((min - max) / 6000.0)
+    normalized = (normalized - min_norm) / (1 - min_norm)
+    Math.round normalized * 100
+
+  _unmapValue: (volume) ->
+    max = @tmpl.data.max
+    min = @tmpl.data.min
+    volume = volume / 100
+    min_norm = 10 ** ((min - max) / 6000.0)
+    volume = volume * (1 - min_norm) + min_norm
+    db = (6000.0 * log10(volume)) + max
+    Math.round ((db - min) / (max - min)) * 100
+
 
 log10 = (x) ->
   Math.log(x) / Math.LN10
 
-@unmap_pc = (volume) ->
-  min = -1650
-  max = 3000
-  volume = volume / 100
-  min_norm = 10 ** ((min - max) / 6000.0)
-  volume = volume * (1 - min_norm) + min_norm
-  db = (6000.0 * log10(volume)) + max
-  pc = Math.round ((db - min) / (max - min)) * 100
+Template.audiofader.created = ->
+  @audiofader = new AudioFader
 
 Template.audiofader.rendered = ->
-  @$('[data-toggle="tooltip"]').tooltip()
-  $('.fader').slider()
-  sliderRendered = true
+  @audiofader.rendered()
+
+Template.audiofader.destroyed = ->
+  @audiofader = null
 
 Template.audiofader.events
   'slideStart input': (e) ->
-    allowUpdate = false
+    Template.instance().audiofader.slideStart()
   'slideStop input': (e) ->
-    if sliderRendered
-      values = {}
-      data = Template.currentData()
-      level = unmap_pc Template.instance().$('input').slider 'getValue'
-      _id = Template.parentData(1)._id
-      Meteor.call 'updateAudioLevel', _id, data.name, level
-      allowUpdate = true
+    Template.instance().audiofader.slideStop()
 
 Template.audiofader.helpers
   setSlider: ->
-    if sliderRendered and allowUpdate
-      data = Template.currentData()
-      level = map_pc data.level
-      Template.instance().$('input').slider 'setValue', level
-    level
+    tmpl = Template.instance()
+    data = Template.currentData()
+    tmpl.audiofader.setLevel data.level
+
   faderStyle: ->
     "peakaboo-fader-#{Template.currentData().type}"
-
-Template.audiofader.created = ->
-  sliderRendered = false
