@@ -44,8 +44,9 @@
               <h3 class="panel-title">Audio</h3>
             </div>
             <div class="panel-body">
-              <div class="col-xs-4 text-center"><input id="capture" class="fader" type="text" data-slider-id="captureSlider" data-slider-min="{{audio.capture.limits.min}}" data-slider-max="{{audio.capture.limits.max}}" data-slider-step="1" data-slider-value="{{setSlider 'capture' audio.capture.value.left}}" data-slider-orientation="vertical" data-slider-handle="custom"><label>Capture</label></div>
-              <div class="col-xs-4 text-center"><input id="rearMicBoost" class="fader" type="text" data-slider-id="rearMicBoostSlider" data-slider-min="{{audio.rearMicBoost.limits.min}}" data-slider-max="{{audio.rearMicBoost.limits.max}}" data-slider-step="1" data-slider-value="{{setSlider 'rearMicBoost' audio.rearMicBoost.value.left}}" data-slider-orientation="vertical" data-slider-handle="custom"><label>Rear Mic Boost</label></div>
+              {{#each audio}}
+              <div class="col-xs-4 text-center">{{> audiofader}}</div>
+              {{/each}}
               <div class="col-xs-4 text-center">{{> vumeter vumeter=vumeter vertical=true}}<label>Level</label></div>
             </div>
           </div>
