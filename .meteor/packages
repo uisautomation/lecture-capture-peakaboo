@@ -21,4 +21,5 @@ meteorhacks:fast-render
 http
 peerlibrary:xml2js
 linto:fontawesome
-
+pmgration:bootstrap-slider
+tmeasday:publish-counts

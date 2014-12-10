@@ -30,12 +30,19 @@ Meteor.startup ->
         password: user.password
         profile:
           name: user.name
-          
+
       Meteor.users.update {_id: id}, {$set: {'emails.0.verified': true}}
       Roles.addUsersToRoles id, user.roles
-    
+
   Accounts.validateNewUser (user) ->
     try
       return true if isUserAuthorised @userId, ['admin', 'manage-users']
     catch
       throw new Meteor.Error 403, 'Not authorized to create new users'
+
+Meteor.setInterval ->
+  now = Meteor.call 'getServerTime'
+  Rooms.update {heartbeat: {$lt: now - 15}},
+    {$set: {offline: true}},
+    {multi: true}
+, 10000

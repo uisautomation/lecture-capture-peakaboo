@@ -1,3 +1,15 @@
 #audio-panel .panel-title, #controls-panel .panel-title {
   padding-top: 5px;
 }
+
+.peakaboo-command {
+  margin: 10px 10px 0 10px;
+}
+
+.peakaboo-transport {
+  margin-bottom: 10px;
+}
+
+.peakaboo-controls hr {
+  margin: 10px 0 10px 0;
+}

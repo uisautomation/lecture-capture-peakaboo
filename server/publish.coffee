@@ -1,6 +1,24 @@
-Meteor.publish 'RoomsDisplay', ->
+Meteor.publish 'RoomsDisplay', (filters) ->
   if isUserAuthorised @userId, ['admin', 'view-rooms']
-    return Rooms.find {}
+    query = {}
+    if filters
+      query['$or'] = []
+      for filter in filters
+        switch filter
+          when 'recording' then query['$or'].push recording: true
+          when 'idle' then query['$or'].push recording: false
+          when 'paused' then query['$or'].push paused: true
+          when 'unpaused' then query['$or'].push paused: false
+          when 'quiet' then query['$or'].push vumeter: $lte: 5
+          when 'loud' then query['$or'].push vumeter: $gte: 5
+          when 'offline' then query['$or'].push offline: true
+          when 'online' then query['$or'].push offline: false
+      unless query['$or'].length then query = {}
+    Counts.publish @, 'offline', Rooms.find(offline: true), noReady: true
+    Counts.publish @, 'paused', Rooms.find(paused: true), noReady: true
+    Counts.publish @, 'quiet', Rooms.find(vumeter: $lte: 5), noReady: true
+    Counts.publish @, 'recording', Rooms.find(recording: true), noReady: true
+    return Rooms.find query
 
   @stop()
 

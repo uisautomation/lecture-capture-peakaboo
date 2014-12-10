@@ -1,15 +1,12 @@
 <template name="vumeter">
-  <div class="progress">
+  <div class="peakaboo-vumeter progress {{#if vertical}}vertical{{/if}}">
   {{#with meter vumeter}}
-    <div class="progress-bar progress-bar-success" style="width: {{green}}%">
-      <span class="sr-only">{{green}}% Complete (success)</span>
-    </div>
-    <div class="progress-bar progress-bar-warning" style="width: {{yellow}}%">
-      <span class="sr-only">{{yellow}}% Complete (warning)</span>
-    </div>
-    <div class="progress-bar progress-bar-danger" style="width: {{red}}%">
-      <span class="sr-only">{{red}}% Complete (danger)</span>
-    </div>
+    {{#if ../vertical}}
+      <div class="progress-bar" style="background-color: transparent; height: {{blank}}%;"></div>
+    {{/if}}
+    <div class="progress-bar {{#if ../vertical}}progress-bar-danger{{else}}progress-bar-success{{/if}}" style="{{#if ../vertical}}height: {{red}}{{else}}width: {{green}}{{/if}}%"></div>
+    <div class="progress-bar progress-bar-warning" style="{{#if ../vertical}}height{{else}}width{{/if}}: {{yellow}}%"></div>
+    <div class="progress-bar {{#if ../vertical}}progress-bar-success{{else}}progress-bar-danger{{/if}}" style="{{#if ../vertical}}height: {{green}}{{else}}width: {{red}}{{/if}}%"></div>
   {{/with}}
   </div>
 </template>

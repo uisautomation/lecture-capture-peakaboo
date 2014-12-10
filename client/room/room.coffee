@@ -3,15 +3,6 @@ Template.room_controls.events
     unsetCommandError()
     Session.set 'modal',
       e.currentTarget.dataset
-  'change .audioFaders': (e) ->
-    values = {}
-    values["audio.#{e.currentTarget.id}.value.left"] = e.currentTarget.value
-    values["audio.#{e.currentTarget.id}.value.right"] = e.currentTarget.value
-    Rooms.update { '_id': @._id }, {
-      $set: values
-    }, (err, result) ->
-      console.log err if err
-      console.log result if result
   'click #peakaboo-pause-button': (e, template) ->
     room = template.data.room
     newState = not room.paused

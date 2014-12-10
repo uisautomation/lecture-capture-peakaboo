@@ -1,20 +1,8 @@
-.progress-bar {
-  -webkit-transition: none;
-  -moz-transition: none;
-  -ms-transition: none;
-  -o-transition: none;
-  transition: none;
-}
-
-.progress {
-  margin: 0
-}
-
 .panel-title > a,
 .panel-title,
 .popover-title,
 .popover-content {
-  color: black !important; 
+  color: black !important;
 }
 
 .popover-content ul {
@@ -32,6 +20,6 @@
   background-color: #d9edf7;
 }
 
-#meta {
+.meta {
   display: none;
 }

@@ -18,3 +18,12 @@ body {
   color: #777;
   padding: 0 5px;
 }
+
+.peakaboo-filter.active {
+  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+}
+
+.peakaboo-filter-zero {
+  opacity: .64;
+}
