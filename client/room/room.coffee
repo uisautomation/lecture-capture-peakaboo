@@ -14,9 +14,44 @@ Template.room_controls.events
     e.currentTarget.blur()
   'click #peakaboo-rec-button': (e, template) ->
     cleanRecModal()
+  'click .lock': (e) ->
+    switch e.currentTarget.id
+      when 'peakaboo-audio-lock'
+        Session.setTemp 'audioLocked', not Session.get 'audioLocked'
+      when 'peakaboo-controls-lock'
+        Session.setTemp 'controlsLocked', not Session.get 'controlsLocked'
+  'click .panel-body.lockable': (e) ->
+    panelBody = $(e.currentTarget)
+    if panelBody.hasClass 'peakaboo-locked'
+      lock = $("##{panelBody.data('lock')}")
+      fireAnim(panelBody, 'pulse-background')
+      fireAnim(lock, 'shake')
+
+Template.room_controls.rendered = ->
+  @$('[data-toggle="tooltip"]').tooltip()
+  Session.setTemp 'audioLocked', true
+  Session.setTemp 'controlsLocked', true
+  self = @
+  Tracker.autorun ->
+    if Session.get 'audioLocked'
+      self.$('.fader').slider('disable')
+    else
+      self.$('.fader').slider('enable')
 
 Template.confirmModal.rendered = ->
   Ladda.bind 'button.ladda-button'
+
+Template.room_controls.helpers
+  'audioLocked': ->
+    Session.get 'audioLocked'
+  'controlsLocked': ->
+    Session.get 'controlsLocked'
+  'controlsDisable': ->
+    if not @recording or Session.get 'controlsLocked'
+      true
+  'recControlsDisable': ->
+    if @recording or Session.get 'controlsLocked'
+      true
 
 Template.confirmModal.helpers
   modal: ->
