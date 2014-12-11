@@ -27,13 +27,6 @@ Template.room_controls.events
       fireAnim(panelBody, 'pulse-background')
       fireAnim(lock, 'shake')
 
-fireAnim = (element, anim) ->
-  events = 'webkitAnimationEnd mozAnimationEnd ' +
-           'MSAnimationEnd oanimationend animationend'
-  element.removeClass(anim).addClass(anim).one events , ->
-    element.removeClass anim
-
-
 Template.room_controls.rendered = ->
   @$('[data-toggle="tooltip"]').tooltip()
   Session.setTemp 'audioLocked', true

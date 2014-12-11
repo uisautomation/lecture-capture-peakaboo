@@ -73,7 +73,7 @@ Template.registerHelper 'thumbnail', ->
   else
     '/images/no_image_available.png'
 
-fireAnim = (element, anim) ->
+@fireAnim = (element, anim) ->
   events = 'webkitAnimationEnd mozAnimationEnd ' +
            'MSAnimationEnd oanimationend animationend'
   element.removeClass(anim).addClass(anim).one events , ->
