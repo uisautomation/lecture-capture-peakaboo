@@ -13,3 +13,85 @@
 .peakaboo-controls hr {
   margin: 10px 0 10px 0;
 }
+
+.peakaboo-locked {
+  cursor: not-allowed;
+}
+
+@-webkit-keyframes shake {
+  8%, 41% {
+    -webkit-transform: translateX(-5px);
+  }
+  25%, 58% {
+    -webkit-transform: translateX(5px);
+  }
+  75% {
+    -webkit-transform: translateX(-2px);
+  }
+  92% {
+    -webkit-transform: translateX(2px);
+  }
+  0%, 100% {
+    -webkit-transform: translateX(0);
+  }
+}
+
+@keyframes shake {
+  8%, 41% {
+    transform: translateX(-5px);
+  }
+  25%, 58% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-2px);
+  }
+  92% {
+    transform: translateX(2px);
+  }
+  0%, 100% {
+    transform: translateX(0);
+  }
+}
+
+.shake {
+  -webkit-animation: shake .5s linear;
+  animation: shake .5s linear;
+}
+
+@keyframes shake {
+  0%, 100% {
+    background-color: inherit;
+  }
+
+  5% {
+    background-color: red;
+  }
+}
+
+@-webkit-keyframes pulse-background {
+  0%, 100% {
+    background-color: inherit;
+  }
+
+  15% {
+    /*background-color: #D9534F;*/
+    background-color: #EBCCD1;
+  }
+}
+
+@keyframes pulse-background {
+  0%, 100% {
+    background-color: inherit;
+  }
+
+  15% {
+    /*background-color: #D9534F;*/
+    background-color: #EBCCD1;
+  }
+}
+
+.pulse-background {
+  -webkit-animation: pulse-background .5s linear;
+  animation: pulse-background .5s linear;
+}

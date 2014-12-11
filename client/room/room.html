@@ -41,9 +41,9 @@
         <div class="col-md-6">
           <div id="audio-panel" class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title pull-left">Audio</h3><button type="button" id="peakaboo-audio-lock" class="lockable btn {{#if audioLocked}}btn-success{{else}}btn-danger{{/if}} btn-xs pull-right"><i class="fa {{#if audioLocked}}fa-lock{{else}}fa-unlock-alt{{/if}}"></i></button><div class="clearfix"></div>
+              <h3 class="panel-title pull-left">Audio</h3><button type="button" id="peakaboo-audio-lock" class="lock btn {{#if audioLocked}}btn-success{{else}}btn-danger{{/if}} btn-xs pull-right"><i class="fa {{#if audioLocked}}fa-lock{{else}}fa-unlock-alt{{/if}}"></i></button><div class="clearfix"></div>
             </div>
-            <div class="panel-body">
+            <div class="panel-body lockable {{#if audioLocked}}peakaboo-locked{{/if}}" data-lock="peakaboo-audio-lock">
               {{#each audio}}
               <div class="col-xs-4 text-center">{{> audiofader}}</div>
               {{/each}}
@@ -54,9 +54,9 @@
         <div class="col-md-6">
           <div id="controls-panel" class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title pull-left">Controls</h3><button type="button" id="peakaboo-controls-lock" class="lockable btn {{#if controlsLocked}}btn-success{{else}}btn-danger{{/if}} btn-xs pull-right"><i class="fa {{#if controlsLocked}}fa-lock{{else}}fa-unlock-alt{{/if}}"></i></button><div class="clearfix"></div>
+              <h3 class="panel-title pull-left">Controls</h3><button type="button" id="peakaboo-controls-lock" class="lock btn {{#if controlsLocked}}btn-success{{else}}btn-danger{{/if}} btn-xs pull-right"><i class="fa {{#if controlsLocked}}fa-lock{{else}}fa-unlock-alt{{/if}}"></i></button><div class="clearfix"></div>
             </div>
-            <div class="panel-body peakaboo-controls">
+            <div class="panel-body peakaboo-controls lockable {{#if controlsLocked}}peakaboo-locked{{/if}}" data-lock="peakaboo-controls-lock">
               <div class="row">
                 <div class="col-xs-4 text-center">
                   <button type="button" id="peakaboo-rec-button" data-toggle="modal" data-target="#recordmodal" class="btn peakaboo-transport {{#if recording}}btn-danger{{else}}btn-default{{/if}} {{#if recControlsDisable}}disabled{{/if}}" title="Start Recording"><i class="glyphicon glyphicon-record text-danger"></i></button>

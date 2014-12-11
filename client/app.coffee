@@ -72,3 +72,9 @@ Template.registerHelper 'thumbnail', ->
     "/image/#{roomId}/#{file}?#{timestamp}"
   else
     '/images/no_image_available.png'
+
+fireAnim = (element, anim) ->
+  events = 'webkitAnimationEnd mozAnimationEnd ' +
+           'MSAnimationEnd oanimationend animationend'
+  element.removeClass(anim).addClass(anim).one events , ->
+    element.removeClass anim
