@@ -47,7 +47,7 @@
         <td>Series:</td><td>{{#if series_title}}{{series_title}} ({{series_identifier}}){{else}}N/A{{/if}}</td>
       </tr>
       <tr>
-        <td>Capture sources:</td><td>{{#if screen ../currentProfile}}<i title="Screen" class="glyphicon glyphicon-picture"></i> {{/if}}{{#if cam ../currentProfile}}<i title="Camera" class="glyphicon glyphicon-camera"></i>{{/if}}</td>
+        <td>Capture sources:</td><td>{{#if screen ../currentProfile}}{{> input_icon title='Screen' icon='picture'}}{{/if}}{{#if cam ../currentProfile}} {{> input_icon title='Camera' icon='camera'}}{{/if}}</td>
       </tr>
     </tbody>
   </table>

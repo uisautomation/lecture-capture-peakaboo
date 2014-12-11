@@ -84,7 +84,7 @@
             <table class="table table-striped table-bordered">
               <tbody>
                 <tr>
-                  <td>Available inputs</td><td><i title="Screen" class="glyphicon glyphicon-picture"></i> {{#if camAvailable}}<i title="Camera" class="glyphicon glyphicon-camera"></i>{{/if}}</td>
+                  <td>Available inputs</td><td>{{#each inputs.screens}}{{> input_icon title=this icon='picture'}}{{/each}} {{#each inputs.cameras}}{{> input_icon title=this icon='camera'}} {{/each}}</td>
                 </tr>
                 <tr>
                   <td>IP</td><td>{{ip}}</td>
@@ -102,6 +102,10 @@
   {{/with}}
   {{>confirmModal}}
   {{>recordModal}}
+</template>
+
+<template name="input_icon">
+  <i title="{{title}}" class="glyphicon glyphicon-{{icon}}"></i>
 </template>
 
 <template name="room_repository">
@@ -188,14 +192,14 @@
               <div class="radio">
                 <label>
                   <input type="radio" name="profile" value="nocam" checked>
-                  <i title="Screen" class="glyphicon glyphicon-picture"></i>
+                  {{> input_icon title='Screen' icon='picture'}}
                 </label>
               </div>
               {{#if room.camAvailable}}
               <div class="radio">
                 <label>
                   <input type="radio" name="profile" value="cam">
-                  <i title="Screen and Camera" class="glyphicon glyphicon-picture"></i> <i title="Camera" class="glyphicon glyphicon-camera"></i>
+                  {{> input_icon title='Screen' icon='picture'}} {{> input_icon title='Camera' icon='camera'}}
                 </label>
               </div>
               {{/if}}
