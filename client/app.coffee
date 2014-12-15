@@ -73,6 +73,9 @@ Template.registerHelper 'thumbnail', ->
   else
     '/images/no_image_available.png'
 
+Template.offline.rendered = ->
+  @$('[data-toggle="tooltip"]').tooltip()
+
 @fireAnim = (element, anim) ->
   events = 'webkitAnimationEnd mozAnimationEnd ' +
            'MSAnimationEnd oanimationend animationend'
