@@ -61,7 +61,7 @@
         <div class="col-md-6">
           <div id="controls-panel" class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title pull-left">Controls</h3><button type="button" id="peakaboo-controls-lock" class="lock btn {{#if controlsLocked}}btn-success{{else}}btn-danger{{/if}} btn-xs pull-right"><i class="fa {{#if controlsLocked}}fa-lock{{else}}fa-unlock-alt{{/if}}"></i></button><div class="clearfix"></div>
+              <h3 class="panel-title pull-left">Controls</h3><button type="button" id="peakaboo-controls-lock"  title="Unlock Controls Panel" class="lock btn {{#if controlsLocked}}btn-success{{else}}btn-danger{{/if}} btn-xs pull-right"><i class="fa {{#if controlsLocked}}fa-lock{{else}}fa-unlock-alt{{/if}}"></i></button><div class="clearfix"></div>
             </div>
             <div class="panel-body peakaboo-controls lockable {{#if controlsLocked}}peakaboo-locked{{/if}}" data-lock="peakaboo-controls-lock">
               <div class="row">
@@ -86,7 +86,10 @@
         <div class="col-md-6">
           <div id="audio-panel" class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title pull-left">Audio</h3><button type="button" id="peakaboo-audio-lock" class="lock btn {{#if audioLocked}}btn-success{{else}}btn-danger{{/if}} btn-xs pull-right"><i class="fa {{#if audioLocked}}fa-lock{{else}}fa-unlock-alt{{/if}}"></i></button><div class="clearfix"></div>
+              <h3 class="panel-title pull-left">Audio</h3>
+              <button type="button" id="peakaboo-audio-lock" title="Unlock Audio Panel" class="lock btn {{#if audioLocked}}btn-success{{else}}btn-danger{{/if}} btn-xs pull-right"><i class="fa {{#if audioLocked}}fa-lock{{else}}fa-unlock-alt{{/if}}"></i></button>
+              <button type="button" id="peakaboo-audio-stream" title="Listen" class="btn {{#if audioStreaming}}btn-danger{{else}}btn-success{{/if}} btn-xs pull-right"><i class="glyphicon {{#if audioStreaming}}audiostreaming glyphicon-volume-up{{else}}glyphicon-headphones{{/if}}"></i></button>
+              <div class="clearfix"></div>
             </div>
             <div class="panel-body lockable {{#if audioLocked}}peakaboo-locked{{/if}}" data-lock="peakaboo-audio-lock">
               {{#each audio}}
@@ -99,6 +102,7 @@
       </div>
     </div>
   </div>
+  <audio id="audioStreaming" autoplay></audio>
   {{/with}}
   {{>confirmModal}}
   {{>recordModal}}
