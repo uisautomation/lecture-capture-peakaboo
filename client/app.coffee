@@ -28,6 +28,7 @@ Template.registerHelper 'metadata', (metadata) ->
     duration = serverNow - created.unix()
     duration = 0 if duration < 0
     durationMoment = moment.unix(duration)
+    durationMoment.utc()
     durationH = durationMoment.hour()
     durationM = durationMoment.minute()
     durationHString = switch
