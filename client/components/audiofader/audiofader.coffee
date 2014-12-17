@@ -64,6 +64,8 @@ Template.audiofader.rendered = ->
       self.$('.fader').slider('disable')
     else
       self.$('.fader').slider('enable')
+  @autorun ->
+    self.audiofader.setLevel Template.currentData().level
 
 Template.audiofader.destroyed = ->
   @audiofader = null
