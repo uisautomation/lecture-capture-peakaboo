@@ -36,7 +36,7 @@ Router.route '/room/:_id/controls',
   name: 'room_controls'
   template: 'room_controls'
   subscriptions: ->
-    Meteor.subscribe 'RoomsDisplay'
+    Meteor.subscribe 'Room', @params._id
   data: ->
     room: Rooms.findOne @params._id
     controls: true

@@ -18,16 +18,31 @@ Meteor.publish 'RoomsDisplay', (filters) ->
     Counts.publish @, 'paused', Rooms.find(paused: true), noReady: true
     Counts.publish @, 'quiet', Rooms.find(vumeter: $lte: 5), noReady: true
     Counts.publish @, 'recording', Rooms.find(recording: true), noReady: true
-    return Rooms.find query
+    return Rooms.find query,
+      fields:
+        currentMediaPackage: 1
+        currentProfile: 1
+        displayName: 1
+        heartbeat: 1
+        images: 1
+        offline: 1
+        paused: 1
+        recording: 1
+        vumeter: 1
 
   @stop()
 
+Meteor.publish 'Room', (_id) ->
+  if isUserAuthorised @userId, ['admin', 'view-rooms']
+    return Rooms.find _id: _id
 
 Meteor.publish 'GalicasterControl', (RoomId) ->
   if isUserAuthorised @userId, ['admin', 'galicaster']
     return Rooms.find '_id': RoomId,
-      'fields':
-        'heartbeat': 0
-        'images': 0
-        'vumeter': 0
+      fields:
+        audio: 1
+        currentMediaPackage: 1
+        currentProfile: 1
+        paused: 1
+        recording: 1
   @stop()
