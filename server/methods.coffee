@@ -75,7 +75,8 @@ Meteor.methods
       modules: modules
 
   updateAudioLevel: (_id, channel, level) ->
-    Rooms.update { '_id': _id, 'audio.name': channel }, {
-      $set: 'audio.$.level' : level
-    }, (err, result) ->
-      console.log err if err
+    if isUserAuthorised Meteor.userId(), ['admin', 'control-rooms']
+      Rooms.update { '_id': _id, 'audio.name': channel }, {
+        $set: 'audio.$.level' : level
+      }, (err, result) ->
+        console.log err if err
