@@ -59,7 +59,10 @@ Router.route '/image/:roomId/:imageType(presentation|presenter|screen)',
   # get hashed login token from client cookie
   user = getUserFromToken @request.cookies.meteor_login_token
 
-  if user and isUserAuthorised user._id, ['admin', 'view', 'control']
+  if user and isUserAuthorised user._id, [
+    'admin', 'view-rooms', 'control-rooms'
+  ]
+
     {roomId, imageType} = @params
 
     # Find all images that are stored for the room
