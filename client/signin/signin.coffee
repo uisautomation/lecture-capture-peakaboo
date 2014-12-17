@@ -7,15 +7,17 @@ Template.signin.events
     if email
       Meteor.loginWithPassword email, password, (err) ->
         switch
-          when not err then Router.go '/'
+          when not err
+            go = Session.get('go') or '/'
+            Session.set 'go', null
+            Router.go go
           when err.error is 403
             Session.setTemp 'login.error', err.reason
           else
             Session.setTemp 'login.error', 'Unknown error'
   'click div.alert>button': (evt, tmpl) ->
     Session.set 'login.error', ''
-          
+
 Template.signin.helpers
   loginerror: ->
     Session.get 'login.error'
-  
