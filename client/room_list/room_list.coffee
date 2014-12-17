@@ -7,6 +7,12 @@ Template.room_list.helpers
 
 Template.room_list.rendered = ->
   @$('[data-toggle="tooltip"]').tooltip()
+
+Template.room_summary.helpers
+  zoom: ->
+    Session.get 'zoom'
+
+Template.rec.rendered = ->
   @$('[data-toggle="popover"]').each ->
     $(@).popover
       placement: 'auto left'
@@ -14,7 +20,3 @@ Template.room_list.rendered = ->
       container: 'body'
       content: ->
         $(@).parent().find('.meta').html()
-
-Template.room_summary.helpers
-  zoom: ->
-    Session.get 'zoom'
