@@ -57,12 +57,7 @@ Router.route '/image/:roomId/:imageType(presentation|presenter|screen)',
   where: 'server'
 .get ->
   # get hashed login token from client cookie
-  hashedToken = ''
-  if @request.cookies.meteor_login_token?
-    hashedToken = Accounts._hashLoginToken @request.cookies.meteor_login_token
-
-  user = Meteor.users.findOne
-    'services.resume.loginTokens.hashedToken': hashedToken
+  user = getUserFromToken @request.cookies.meteor_login_token
 
   if user and isUserAuthorised user._id, ['admin', 'view', 'control']
     {roomId, imageType} = @params
@@ -94,4 +89,24 @@ Router.route '/image/:roomId/:imageType(presentation|presenter|screen)',
   else # auth failed
     @response.writeHead 403
 
+  @response.end()
+
+Router.route '/stream_key',
+  where: 'server'
+.post ->
+  # check key
+  room = Rooms.findOne
+    _id: @request.body._id
+    'stream.key': @request.body.streamKey
+
+  # reset key
+  key = uuid()
+  Rooms.update @request.body._id,
+    $set:
+      'stream.key': key
+
+  if room
+    @response.writeHead 204
+  else
+    @response.writeHead 403
   @response.end()

@@ -26,17 +26,30 @@ Template.room_controls.events
       lock = $("##{panelBody.data('lock')}")
       fireAnim(panelBody, 'pulse-background')
       fireAnim(lock, 'shake')
+  'click #peakaboo-audio-stream': ->
+    Session.setTemp 'audioStreaming', not Session.get 'audioStreaming'
+  'error #audioStreaming, suspend #audioStreaming': ->
+    Session.setTemp 'audioStreaming', false
 
 Template.room_controls.rendered = ->
   @$('[data-toggle="tooltip"]').tooltip()
   Session.setTemp 'audioLocked', true
   Session.setTemp 'controlsLocked', true
+  Session.setTemp 'audioStreaming', false
   self = @
-  Tracker.autorun ->
+  @autorun ->
     if Session.get 'audioLocked'
       self.$('.fader').slider('disable')
     else
       self.$('.fader').slider('enable')
+  @autorun ->
+    audioStreaming = Session.get 'audioStreaming'
+    url = ''
+    if audioStreaming
+      room = self.data.room
+      url = "http://#{room.ip}:#{room.stream.port}/#{room.stream.key}"
+
+    self.$('#audioStreaming').prop 'src', url
 
 Template.confirmModal.rendered = ->
   Ladda.bind 'button.ladda-button'
@@ -52,6 +65,8 @@ Template.room_controls.helpers
   'recControlsDisable': ->
     if @recording or Session.get 'controlsLocked'
       true
+  'audioStreaming': ->
+    Session.get 'audioStreaming'
 
 Template.confirmModal.helpers
   modal: ->

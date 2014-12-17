@@ -85,3 +85,34 @@
   -webkit-animation: pulse-background .5s linear;
   animation: pulse-background .5s linear;
 }
+
+audio {
+  display: none;
+}
+
+@-webkit-keyframes audiostreaming {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+}
+
+@keyframes audiostreaming {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+}
+
+.audiostreaming {
+  -webkit-animation: audiostreaming 1s infinite;
+  animation: audiostreaming 1s infinite;
+}
+
+#peakaboo-audio-stream {
+  margin-right: 10px;
+}
