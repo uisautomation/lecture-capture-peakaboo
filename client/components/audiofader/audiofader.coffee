@@ -29,6 +29,7 @@ class AudioFader
   rendered: ->
     @tmpl.$('.fader').slider()
     @sliderRendered = true
+    @setLevel @tmpl.data.level
 
   _mapValue: (value) ->
     max = @tmpl.data.max
@@ -68,10 +69,5 @@ Template.audiofader.events
     Template.instance().audiofader.slideStop()
 
 Template.audiofader.helpers
-  setSlider: ->
-    tmpl = Template.instance()
-    data = Template.currentData()
-    tmpl.audiofader.setLevel data.level
-
   faderStyle: ->
     "peakaboo-fader-#{Template.currentData().type}"
