@@ -57,6 +57,12 @@ Template.audiofader.created = ->
 
 Template.audiofader.rendered = ->
   @audiofader.rendered()
+  self = @
+  @autorun ->
+    if Session.get 'audioLocked'
+      self.$('.fader').slider('disable')
+    else
+      self.$('.fader').slider('enable')
 
 Template.audiofader.destroyed = ->
   @audiofader = null

@@ -38,11 +38,6 @@ Template.room_controls.rendered = ->
   Session.setTemp 'audioStreaming', false
   self = @
   @autorun ->
-    if Session.get 'audioLocked'
-      self.$('.fader').slider('disable')
-    else
-      self.$('.fader').slider('enable')
-  @autorun ->
     audioStreaming = Session.get 'audioStreaming'
     url = ''
     if audioStreaming
