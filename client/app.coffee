@@ -51,7 +51,7 @@ Template.registerHelper 'metadata', (metadata) ->
       metadata.series_identifier = metadata.series_identifier.replace '__', ':'
   metadata
 
-Template.registerHelper 'screen', (profile) ->
+Template.registerHelper 'presentation', (profile) ->
   true if profile is 'cam' or profile is 'nocam'
 
 Template.registerHelper 'cam', (profile) ->
@@ -62,12 +62,12 @@ Template.registerHelper 'thumbnail', ->
   timestamp = Template.currentData().heartbeat
   images = Template.currentData().images
   switch Session.get 'view'
-    when 'view-screen'
+    when 'view-presentation'
       file = 'presentation'
     when 'view-camera'
-      file = 'presenter'
+      file = 'camera'
     when 'view-galicaster'
-      file = 'screen'
+      file = 'galicaster'
 
   if images?[file]
     "/image/#{roomId}/#{file}?#{timestamp}"
