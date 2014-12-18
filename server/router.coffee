@@ -12,7 +12,7 @@ Router.route '/image/:roomId',
     images = {}
     if req.method is 'POST'
       timestamp = Meteor.call 'getServerTime'
-      allowedFieldnames = ['galicaster', 'presentation', 'camera']
+      allowedFieldnames = ['galicaster', 'presentation', 'presenter']
       busboy = new Busboy headers: req.headers
       busboy.on 'file', (fieldname, file, filename, encoding, mimetype) ->
         if fieldname in allowedFieldnames
@@ -53,7 +53,7 @@ Router.route '/image/:roomId',
       console.log err if err
   @response.end()
 
-Router.route '/image/:roomId/:imageType(galicaster|presentation|camera)',
+Router.route '/image/:roomId/:imageType(galicaster|presentation|presenter)',
   where: 'server'
 .get ->
   # get hashed login token from client cookie

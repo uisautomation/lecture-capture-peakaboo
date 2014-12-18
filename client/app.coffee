@@ -65,7 +65,7 @@ Template.registerHelper 'thumbnail', ->
     when 'view-presentation'
       file = 'presentation'
     when 'view-camera'
-      file = 'camera'
+      file = 'presenter'
     when 'view-galicaster'
       file = 'galicaster'
 
