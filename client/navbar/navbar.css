@@ -3,20 +3,12 @@ body {
 }
 
 #zoom button {
-  font-family: monospace;
-  background-color: #eee;
+  float: right;
+  margin-right: 3px;
 }
 
-#zoom button:hover,
-#zoom button:focus,
-#zoom button:active {
-  background-color: #ddd;
-}
-
-#zoom span {
-  display: inline-block;
-  color: #777;
-  padding: 0 5px;
+#zoom table {
+  width: 100%;
 }
 
 .peakaboo-filter.active {
@@ -26,4 +18,8 @@ body {
 
 .peakaboo-filter-zero {
   opacity: .64;
+}
+
+.peakaboo-dropdown-label {
+  padding-right: 30px;
 }

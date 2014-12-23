@@ -2,6 +2,8 @@ unless Session.get 'view'
   Session.set 'view', 'view-galicaster'
 unless Session.get 'zoom'
   Session.set 'zoom', 3
+unless Session.get 'vumeter'
+  Session.set 'vumeter', true
 Session.set 'search-query'
 
 minZoom = 1
@@ -13,8 +15,10 @@ Template.navbar.events
   'keydown input#search': (e) ->
     if e.which is 13
       e.preventDefault()
-  'click #view a': (e) ->
+  'click #view a.preview': (e) ->
     Session.set 'view', e.currentTarget.id
+  'click #view a.showVolMeter': (e) ->
+    Session.set 'vumeter', not Session.get 'vumeter'
   'click #zoom button': (e) ->
     switch e.currentTarget.id
       when 'zoomOut'
@@ -23,6 +27,7 @@ Template.navbar.events
       when 'zoomIn'
         if Session.get('zoom') < maxZoom
           Session.set 'zoom', Session.get('zoom') + 1
+    e.stopPropagation()
   'change .peakaboo-filter': ->
     url = Router.routes['room_list'].path()
     filters = $('input:checked:not([name="all"])')
@@ -56,6 +61,9 @@ Template.navbar.helpers
 
   roomList: ->
     Router.current().route.getName() in ['room_list', 'room_list_filter']
+
+  showVolMeter: ->
+    Session.get('vumeter')
 
 Template.navbar.rendered = ->
   params = Router.current().params

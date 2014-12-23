@@ -22,3 +22,7 @@
         transform: rotate(359deg);
     }
 }
+
+.thumbnail {
+  margin-bottom: initial;
+}
