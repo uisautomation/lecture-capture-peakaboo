@@ -24,18 +24,14 @@
             <li><a href="#" id="view-camera" class="preview">{{#if view 'view-camera'}}{{>tick}}{{/if}}<span class="peakaboo-dropdown-label">Camera</span></a></li>
             {{#if roomList}}
             <li class="divider"></li>
-            <li id="zoom">
-              <table>
-                <tr>
-                  <td>
-                    <span>Zoom</span>
-                  </td>
-                  <td>
-                    <button type="button" class="btn btn-default {{#if zoomInDisabled}}disabled{{/if}}" id="zoomIn"><span class="glyphicon glyphicon-plus"></span></button>
-                    <button type="button" class="btn btn-default {{#if zoomOutDisabled}}disabled{{/if}}" id="zoomOut"><span class="glyphicon glyphicon-minus"></span></button>
-                  </td>
-                </tr>
-              </table>
+            <li>
+              <div id="zoom">
+                <span>Zoom</span>
+                <div>
+                  <button type="button" class="btn btn-default {{#if zoomOutDisabled}}disabled{{/if}}" id="zoomOut"><span class="glyphicon glyphicon-minus"></span></button>
+                  <button type="button" class="btn btn-default {{#if zoomInDisabled}}disabled{{/if}}" id="zoomIn"><span class="glyphicon glyphicon-plus"></span></button>
+                </div>
+              </div>
             </li>
             <li class="divider"></li>
             <li><a href="#" class="showVolMeter">{{#if showVolMeter}}{{>tick}}{{/if}}<span class="peakaboo-dropdown-label">Show volume meter</span></a></li>

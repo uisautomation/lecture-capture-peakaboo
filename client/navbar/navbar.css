@@ -2,17 +2,28 @@ body {
   padding-top: 70px;
 }
 
-#zoom button {
-  float: right;
-  margin-right: 3px;
-}
-
-#zoom table {
+#zoom {
+  display: table;
   width: 100%;
 }
 
-#zoom td > span {
+#zoom > span {
+  display: table-cell;
   padding-left: 20px;
+}
+
+#zoom > div {
+  display: table-cell;
+}
+
+#zoomOut {
+  margin-right: 8px;
+}
+
+#zoomIn {
+  margin-right: 5px;
+  position: absolute;
+  right: 0;
 }
 
 .peakaboo-filter.active {
