@@ -11,6 +11,10 @@ body {
   width: 100%;
 }
 
+#zoom td > span {
+  padding-left: 20px;
+}
+
 .peakaboo-filter.active {
   border-bottom: 1px solid white;
   border-top: 1px solid white;
