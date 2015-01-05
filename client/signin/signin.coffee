@@ -5,7 +5,7 @@ Template.signin.events
     email = tmpl.find('#loginEmail').value
     password = tmpl.find('#loginPassword').value
     if email
-      Meteor.loginWithPassword email, password, (err) ->
+      Meteor.loginWithLdap email, password, (err) ->
         switch
           when not err
             go = Session.get('go') or '/'
