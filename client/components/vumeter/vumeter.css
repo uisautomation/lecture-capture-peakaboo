@@ -17,5 +17,9 @@
 }
 
 .peakaboo-vumeter.progress {
-  margin: 0
+  margin: 0;
+}
+
+.panel-body > .peakaboo-vumeter.progress {
+  margin: 20px 0 0 0;
 }
