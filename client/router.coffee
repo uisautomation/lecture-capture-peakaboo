@@ -19,14 +19,14 @@ Router.route '/room_list',
   name: 'room_list'
   template: 'room_list'
   subscriptions: ->
-    Meteor.subscribe 'RoomsDisplay', {}, Session.get('hideVumeter')
+    Meteor.subscribe 'RoomsDisplay', {}, Session.get 'showVumeter'
 
 Router.route /^\/room_list\/([\/\w]*)*\/?/, #'/room_list/:room_filter?',
   name: 'room_list_filter'
   template: 'room_list'
   subscriptions: ->
     Meteor.subscribe 'RoomsDisplay', @params[0].split('/'),
-      Session.get 'hideVumeter'
+      Session.get 'showVumeter'
 
 Router.route '/room/:_id',
   name: 'room'

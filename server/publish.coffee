@@ -1,4 +1,4 @@
-Meteor.publish 'RoomsDisplay', (filters, noVumeter) ->
+Meteor.publish 'RoomsDisplay', (filters, vumeter) ->
   if isUserAuthorised @userId, ['admin', 'view-rooms']
     query = {}
     if filters
@@ -30,7 +30,7 @@ Meteor.publish 'RoomsDisplay', (filters, noVumeter) ->
         paused: 1
         recording: 1
         vumeter: 1
-    if noVumeter
+    unless vumeter
       delete fields.fields.vumeter
     
     return Rooms.find query, fields

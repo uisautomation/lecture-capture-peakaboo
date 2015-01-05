@@ -12,9 +12,6 @@ Template.room_summary.helpers
   zoom: ->
     Session.get 'zoom'
 
-  hideVolMeter: ->
-    Session.get 'hideVumeter'
-
 Template.rec.rendered = ->
   @$('[data-toggle="popover"]').each ->
     $(@).popover

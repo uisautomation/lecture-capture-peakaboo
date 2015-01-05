@@ -74,6 +74,9 @@ Template.registerHelper 'thumbnail', ->
   else
     '/images/no_image_available.png'
 
+Template.registerHelper 'showVolMeter', ->
+  Session.get 'showVumeter'
+
 @fireAnim = (element, anim) ->
   events = 'webkitAnimationEnd mozAnimationEnd ' +
            'MSAnimationEnd oanimationend animationend'
