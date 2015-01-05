@@ -16,7 +16,7 @@
         <a href="{{pathFor 'room' _id}}" class="thumbnail">
           <img data-src="holder.js/100%" src="{{thumbnail}}">
         </a>
-        {{#if showVolMeter}}{{>vumeter}}{{/if}}
+        {{#unless hideVolMeter}}{{>vumeter}}{{/unless}}
       </div>
     </div>
   </div>

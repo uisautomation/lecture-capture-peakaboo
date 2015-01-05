@@ -2,8 +2,8 @@ unless Session.get 'view'
   Session.set 'view', 'view-galicaster'
 unless Session.get 'zoom'
   Session.set 'zoom', 3
-unless Session.get 'vumeter'
-  Session.set 'vumeter', true
+unless Session.get 'hideVumeter'
+  Session.set 'hideVumeter', false
 Session.set 'search-query'
 
 minZoom = 1
@@ -18,7 +18,7 @@ Template.navbar.events
   'click #view a.preview': (e) ->
     Session.set 'view', e.currentTarget.id
   'click #view a.showVolMeter': (e) ->
-    Session.set 'vumeter', not Session.get 'vumeter'
+    Session.set 'hideVumeter', not Session.get 'hideVumeter'
   'click #zoom button': (e) ->
     switch e.currentTarget.id
       when 'zoomOut'
@@ -62,8 +62,8 @@ Template.navbar.helpers
   roomList: ->
     Router.current().route.getName() in ['room_list', 'room_list_filter']
 
-  showVolMeter: ->
-    Session.get('vumeter')
+  hideVolMeter: ->
+    Session.get 'hideVumeter'
 
 Template.navbar.rendered = ->
   params = Router.current().params

@@ -1,4 +1,4 @@
-Meteor.publish 'RoomsDisplay', (filters) ->
+Meteor.publish 'RoomsDisplay', (filters, noVumeter) ->
   if isUserAuthorised @userId, ['admin', 'view-rooms']
     query = {}
     if filters
@@ -18,7 +18,8 @@ Meteor.publish 'RoomsDisplay', (filters) ->
     Counts.publish @, 'paused', Rooms.find(paused: true), noReady: true
     Counts.publish @, 'quiet', Rooms.find(vumeter: $lte: 5), noReady: true
     Counts.publish @, 'recording', Rooms.find(recording: true), noReady: true
-    return Rooms.find query,
+    
+    fields =
       fields:
         currentMediaPackage: 1
         currentProfile: 1
@@ -29,7 +30,11 @@ Meteor.publish 'RoomsDisplay', (filters) ->
         paused: 1
         recording: 1
         vumeter: 1
-
+    if noVumeter
+      delete fields.fields.vumeter
+    
+    return Rooms.find query, fields
+    
   @stop()
 
 Meteor.publish 'Room', (_id) ->
