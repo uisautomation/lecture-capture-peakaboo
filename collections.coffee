@@ -6,4 +6,4 @@ Rooms.allow
   update: (userId, doc) ->
     isUserAuthorised userId, ['admin', 'control-rooms', 'galicaster']
   remove: (userId, doc) ->
-    isUserAuthorised userId, ['admin', 'control-rooms', 'galicaster']
+    isUserAuthorised userId, ['admin']

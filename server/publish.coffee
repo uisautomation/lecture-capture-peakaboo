@@ -1,5 +1,5 @@
 Meteor.publish 'RoomsDisplay', (filters, vumeter) ->
-  if isUserAuthorised @userId, ['admin', 'view-rooms']
+  if isUserAuthorised @userId, ['admin', 'control-rooms', 'view-rooms']
     query = {}
     if filters
       query['$or'] = []
@@ -38,7 +38,7 @@ Meteor.publish 'RoomsDisplay', (filters, vumeter) ->
   @stop()
 
 Meteor.publish 'Room', (_id) ->
-  if isUserAuthorised @userId, ['admin', 'view-rooms']
+  if isUserAuthorised @userId, ['admin', 'control-rooms', 'view-rooms']
     return Rooms.find _id: _id
 
 Meteor.publish 'GalicasterControl', (RoomId) ->
