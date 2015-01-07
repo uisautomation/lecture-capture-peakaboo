@@ -53,7 +53,9 @@ Router.route '/room/:_id/repository',
 
 mustBeSignedIn = ->
   if not Meteor.user() and not Meteor.loggingIn()
-    Session.set 'go', Router.current().location.get().path
+    path = Router.current().location.get().path
+    unless path is Router.routes['signin'].path()
+      Session.set 'go', path
     Router.go 'signin'
   else
     @next()
