@@ -53,7 +53,10 @@ Router.route '/room/:_id/repository',
 
 mustBeSignedIn = ->
   if not Meteor.user() and not Meteor.loggingIn()
-    Session.set 'go', Router.current().location.get().path
+    redirect = Router.current().location.get().path
+    if redirect is Router.routes['signin'].path()
+      redirect = Router.routes['room_list'].path()
+    Session.set 'go', redirect
     Router.go 'signin'
   else
     @next()
