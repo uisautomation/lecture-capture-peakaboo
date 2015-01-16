@@ -35,7 +35,6 @@ Meteor.startup ->
       Roles.addUsersToRoles id, user.roles
 
   Accounts.validateNewUser (user) ->
-    console.log Meteor.userId()
     try
       return true if isUserAuthorised Meteor.userId(), ['admin', 'manage-users']
     catch
