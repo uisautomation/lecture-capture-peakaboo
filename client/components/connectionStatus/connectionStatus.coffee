@@ -18,6 +18,8 @@ Template.connectionStatus.rendered = ->
     if @interval then Meteor.clearInterval @interval
     
     switch status.status
+      when 'connecting'
+        Session.setTemp 'offlinePc', '100%'
       when 'connected'
         Session.setTemp 'offlinePc', '0%'
         delete Session.keys['connectRetrySeconds']
