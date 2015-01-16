@@ -71,9 +71,15 @@ Accounts.registerLoginHandler(function (loginRequest) {
 
 		//If user doesn't have ldap data yet, update the user with it.
 		if (!(user.services && user.services.ldap)) {
-			Meteor.users.update(userId,
-				{$set: {services: {ldap: ldapData}}}
-			);
+			Meteor.users.update(userId, {
+				$set: {
+					emails: [{address: ldapData.mail, verified: true}],
+					profile: {name: ldapData.givenName},
+					services: {
+						ldap: ldapData
+					}
+				}
+			});
 		}
 	}
 
