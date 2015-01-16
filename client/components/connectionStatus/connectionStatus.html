@@ -1,0 +1,13 @@
+<template name="connectionStatus">
+  {{#if meteorStatus.retryCount}}
+  <div class="alert alert-danger clearfix" role="alert">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span>
+    Connection to server lost. Retrying{{#if retrySeconds}} in {{retrySeconds}} seconds{{/if}}...
+    <div class="progress">
+      <div class="progress-bar progress-bar-danger" role="progressbar" style="width: {{retryPc}};"></div>
+    </div>
+    <button type="button" class="btn btn-danger pull-right" id="connectionStatus-retry">Retry now</button>
+  </div>
+  {{/if}}
+</template>
