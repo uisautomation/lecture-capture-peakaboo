@@ -15,32 +15,20 @@ Template.connectionStatus.rendered = ->
   @autorun ->
     status = Meteor.status()
 
+    if @interval then Meteor.clearInterval @interval
+    
     switch status.status
-      when 'connecting' then Session.setTemp 'offlinePc', '100%'
-      when 'connected' then Session.setTemp 'offlinePc', '0%'
+      when 'connected'
+        Session.setTemp 'offlinePc', '0%'
+        delete Session.keys['connectRetrySeconds']
+      when 'waiting'
+        min = Date.now()
+        max = status.retryTime
+        range = max - min
 
-    if status.retryCount
-      now = (new Date()).getTime()
-      Session.setTemp 'offlineSince', now
-
-      if @interval then  Meteor.clearInterval @interval
-
-      min = Session.get 'offlineSince'
-      max = status.retryTime
-      range = max - min
-
-      @interval = Meteor.setInterval ->
-        now = (new Date()).getTime() - min
-        value = (now / range) * 100
-        pc = "#{value}%"
-        Session.setTemp 'offlinePc', pc
-        Session.setTemp 'connectRetrySeconds', Math.round((range - now) / 1000)
-      , 500
-
-    else
-      if @interval
-        Meteor.clearInterval @interval
-        Session.setTemp 'offlineSince', null
-
-# Template.connectionStatus.destroyed = ->
-#   Meteor.clearInterval @interval
+        @interval = Meteor.setInterval ->
+          now = Date.now() - min
+          value = (now / range) * 100
+          Session.setTemp 'offlinePc', "#{value}%"
+          Session.setTemp 'connectRetrySeconds', Math.round (range - now) / 1000
+        , 500
