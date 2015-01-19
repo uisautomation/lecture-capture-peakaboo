@@ -237,7 +237,7 @@
             <div class="controls">
               <select id="module-id" name="module-id" class="form-control input-xlarge">
                 {{#each modules}}
-                  <option value="{{#if course_code}}{{course_code}}__{{occurrence_code}}{{/if}}">{{module}}</option>
+                  <option value="{{#if course_code}}{{course_code}}__{{occurrence_code}}{{/if}}">{{module}} ({{course_code}})</option>
                 {{/each}}
               </select>
             </div>
