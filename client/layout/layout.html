@@ -1,9 +1,13 @@
 <template name="layout">
-  {{> navbar}}
-  <div class="container-fluid">
-    {{> connectionStatus}}
-    {{> yield}}
-  </div>
+  {{#if notcool}}
+    {{> notcool}}
+  {{else}}
+    {{> navbar}}
+    <div class="container-fluid">
+      {{> connectionStatus}}
+      {{> yield}}
+    </div>
+  {{/if}}
 </template>
 
 <template name="layout-signed-out">
