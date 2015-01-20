@@ -6,10 +6,30 @@ Template.room_list.helpers
     Rooms.find query, { sort: { displayName: 1 } }
 
 Template.room_list.rendered = ->
-  @$('[data-toggle="tooltip"]').tooltip()
+  console.log Session.get 'zoom'
+  $('.panel-title').each (index) ->
+    title = $(@)
+    span = title.find('[data-toggle="tooltip"]')
+    console.log "index: #{index}, title: #{title.width()}, span: #{span.width()}"
+    span.width 'initial'
+    if span.width() > title.width()
+      span.width '100%'
+    console.log "after: #{span.width()}"
+  $('[data-toggle="tooltip"]').tooltip()
 
 Template.room_summary.helpers
   zoom: ->
+    setTimeout ->
+      $('.panel-title').each (index) ->
+        title = $(@)
+        span = title.find('[data-toggle="tooltip"]')
+        console.log "index: #{index}, title: #{title.width()}, span: #{span.width()}"
+        span.width 'initial'
+        if span.width() > title.width()
+          span.width '100%'
+        console.log "after: #{span.width()}"
+      $('[data-toggle="tooltip"]').tooltip()
+    , .1
     Session.get 'zoom'
 
 Template.rec.rendered = ->

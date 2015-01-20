@@ -50,6 +50,12 @@ Template.room_controls.rendered = ->
     else
       $('#peakaboo-audio-stream span').hide 'slow'
     self.$('#audioStreaming').prop 'src', url
+  ###
+  $('.panel-title').each (index) ->
+    title = $(@)
+    span = title.find('[data-toggle="tooltip"]')
+    span.width('initial')
+  ###
 
 Template.confirmModal.rendered = ->
   Ladda.bind 'button.ladda-button'
