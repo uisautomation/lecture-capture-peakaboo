@@ -6,7 +6,7 @@ Accounts.registerLoginHandler(function (loginRequest) {
 		return undefined;
 	}
 
-	var opts = Meteor.settings.ldap;
+	var opts = JSON.parse(JSON.stringify(Meteor.settings.ldap));
 
 	//Open connection to Active Directory
 	var ad = new ActiveDirectory(opts);
@@ -52,8 +52,6 @@ Accounts.registerLoginHandler(function (loginRequest) {
 	//Create the user if it does not exit.
 	var userId = null;
 	if (!user) {
-
-		var username = loginRequest.username || ldapData.sAMAccountName || "New User";
 
 		//Create the user
 		userId = Meteor.users.insert({
