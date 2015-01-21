@@ -139,7 +139,12 @@ Template.recordModal.events
     series_title = ''
     if $('#module-id').val() isnt 'none__'
       isPartOf = $('#module-id').val()
-      series_title = $('#module-id option:selected').text()
+      series_title_with_code = $('#module-id option:selected').text()
+      code = isPartOf.split '__'
+      r = new RegExp '(.+) \\(' + code[0] + '\\)$'
+      m = series_title_with_code.match r
+      # series title with code stripped
+      series_title = m[1]
 
     profile = $('input[name=profile]:checked').val()
 
