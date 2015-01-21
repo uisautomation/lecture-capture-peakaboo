@@ -77,6 +77,12 @@ Template.registerHelper 'thumbnail', ->
 Template.registerHelper 'showVolMeter', ->
   Session.get 'showVumeter'
 
+Template.registerHelper 'notcool', ->
+  try
+    isUserAuthorised Meteor.userId(), ['view-rooms', 'control-rooms', 'admin']
+    return false
+  true
+
 @fireAnim = (element, anim) ->
   events = 'webkitAnimationEnd mozAnimationEnd ' +
            'MSAnimationEnd oanimationend animationend'
