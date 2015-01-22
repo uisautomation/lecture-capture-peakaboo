@@ -9,6 +9,11 @@ Session.set 'search-query'
 minZoom = 1
 maxZoom = 4
 
+resetFilters = ->
+  $('#peakaboo-filter-clear').addClass 'disabled'
+  $('.peakaboo-filter').removeClass 'active'
+  $('.peakaboo-filter input').prop 'checked', false
+
 Template.navbar.events
   'keyup input#search, click button#searchReset': (e) ->
     Session.set 'search-query', e.currentTarget.value
@@ -41,9 +46,7 @@ Template.navbar.events
 
   'click #peakaboo-filter-clear': (e) ->
     e.stopImmediatePropagation()
-    $('#peakaboo-filter-clear').addClass 'disabled'
-    $('.peakaboo-filter').removeClass 'active'
-    $('.peakaboo-filter input').prop 'checked', false
+    resetFilters()
     Router.go 'room_list'
 
 Template.navbar.helpers
@@ -71,3 +74,5 @@ Template.navbar.rendered = ->
         .prop('checked', true).parent().addClass 'active'
       if selected.length
         $('#peakaboo-filter-clear').removeClass('disabled')
+  @autorun ->
+    resetFilters() unless Router.current().params[0]
