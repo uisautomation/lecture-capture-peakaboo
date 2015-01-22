@@ -31,6 +31,8 @@ Template.room_controls.events
     Session.setTemp 'audioStreaming', not Session.get 'audioStreaming'
   'error #audioStreaming, suspend #audioStreaming': ->
     Session.setTemp 'audioStreaming', false
+  'playing #audioStreaming': ->
+    $('#peakaboo-audio-stream span').hide 'slow'
 
 Template.room_controls.rendered = ->
   @$('[data-toggle="tooltip"]').tooltip()
@@ -44,7 +46,9 @@ Template.room_controls.rendered = ->
     if audioStreaming
       room = self.data.room
       url = "http://#{room.ip}:#{room.stream.port}/#{room.stream.key}"
-
+      $('#peakaboo-audio-stream span').show 'slow'
+    else
+      $('#peakaboo-audio-stream span').hide 'slow'
     self.$('#audioStreaming').prop 'src', url
 
 Template.confirmModal.rendered = ->

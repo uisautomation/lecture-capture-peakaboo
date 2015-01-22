@@ -116,3 +116,9 @@ audio {
 #peakaboo-audio-stream {
   margin-right: 10px;
 }
+
+#peakaboo-audio-stream span {
+  display: none;
+  height: 1em;
+  margin-right: 8px;
+}

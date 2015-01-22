@@ -88,7 +88,7 @@
             <div class="panel-heading">
               <h3 class="panel-title pull-left">Audio</h3>
               <button type="button" id="peakaboo-audio-lock" title="Unlock Audio Panel" class="lock btn {{#if audioLocked}}btn-success{{else}}btn-danger{{/if}} btn-xs pull-right"><i class="fa {{#if audioLocked}}fa-lock{{else}}fa-unlock-alt{{/if}}"></i></button>
-              <button type="button" id="peakaboo-audio-stream" title="Listen" class="btn {{#if audioStreaming}}btn-danger{{else}}btn-success{{/if}} btn-xs pull-right"><i class="glyphicon {{#if audioStreaming}}audiostreaming glyphicon-volume-up{{else}}glyphicon-headphones{{/if}}"></i></button>
+              <button type="button" id="peakaboo-audio-stream" title="Listen" class="btn {{#if audioStreaming}}btn-danger{{else}}btn-success{{/if}} btn-xs pull-right"><span>Buffering... </span><i class="glyphicon {{#if audioStreaming}}audiostreaming glyphicon-volume-up{{else}}glyphicon-headphones{{/if}}"></i></button>
               <div class="clearfix"></div>
             </div>
             <div class="panel-body lockable {{#if audioLocked}}peakaboo-locked{{/if}}" data-lock="peakaboo-audio-lock">
