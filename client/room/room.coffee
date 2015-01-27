@@ -141,7 +141,7 @@ Template.recordModal.events
 
     isPartOf = ''
     series_title = ''
-    if $('#module-id').val() isnt 'none__'
+    if $('#module-id').val() and $('#module-id').val() isnt 'none__'
       isPartOf = $('#module-id').val()
       series_title_with_code = $('#module-id option:selected').text()
       code = isPartOf.split '__'
