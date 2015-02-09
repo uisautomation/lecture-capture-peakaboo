@@ -1,6 +1,14 @@
 setHeartbeat = (err, res) ->
   Session.setTemp 'serverTime', res if not error?
 
+@resize = ->
+  fixedResize = ->
+    $('body').css('margin-top', "#{$('.navbar-fixed-top').outerHeight(true)}px")
+  $(document).ready ->
+    fixedResize()
+    $(window).resize ->
+      fixedResize()
+
 # call once straight away and every 10 seconds thereafter
 Meteor.call 'getServerTime', setHeartbeat
 @heartbeatInterval = Meteor.setInterval ->

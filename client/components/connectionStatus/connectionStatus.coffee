@@ -34,3 +34,6 @@ Template.connectionStatus.rendered = ->
           Session.setTemp 'offlinePc', "#{value}%"
           Session.setTemp 'connectRetrySeconds', Math.round (range - now) / 1000
         , 500
+    setTimeout ->
+      resize()
+    , 50

@@ -4,7 +4,6 @@
   {{else}}
     {{> navbar}}
     <div class="container-fluid">
-      {{> connectionStatus}}
       {{> yield}}
     </div>
   {{/if}}
@@ -13,7 +12,6 @@
 <template name="layout-signed-out">
   {{> navbar_empty}}
   <div class="container-fluid">
-    {{> connectionStatus}}
     {{> yield}}
   </div>
 </template>
