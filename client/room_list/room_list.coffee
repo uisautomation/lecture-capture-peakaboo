@@ -12,7 +12,7 @@ Template.room_list.rendered = ->
     span.width 'initial'
     if span.width() > title.width()
       span.width '100%'
-  $('[data-toggle="tooltip"]').tooltip()
+  @$('[data-toggle="tooltip"]').tooltip()
 
 Template.room_summary.helpers
   zoom: ->
@@ -23,7 +23,7 @@ Template.room_summary.helpers
         span.width 'initial'
         if span.width() > title.width()
           span.width '100%'
-      $('[data-toggle="tooltip"]').tooltip()
+      @$('[data-toggle="tooltip"]').tooltip()
     , .1
     Session.get 'zoom'
 
