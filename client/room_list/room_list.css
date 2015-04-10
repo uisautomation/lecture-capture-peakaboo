@@ -1,4 +1,4 @@
-.panel-title > a,
+.panel-title a,
 .panel-title,
 .popover-title,
 .popover-content {
@@ -22,4 +22,19 @@
 
 .meta {
   display: none;
+}
+
+.panel-title > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.panel-title .tooltip {
+  white-space: initial;
+}
+
+.panel-title span[data-toggle="tooltip"] {
+  display: inline-block;
+  white-space: nowrap;
 }
