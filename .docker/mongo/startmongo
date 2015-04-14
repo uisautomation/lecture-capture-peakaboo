@@ -1,0 +1,13 @@
+#!/bin/bash
+
+mongod --config /data/db/mongodb.conf &
+# while ! nc -vz localhost 27017; do sleep 1; done
+# while ! mongo /data/db/replicaset.js; do sleep 1; done
+# while pgrep mongod; do sleep 1; done
+
+while ! mongo admin --eval "help()" >/dev/null 2>&1; do sleep 1; done
+mongo admin /data/db/replicaset.js
+# while mongo admin --eval "help()"; do sleep 1; done
+# while [ -f /data/db/mongod.lock ]; do sleep 1; done
+sleep 5
+mongod --config /data/db/mongodb.conf

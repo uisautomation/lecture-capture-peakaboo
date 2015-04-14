@@ -1,0 +1,30 @@
+peakaboo:
+  # image: ppettit/peakaboo
+  build: ..
+  environment:
+    - ROOT_URL=https://msu-wkspaul.msu.uscs.susx.ac.uk
+    - MONGO_URL=mongodb://peakabooMongo:27017/peakaboo
+    - MONGO_OPLOG_URL=mongodb://peakabooMongo:27017/local
+  links:
+    - peakabooMongo
+  restart: on-failure
+
+peakabooMongo:
+  image: mongo:3
+  command: /data/db/startmongo
+  volumes:
+    - ./mongo:/data/db
+  restart: on-failure
+  ports:
+    - 27018:27017
+
+peakabooNginx:
+  image: nginx
+  volumes:
+    - ./nginx:/etc/nginx
+  links:
+    - peakaboo
+  ports:
+    - "80:80"
+    - "443:443"
+  restart: on-failure
