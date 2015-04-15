@@ -1,3 +1,8 @@
+Template.room_list.rendered = ->
+  @autorun =>
+    Session.get 'zoom'
+    @$('a.thumbnail img').height(@$('a.thumbnail').first().width() / 16 * 9 + 'px')
+
 Template.room_list.helpers
   rooms: ->
     searchQuery = Session.get 'search-query'
