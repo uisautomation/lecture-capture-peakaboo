@@ -39,19 +39,19 @@ Template.room_controls.rendered = ->
   Session.setTemp 'audioLocked', true
   Session.setTemp 'controlsLocked', true
   Session.setTemp 'audioStreaming', false
-  self = @
   @autorun =>
     offline = Template.currentData().room.offline
     resizePanelTitle()
+  @autorun =>
     audioStreaming = Session.get 'audioStreaming'
     url = ''
     if audioStreaming
-      room = self.data.room
+      room = @data.room
       url = "http://#{room.ip}:#{room.stream.port}/#{room.stream.key}"
-      $('#peakaboo-audio-stream span').show 'slow'
+      @$('#peakaboo-audio-stream span').show 'slow'
     else
-      $('#peakaboo-audio-stream span').hide 'slow'
-    self.$('#audioStreaming').prop 'src', url
+      @$('#peakaboo-audio-stream span').hide 'slow'
+    @$('#audioStreaming').prop 'src', url
 
 Template.confirmModal.rendered = ->
   Ladda.bind 'button.ladda-button'
