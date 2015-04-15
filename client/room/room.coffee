@@ -34,17 +34,15 @@ Template.room_controls.events
   'playing #audioStreaming': ->
     $('#peakaboo-audio-stream span').hide 'slow'
 
+
 Template.room_controls.rendered = ->
-  tooltip = @$('[data-toggle="tooltip"]')
   Session.setTemp 'audioLocked', true
   Session.setTemp 'controlsLocked', true
   Session.setTemp 'audioStreaming', false
   self = @
-  @autorun ->
+  @autorun =>
     offline = Template.currentData().room.offline
-    setTimeout ->
-      tooltip.tooltip('fixTitle')
-    , 50
+    resizePanelTitle()
     audioStreaming = Session.get 'audioStreaming'
     url = ''
     if audioStreaming

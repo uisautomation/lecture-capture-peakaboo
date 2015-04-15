@@ -9,6 +9,16 @@ setHeartbeat = (err, res) ->
     $(window).resize ->
       fixedResize()
 
+@resizePanelTitle = ->
+  title = @$('.panel-title')
+  span = title.find '[data-toggle="tooltip"]'
+  span.width 'initial'
+  if span.width() > title.width()
+    span.width '100%'
+  setTimeout ->
+    span.tooltip('fixTitle')
+  , 50
+
 # call once straight away and every 10 seconds thereafter
 Meteor.call 'getServerTime', setHeartbeat
 @heartbeatInterval = Meteor.setInterval ->
