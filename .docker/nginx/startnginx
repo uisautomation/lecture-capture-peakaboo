@@ -1,0 +1,4 @@
+#!/bin/sh
+
+sed -i "s/\(.*server_name \).*\;/\1${SERVER_NAME}\;/" /etc/nginx/nginx.conf
+nginx -g "daemon off;"
