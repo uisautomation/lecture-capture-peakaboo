@@ -1,7 +1,8 @@
 Template.room_list.rendered = ->
   @autorun =>
     Session.get 'zoom'
-    @$('a.thumbnail img').height(@$('a.thumbnail').first().width() / 16 * 9 + 'px')
+    Session.get 'resize'
+    resizeThumbnails @
 
 Template.room_list.helpers
   rooms: ->
@@ -13,6 +14,7 @@ Template.room_list.helpers
 Template.room_summary.rendered = ->
   @autorun =>
     Session.get 'zoom'
+    Session.get 'resize'
     offline = Template.currentData().offline
     resizePanelTitle @
 

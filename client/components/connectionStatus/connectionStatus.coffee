@@ -16,7 +16,7 @@ Template.connectionStatus.rendered = ->
     status = Meteor.status()
 
     if @interval then Meteor.clearInterval @interval
-    
+
     switch status.status
       when 'connecting'
         Session.setTemp 'offlinePc', '100%'
@@ -34,6 +34,6 @@ Template.connectionStatus.rendered = ->
           Session.setTemp 'offlinePc', "#{value}%"
           Session.setTemp 'connectRetrySeconds', Math.round (range - now) / 1000
         , 500
-    setTimeout ->
-      resize()
+    Meteor.setTimeout ->
+      fixNav()
     , 50

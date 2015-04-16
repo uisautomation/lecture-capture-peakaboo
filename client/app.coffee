@@ -1,22 +1,25 @@
 setHeartbeat = (err, res) ->
   Session.setTemp 'serverTime', res if not error?
 
-@resize = ->
-  fixedResize = ->
-    $('body').css('margin-top', "#{$('.navbar-fixed-top').outerHeight(true)}px")
-  $(document).ready ->
-    fixedResize()
-    $(window).resize ->
-      fixedResize()
-      @resizePanelTitle @
+Session.set 'resize', null
+
+Meteor.startup ->
+  $(window).resize ->
+    Session.set 'resize', new Date()
+
+@fixNav = ->
+  $('body').css 'margin-top', "#{$('.navbar-fixed-top').outerHeight(true)}px"
+
+@resizeThumbnails = (template) ->
+  template.$('a.thumbnail img').height template.$('a.thumbnail').first().width() / 16 * 9 + 'px'
 
 @resizePanelTitle = (template) ->
   title = template.$ '.panel-title'
   span = title.find '[data-toggle="tooltip"]'
-  span.width 'initial'
-  if span.width() > title.width()
-    span.width '100%'
-  setTimeout ->
+  Meteor.setTimeout ->
+    span.width 'initial'
+    if span.width() > title.width()
+      span.width '100%'
     span.tooltip 'fixTitle'
   , 50
 
