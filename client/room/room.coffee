@@ -41,7 +41,7 @@ Template.room_controls.rendered = ->
   Session.setTemp 'audioStreaming', false
   @autorun =>
     offline = Template.currentData().room.offline
-    resizePanelTitle()
+    resizePanelTitle @
   @autorun =>
     audioStreaming = Session.get 'audioStreaming'
     url = ''

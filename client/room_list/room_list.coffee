@@ -9,7 +9,7 @@ Template.room_summary.rendered = ->
   @autorun =>
     Session.get 'zoom'
     offline = Template.currentData().offline
-    resizePanelTitle()
+    resizePanelTitle @
 
 Template.room_summary.helpers
   zoom: ->
