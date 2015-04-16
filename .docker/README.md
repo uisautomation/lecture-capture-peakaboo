@@ -3,21 +3,25 @@
 Install `docker` and `docker-compose`:
 
 ```shell
-# centos
-yum install docker-io
-pip install docker-compose
+# centos 6.5
+sudo yum install docker-io
+sudo pip install docker-compose
+sudo service docker start
+sudo chkconfig docker on
 
 # arch
 pacaur -S docker docker-compose
+sudo systemctl start docker
+sudo systemctl enable docker
 
 # ubuntu (untested)
 wget -qO- https://get.docker.com/ | sh
-pip install docker-composer
+sudo pip install docker-compose
 ```
 
-Put `my.crt` and `my.key` and `.htaccess` for the galicaster user into `nginx/`
+Put `my.crt` and `my.key` and `.htpasswd` for the galicaster user into `nginx/`
 
-From this directory, run:
+From the .docker directory, run:
 
 ```shell
 export SERVER_NAME=peakaboo.uscs.susx.ac.uk
