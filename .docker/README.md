@@ -24,6 +24,7 @@ Put `my.crt` and `my.key` and `.htpasswd` for the galicaster user into `nginx/`
 From the .docker directory, run:
 
 ```shell
+export METEOR_SETTINGS={"my":{"meteor":"settings"}}
 export SERVER_NAME=peakaboo.uscs.susx.ac.uk
 docker-compose up
 ```
