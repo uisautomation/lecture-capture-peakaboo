@@ -17,6 +17,7 @@ Template.room_summary.rendered = ->
     Session.get 'resize'
     offline = Template.currentData().offline
     resizePanelTitle @
+  Session.set 'resize', new Date()
 
 Template.room_summary.helpers
   zoom: ->
