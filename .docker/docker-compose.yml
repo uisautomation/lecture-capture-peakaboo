@@ -12,6 +12,8 @@ peakaboo:
 peakabooMongo:
   image: mongo:3
   command: /data/db/startmongo
+  environment:
+    - MONGO_INIT
   volumes:
     - ./mongo:/data/db
   restart: on-failure

@@ -7,3 +7,4 @@ config
 .docker/mongo/journal
 .docker/mongo/storage.bson
 *.lock
+*.env

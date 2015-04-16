@@ -19,12 +19,18 @@ wget -qO- https://get.docker.com/ | sh
 sudo pip install docker-compose
 ```
 
+To make sure mongo is set up correctly (one time only oplog config):
+
+```shell
+MONGO_INIT=true docker-compose peakabooMongo
+```
+
 Put `my.crt` and `my.key` and `.htpasswd` for the galicaster user into `nginx/`
 
 From the .docker directory, run:
 
 ```shell
-export METEOR_SETTINGS={"my":{"meteor":"settings"}}
+export METEOR_SETTINGS="{\"my\":{\"meteor\":\"settings\"}}"
 export SERVER_NAME=peakaboo.uscs.susx.ac.uk
 docker-compose up
 ```
