@@ -2,6 +2,7 @@ Template.room_list.rendered = ->
   @autorun =>
     Session.get 'zoom'
     Session.get 'resize'
+    Session.get 'roomSummaryRendered'
     resizeThumbnails @
 
 Template.room_list.helpers
@@ -17,7 +18,7 @@ Template.room_summary.rendered = ->
     Session.get 'resize'
     offline = Template.currentData().offline
     resizePanelTitle @
-  Session.set 'resize', new Date()
+  Session.set 'roomSummaryRendered', new Date()
 
 Template.room_summary.helpers
   zoom: ->

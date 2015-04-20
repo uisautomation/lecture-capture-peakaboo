@@ -1,8 +1,6 @@
 setHeartbeat = (err, res) ->
   Session.setTemp 'serverTime', res if not error?
 
-Session.set 'resize', null
-
 Meteor.startup ->
   $(window).resize ->
     Session.set 'resize', new Date()
