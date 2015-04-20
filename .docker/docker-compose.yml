@@ -1,0 +1,33 @@
+peakaboo:
+  build: ..
+  environment:
+    - MONGO_URL=mongodb://peakabooMongo:27017/peakaboo
+    - MONGO_OPLOG_URL=mongodb://peakabooMongo:27017/local
+    - SERVER_NAME
+    - METEOR_SETTINGS
+  links:
+    - peakabooMongo
+  restart: on-failure
+
+peakabooMongo:
+  image: mongo:3
+  command: /data/db/startmongo
+  environment:
+    - MONGO_INIT
+  volumes:
+    - ./mongo:/data/db
+  restart: on-failure
+
+peakabooNginx:
+  image: nginx
+  command: /etc/nginx/startnginx
+  environment:
+    - SERVER_NAME
+  volumes:
+    - ./nginx:/etc/nginx
+  links:
+    - peakaboo
+  ports:
+    - "80:80"
+    - "443:443"
+  restart: on-failure

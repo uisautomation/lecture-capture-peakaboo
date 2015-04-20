@@ -1,1 +1,10 @@
 config
+*.crt
+*.key
+.htpasswd
+*.wt
+.docker/mongo/WiredTiger*
+.docker/mongo/journal
+.docker/mongo/storage.bson
+*.lock
+*.env

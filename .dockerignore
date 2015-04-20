@@ -1,0 +1,8 @@
+.git
+.meteor/local
+.assets
+log
+config
+tmp
+.docker/mongo
+.docker/nginx
