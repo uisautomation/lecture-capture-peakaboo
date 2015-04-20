@@ -54,7 +54,10 @@ Template.registerHelper 'metadata', (metadata) ->
         ''
       else
         "#{durationM} minutes"
-    metadata.durationDisplay = if durationHString then "#{durationHString} #{durationMString}" else "#{durationMString}"
+    metadata.durationDisplay = if durationHString
+      "#{durationHString} #{durationMString}"
+    else
+      "#{durationMString}"
     if metadata.series_identifier
       metadata.series_identifier = metadata.series_identifier.replace '__', ':'
   metadata
