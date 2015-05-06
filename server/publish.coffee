@@ -16,9 +16,9 @@ Meteor.publish 'RoomsDisplay', (filters, vumeter) ->
       unless query['$or'].length then query = {}
     Counts.publish @, 'offline', Rooms.find(offline: true), noReady: true
     Counts.publish @, 'paused', Rooms.find(paused: true), noReady: true
-    Counts.publish @, 'quiet', Rooms.find(vumeter: $lte: 5), noReady: true
+    Counts.publish @, 'quiet', Rooms.find(vumeter: $lte: 0), noReady: true
     Counts.publish @, 'recording', Rooms.find(recording: true), noReady: true
-    
+
     fields =
       fields:
         currentMediaPackage: 1
@@ -32,9 +32,9 @@ Meteor.publish 'RoomsDisplay', (filters, vumeter) ->
         vumeter: 1
     unless vumeter
       delete fields.fields.vumeter
-    
+
     return Rooms.find query, fields
-    
+
   @stop()
 
 Meteor.publish 'Room', (_id) ->
