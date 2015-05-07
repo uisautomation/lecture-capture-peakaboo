@@ -81,3 +81,14 @@ Meteor.methods
         $set: 'audio.$.level' : level
       }, (err, result) ->
         console.log err if err
+
+  getLogins: () ->
+    logins = Meteor.settings.logins
+    loginMethods = []
+
+    for own login, settings of logins
+      if settings.active
+        loginMethods.push 'loginWith' + login.charAt(0).toUpperCase() +
+          login.slice(1).toLowerCase()
+
+    loginMethods
