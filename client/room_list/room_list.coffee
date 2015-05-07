@@ -1,7 +1,9 @@
 Template.room_list.rendered = ->
   @autorun =>
     Session.get 'zoom'
-    @$('a.thumbnail img').height(@$('a.thumbnail').first().width() / 16 * 9 + 'px')
+    Session.get 'resize'
+    Session.get 'roomSummaryRendered'
+    resizeThumbnails @
 
 Template.room_list.helpers
   rooms: ->
@@ -11,27 +13,15 @@ Template.room_list.helpers
     Rooms.find query, { sort: { displayName: 1 } }
 
 Template.room_summary.rendered = ->
-  title = @$('.panel-title')
-  span = title.find '[data-toggle="tooltip"]'
-  @autorun ->
+  @autorun =>
+    Session.get 'zoom'
+    Session.get 'resize'
     offline = Template.currentData().offline
-    span.width 'initial'
-    if span.width() > title.width()
-      span.width '100%'
-    setTimeout ->
-      span.tooltip('fixTitle')
-    , 50
+    resizePanelTitle @
+  Session.set 'roomSummaryRendered', new Date()
 
 Template.room_summary.helpers
   zoom: ->
-    setTimeout ->
-      $('.panel-title').each (index, element) ->
-        title = $(element)
-        span = title.find('[data-toggle="tooltip"]')
-        span.width 'initial'
-        if span.width() > title.width()
-          span.width '100%'
-    , 50
     Session.get 'zoom'
 
 Template.rec.rendered = ->

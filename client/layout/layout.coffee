@@ -1,5 +1,9 @@
 Template.layout.rendered = ->
-  resize()
+  @autorun =>
+    fixNav()
+    Session.get 'resize'
 
 Template['layout-signed-out'].rendered = ->
-  resize()
+  @autorun ->
+    fixNav()
+    Session.get 'resize'

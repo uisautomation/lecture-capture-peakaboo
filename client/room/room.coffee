@@ -34,26 +34,24 @@ Template.room_controls.events
   'playing #audioStreaming': ->
     $('#peakaboo-audio-stream span').hide 'slow'
 
+
 Template.room_controls.rendered = ->
-  tooltip = @$('[data-toggle="tooltip"]')
   Session.setTemp 'audioLocked', true
   Session.setTemp 'controlsLocked', true
   Session.setTemp 'audioStreaming', false
-  self = @
-  @autorun ->
+  @autorun =>
     offline = Template.currentData().room.offline
-    setTimeout ->
-      tooltip.tooltip('fixTitle')
-    , 50
+    resizePanelTitle @
+  @autorun =>
     audioStreaming = Session.get 'audioStreaming'
     url = ''
     if audioStreaming
-      room = self.data.room
+      room = @data.room
       url = "http://#{room.ip}:#{room.stream.port}/#{room.stream.key}"
-      $('#peakaboo-audio-stream span').show 'slow'
+      @$('#peakaboo-audio-stream span').show 'slow'
     else
-      $('#peakaboo-audio-stream span').hide 'slow'
-    self.$('#audioStreaming').prop 'src', url
+      @$('#peakaboo-audio-stream span').hide 'slow'
+    @$('#audioStreaming').prop 'src', url
 
 Template.confirmModal.rendered = ->
   Ladda.bind 'button.ladda-button'
