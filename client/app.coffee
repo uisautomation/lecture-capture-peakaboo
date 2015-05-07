@@ -9,9 +9,9 @@ Meteor.startup ->
   $('body').css 'margin-top', "#{$('.navbar-fixed-top').outerHeight(true)}px"
 
 @resizeThumbnails = (template) ->
-  template.$('a.thumbnail img').height(
-    template.$('a.thumbnail').first().width() / 16 * 9 + 'px'
-  )
+  Meteor.defer ->
+    template.$ 'a.thumbnail img'
+      .height template.$('a.thumbnail').first().width() / 16 * 9 + 'px'
 
 @resizePanelTitle = (template) ->
   title = template.$ '.panel-title'
