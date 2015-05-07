@@ -199,4 +199,6 @@ Template.recordModal.helpers
   error: ->
     Session.get 'recError'
   disabled: ->
-    'disabled' if Session.get('recWaiting') or Session.get('recError') or not Session.get 'recTitle'
+    'disabled' if Session.get('recWaiting') or
+      Session.get('recError') or
+      not Session.get 'recTitle'
