@@ -1,9 +1,6 @@
-unless Session.get 'view'
-  Session.set 'view', 'view-galicaster'
-unless Session.get 'zoom'
-  Session.set 'zoom', 3
-unless Session.get 'showVumeter'
-  Session.set 'showVumeter', false
+Session.setDefaultPersistent 'view', 'view-galicaster'
+Session.setDefaultPersistent 'zoom', 3
+Session.setDefaultPersistent 'showVumeter', false
 Session.set 'search-query'
 
 minZoom = 1
@@ -21,17 +18,17 @@ Template.navbar.events
     if e.which is 13
       e.preventDefault()
   'click #view a.preview': (e) ->
-    Session.set 'view', e.currentTarget.id
+    Session.setPersistent 'view', e.currentTarget.id
   'click #view a.showVolMeter': (e) ->
-    Session.set 'showVumeter', not Session.get 'showVumeter'
+    Session.setPersistent 'showVumeter', not Session.get 'showVumeter'
   'click #zoom button': (e) ->
     switch e.currentTarget.id
       when 'zoomOut'
         if Session.get('zoom') > minZoom
-          Session.set 'zoom', Session.get('zoom') - 1
+          Session.setPersistent 'zoom', Session.get('zoom') - 1
       when 'zoomIn'
         if Session.get('zoom') < maxZoom
-          Session.set 'zoom', Session.get('zoom') + 1
+          Session.setPersistent 'zoom', Session.get('zoom') + 1
     e.stopPropagation()
   'change .peakaboo-filter': ->
     url = Router.routes['room_list'].path()
