@@ -1,6 +1,6 @@
-Session.setDefaultPersistent 'view', 'view-galicaster'
-Session.setDefaultPersistent 'zoom', 3
-Session.setDefaultPersistent 'showVumeter', false
+Session.setDefault 'view', 'view-galicaster'
+Session.setDefault 'zoom', 3
+Session.setDefault 'showVumeter', false
 Session.set 'search-query'
 
 minZoom = 1
