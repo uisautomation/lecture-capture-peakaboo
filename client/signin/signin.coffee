@@ -46,3 +46,6 @@ Template.signin.events
 Template.signin.helpers
   loginerror: ->
     Session.get 'login.error'
+
+  cashide: ->
+    Session.get 'cas.hide'

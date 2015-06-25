@@ -2,6 +2,10 @@ setHeartbeat = (err, res) ->
   Session.setTemp 'serverTime', res if not error?
 
 Meteor.startup ->
+  Meteor.call 'getLogins', (err, loginMethods) ->
+    if 'loginWithCas' not in loginMethods
+      Session.set 'cas.hide', true
+
   $(window).resize ->
     Session.set 'resize', new Date()
 
