@@ -68,8 +68,8 @@ var casTicket = function (req, token, callback) {
       console.log("accounts-cas: error when trying to validate " + err);
     } else {
       if (status) {
-        console.log("accounts-cas: user validated " + username);
-        _casCredentialTokens[token] = { id: username };
+        console.log("accounts-cas: user validated " + username.toLowerCase());
+        _casCredentialTokens[token] = { id: username.toLowerCase() };
       } else {
         console.log("accounts-cas: unable to validate " + ticketId);
       }
@@ -97,7 +97,8 @@ var casTicket = function (req, token, callback) {
   var result = _retrieveCredential(options.cas.credentialToken);
   var options = { profile: { name: result.id } };
   var user = Meteor.users.findOne({username: result.id});
-  //var user = 'ham'
+
+  // the below method will not work correctly as is an undocumented feature of meteor
   // var user = Accounts.updateOrCreateUserFromExternalService("cas", result, options);
   // return userId;
   //Create the user if it does not exit.
@@ -106,27 +107,16 @@ var casTicket = function (req, token, callback) {
 
 		//Create the user
 		userId = Meteor.users.insert({
-			username: result.id,
-			profile: {name: result.id},
-			emails: [{address: result.id + '@manchester.ac.uk', verified: true}],
+		username: result.id,
+		profile: {name: result.id},
+		emails: [{address: result.id + '@manchester.ac.uk', verified: true}],
+
 		});
     //Roles.addUsersToRoles(userId, ['view-rooms']);
 	} else {
 		//Get the user id of the already created user
 		userId = user._id;
 
-		//If user doesn't have ldap data yet, update the user with it.
-	//	if (!(user.services && user.services.ldap)) {
-	//		Meteor.users.update(userId, {
-	//			$set: {
-	//				emails: [{address: ldapData.mail, verified: true}],
-	//				profile: {name: ldapData.givenName},
-	//				services: {
-	//					ldap: ldapData
-	//				}
-	//			}
-	//		});
-	//	}
 	}
 
 	//creating the token and add to the user
