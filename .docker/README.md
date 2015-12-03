@@ -40,3 +40,10 @@ To rebuild the peakaboo image run:
 ```shell
 docker-compose build peakaboo
 ```
+
+To divert logs to syslog so that they are auto rotated and don't fill up the
+disk, make sure `/etc/sysconfig/docker` (CentOS 6) has:
+
+```shell
+other_args="--log-driver=syslog"
+```
