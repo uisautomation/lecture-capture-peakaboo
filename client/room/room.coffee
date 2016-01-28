@@ -45,9 +45,16 @@ Template.room_controls.rendered = ->
   @autorun =>
     audioStreaming = Session.get 'audioStreaming'
     url = ''
+    Meteor.call 'getAudioServer', (err, server) ->
+      Session.set 'getAudioServer', server
+    audioServer = Session.get 'getAudioServer'
     if audioStreaming
       room = @data.room
-      url = "http://#{room.ip}:#{room.stream.port}/#{room.stream.key}"
+      if audioServer
+        url = audioServer + "/#{room._id}"
+      else
+        url = "http://#{room.ip}:#{room.stream.port}/#{room.stream.key}"
+      console.log url
       @$('#peakaboo-audio-stream span').show 'slow'
     else
       @$('#peakaboo-audio-stream span').hide 'slow'
