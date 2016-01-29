@@ -107,6 +107,3 @@ Meteor.methods
     allControlUser = Meteor.settings.cas.ControlUsers
     if Meteor.user().username in allControlUser
       Roles.addUsersToRoles(Meteor.user(), ['control-rooms'])
-
-  getAudioServer: () ->
-    Meteor.settings.audioServer

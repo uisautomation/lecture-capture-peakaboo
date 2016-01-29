@@ -45,9 +45,7 @@ Template.room_controls.rendered = ->
   @autorun =>
     audioStreaming = Session.get 'audioStreaming'
     url = ''
-    Meteor.call 'getAudioServer', (err, server) ->
-      Session.set 'getAudioServer', server
-    audioServer = Session.get 'getAudioServer'
+    audioServer = Meteor.settings.public.audioServer
     if audioStreaming
       room = @data.room
       if audioServer
