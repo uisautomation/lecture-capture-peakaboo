@@ -112,6 +112,9 @@ Template.registerHelper 'notcool', ->
     return false
   true
 
+Template.registerHelper 'appname', ->
+  return Meteor.settings.public.applicationName
+  
 @fireAnim = (element, anim) ->
   events = 'webkitAnimationEnd mozAnimationEnd ' +
            'MSAnimationEnd oanimationend animationend'
