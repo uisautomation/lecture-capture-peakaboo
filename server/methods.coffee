@@ -25,13 +25,14 @@ Meteor.methods
   restartGalicaster: (id) ->
     if isUserAuthorised Meteor.userId(), ['admin', 'control-rooms']
       Async.runSync (done) ->
-        sshExec id, 'killall python2', 'restart galicaster', (error, result) ->
+        sshExec id, 'pkill -f python', 'restart galicaster', (error, result) ->
           done error, result
 
   rebootMachine: (id) ->
     if isUserAuthorised Meteor.userId(), ['admin', 'control-rooms']
       Async.runSync (done) ->
-        sshExec id, 'sudo reboot', 'reboot', (error, result) ->
+        password = Meteor.settings.auth.password
+        sshExec id, 'echo ' + password + ' | sudo -S reboot', 'reboot', (error, result) ->
           done error, result
 
   getServerTime: ->
