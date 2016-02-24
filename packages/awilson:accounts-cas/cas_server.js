@@ -109,7 +109,9 @@ var casTicket = function (req, token, callback) {
 		userId = Meteor.users.insert({
 		username: result.id,
 		profile: {name: result.id},
-		emails: [{address: result.id + '@manchester.ac.uk', verified: true}],
+    // getting email attribute from CAS would require a more advanced version of the package
+    // optional generating email based on cas username and static suffix
+		// emails: [{address: result.id + Meteor.settings.cas.emailsuffix, verified: true}],
 
 		});
     //Roles.addUsersToRoles(userId, ['view-rooms']);
