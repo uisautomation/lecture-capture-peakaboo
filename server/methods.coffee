@@ -31,8 +31,7 @@ Meteor.methods
   rebootMachine: (id) ->
     if isUserAuthorised Meteor.userId(), ['admin', 'control-rooms']
       Async.runSync (done) ->
-        password = Meteor.settings.auth.password
-        sshExec id, 'echo ' + password + ' | sudo -S reboot', 'reboot', (error, result) ->
+        sshExec id, 'sudo reboot', 'reboot', (error, result) ->
           done error, result
 
   getServerTime: ->
