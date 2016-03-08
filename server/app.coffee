@@ -42,7 +42,8 @@ Meteor.startup ->
 
 Meteor.setInterval ->
   now = Meteor.call 'getServerTime'
-  Rooms.update {heartbeat: {$lt: now - 15}},
+  caTimeout = Meteor.settings.caTimeout
+  Rooms.update {heartbeat: {$lt: now - caTimeout}},
     {$set: {offline: true}},
     {multi: true}
 , 10000

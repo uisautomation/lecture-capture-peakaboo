@@ -2,7 +2,29 @@
   <div class="container">
     <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-info">
-        <div class="panel-heading"><strong>Sign In</strong></div>
+        <div class="panel-heading"><strong>Sign In</strong>
+          {{#if cashide}}
+          {{else}}
+            <i class="glyphicon glyphicon-info-sign pull-right" data-toggle="modal" data-target=".info-modal-cas"></i>
+            <!-- Information modal -->
+            <div class="modal fade info-modal-cas">
+              <div class="modal-dialog">
+                <div class="modal-content panel-info">
+                  <div class="modal-header panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="glyphicon glyphicon-remove"></i></button>
+                    <h4 class="modal-title"><strong>Information</strong></h4>
+                  </div>
+                  <div class="modal-body">
+                    <p>To sign in you may need to allow popups within your web browser</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+          {{/if}}
+        </div>
         <div class="panel-body">
           {{#if loginerror}}
             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -11,16 +33,20 @@
             </div>
           {{/if}}
           <form>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Username</label>
-            <input type="email" class="form-control" id="loginEmail" placeholder="Username">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="loginPassword" placeholder="Password">
-          </div>
-          <button type="submit" id="custom-signin" class="btn btn-primary form-control">Sign in</button>
-        </form>
+            {{#if cashide}}
+              <div class="form-group">
+                <label for="exampleInputEmail1">Username</label>
+                <input type="email" class="form-control" id="loginEmail" placeholder="Username">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="loginPassword" placeholder="Password">
+              </div>
+              <button type="submit" id="custom-signin" class="btn btn-primary form-control">Sign in</button>
+            {{else}}
+              <button type="submit" id="cas-signin" class="btn btn-primary form-control">Login</button>
+            {{/if}}
+          </form>
         </div>
       </div>
     </div>

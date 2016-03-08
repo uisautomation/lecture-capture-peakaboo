@@ -25,7 +25,7 @@ Meteor.methods
   restartGalicaster: (id) ->
     if isUserAuthorised Meteor.userId(), ['admin', 'control-rooms']
       Async.runSync (done) ->
-        sshExec id, 'killall python2', 'restart galicaster', (error, result) ->
+        sshExec id, 'pkill -f python', 'restart galicaster', (error, result) ->
           done error, result
 
   rebootMachine: (id) ->
@@ -92,3 +92,18 @@ Meteor.methods
           login.slice(1).toLowerCase()
 
     loginMethods
+
+  getViewOnlyUsers: () ->
+    allViewOnlyUser = Meteor.settings.cas.viewOnlyUsers
+    if Meteor.user().username in allViewOnlyUser
+      Roles.addUsersToRoles(Meteor.user(), ['view-rooms'])
+
+  getAdminUsers: () ->
+    allAdminUser = Meteor.settings.cas.adminUsers
+    if Meteor.user().username in allAdminUser
+      Roles.addUsersToRoles(Meteor.user(), ['admin'])
+
+  getControlUsers: () ->
+    allControlUser = Meteor.settings.cas.ControlUsers
+    if Meteor.user().username in allControlUser
+      Roles.addUsersToRoles(Meteor.user(), ['control-rooms'])
