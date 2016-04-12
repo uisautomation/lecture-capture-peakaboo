@@ -25,16 +25,17 @@ peakabooMongoSetup:
   links:
     - peakabooMongo
   volumes:
-    - ./mongo:/scripts
+    - ./mongo:/scripts:ro
   entrypoint: [ "/scripts/setupmongo" ]
 
 peakabooNginx:
   image: nginx
-  command: /etc/nginx/startnginx
+  command: /scripts/startnginx
   environment:
     - SERVER_NAME
   volumes:
-    - ./nginx:/etc/nginx
+    - ./nginx:/tmp/nginx
+    - ./nginx/startnginx:/scripts/startnginx:ro
   links:
     - peakaboo
   ports:

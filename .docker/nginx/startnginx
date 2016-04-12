@@ -1,4 +1,11 @@
 #!/bin/sh
 
-sed -i "s/\(.*server_name \).*\;/\1${SERVER_NAME}\;/" /etc/nginx/nginx.conf
+sed -i "s/\(.*server_name \).*\;/\1${SERVER_NAME}\;/" /tmp/nginx/nginx.conf
+
+cp /tmp/nginx/*.conf /etc/nginx/
+cp /tmp/nginx/.htpasswd /etc/nginx/
+mkdir -p /certs
+cp /tmp/nginx/my.crt /certs/my.crt
+cp /tmp/nginx/my.key /certs/my.key
+
 nginx -g "daemon off;"
