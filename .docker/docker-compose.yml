@@ -11,20 +11,31 @@ peakaboo:
 
 peakabooMongo:
   image: mongo:3
-  command: /data/db/startmongo
-  environment:
-    - MONGO_INIT
+  entrypoint: [ "/usr/bin/mongod",
+                "--replSet", "peakaboo",
+                "--oplogSize", "128",
+                "--storageEngine", "wiredTiger",
+                "--smallfiles" ]
   volumes:
-    - ./mongo:/data/db
+    - ./mongo/db:/data/db
   restart: on-failure
+
+peakabooMongoSetup:
+  image: mongo:3
+  links:
+    - peakabooMongo
+  volumes:
+    - ./mongo:/scripts:ro
+  entrypoint: [ "/scripts/setupmongo" ]
 
 peakabooNginx:
   image: nginx
-  command: /etc/nginx/startnginx
+  command: /scripts/startnginx
   environment:
     - SERVER_NAME
   volumes:
-    - ./nginx:/etc/nginx
+    - ./nginx:/tmp/nginx
+    - ./nginx/startnginx:/scripts/startnginx:ro
   links:
     - peakaboo
   ports:
