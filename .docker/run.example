@@ -16,6 +16,6 @@
 #  SERVER_NAME - FQDN of server running peakaboo
 
 sudo \
-METEOR_SETTINGS="{\"auth\":{\"username\":\"___\",\"password\":\___"\"},\"imageDir\":\"/tmp/peakaboo-image\",\"ldap\":{\"url\":\"___\",\"baseDN\":\"___\",\"username\":\"___\",\"password\":\"___\",\"attributes\":{\"user\":[\"cn\",\"displayName\",\"givenName\",\"mail\",\"memberOf\"]}},\"cas\":{\"active\":true,\"baseUrl\":\"___\",\"autoClose\":true},\"public\":{\"cas\":{\"loginUrl\":\"___\",\"serviceParam\":\"service\",\"popupWidth\":810,\"popupHeight\":610}},\"logins\":{\"password\":{\"active\":true},\"ldap\":{\"active\":true},\"cas\":{\"active\":false}}}" \
+METEOR_SETTINGS="{\"auth\":{\"username\":\"___\",\"password\":\"___\"},\"imageDir\":\"/tmp/peakaboo-image\",\"ldap\":{\"url\":\"___\",\"baseDN\":\"___\",\"username\":\"___\",\"password\":\"___\",\"attributes\":{\"user\":[\"cn\",\"displayName\",\"givenName\",\"mail\",\"memberOf\"]}},\"cas\":{\"active\":true,\"baseUrl\":\"___\",\"autoClose\":true},\"public\":{\"cas\":{\"loginUrl\":\"___\",\"serviceParam\":\"service\",\"popupWidth\":810,\"popupHeight\":610}},\"logins\":{\"password\":{\"active\":true},\"ldap\":{\"active\":true},\"cas\":{\"active\":false}}}" \
 SERVER_NAME=___ \
 docker-compose up -d
