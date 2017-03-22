@@ -6,5 +6,7 @@ config
 .docker/mongo/WiredTiger*
 .docker/mongo/journal
 .docker/mongo/storage.bson
+.docker/mongo/diagnostic.data
 *.lock
 *.env
+node_modules
