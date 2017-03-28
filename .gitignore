@@ -2,11 +2,5 @@ config
 *.crt
 *.key
 .htpasswd
-*.wt
-.docker/mongo/WiredTiger*
-.docker/mongo/journal
-.docker/mongo/storage.bson
-.docker/mongo/diagnostic.data
-*.lock
-*.env
+.docker/mongo/db
 node_modules
