@@ -27,5 +27,5 @@ standard-minifier-css
 standard-minifier-js
 shell-server
 
-meteorhacks:fast-render
 ppettit:accounts-ldap
+ecmascript
