@@ -21,7 +21,6 @@ linto:fontawesome
 pmgration:bootstrap-slider
 tmeasday:publish-counts
 peerlibrary:async
-johdirr:meteor-git-rev
 atoy40:accounts-cas
 standard-minifier-css
 standard-minifier-js
@@ -29,3 +28,4 @@ shell-server
 
 ppettit:accounts-ldap
 ecmascript
+ppettit:versions
