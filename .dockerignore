@@ -1,7 +1,10 @@
+.assets
+.capture_plugins
 .git
 .meteor/local
 .assets
 log
+node_modules
 config
 tmp
 .docker/mongo
