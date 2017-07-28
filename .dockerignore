@@ -1,6 +1,8 @@
 .assets
 .capture_plugins
-.git
+.git/*
+!.git/HEAD
+!.git/refs
 .meteor/local
 .assets
 log
