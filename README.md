@@ -71,3 +71,7 @@ docker-compose stop
 docker-compose build peakaboo
 docker-compose up -d
 ```
+Client Side
+-----------
+
+To send/recieve data from the peakaboo app you will need to use a client that uses the Distributed data protocol from Meteor. You could write your own, or check out the examples in the docs directory: [Peakaboo Plugins](docs/capture_agent_plugins/examples)
