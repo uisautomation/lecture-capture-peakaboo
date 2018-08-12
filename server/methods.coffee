@@ -1,38 +1,21 @@
-Connection = Npm.require 'ssh2'
 xml2js.parseStringSync = Meteor.wrapAsync xml2js.parseString
-
-sshExec = (id, command, action, callback) ->
-  room = Rooms.findOne id
-  if room
-    conn = new Connection()
-    conn.on 'ready', ->
-      conn.exec command, (err, stream) ->
-        callback "Could not complete action '#{action}' on #{id}." if err
-        stream.on 'exit', (code, signal) ->
-          if code
-            callback "Command to '#{command}' did not run successfully on #{id}."
-          else
-            callback null, 'Success'
-    conn.on 'error', (err) ->
-      callback "Could not connect to #{id} when attempting to #{action}." if err
-    .connect
-      host: room.ip
-      port: 22
-      username: Meteor.settings.auth.username
-      password: Meteor.settings.auth.password
 
 Meteor.methods
   restartGalicaster: (id) ->
     if isUserAuthorised Meteor.userId(), ['admin', 'control-rooms']
-      Async.runSync (done) ->
-        sshExec id, 'pkill -f python', 'restart galicaster', (error, result) ->
-          done error, result
+      Rooms.update { '_id': id }, {
+        $set: {
+          'restart': true
+        }
+      }
 
   rebootMachine: (id) ->
     if isUserAuthorised Meteor.userId(), ['admin', 'control-rooms']
-      Async.runSync (done) ->
-        sshExec id, 'sudo reboot', 'reboot', (error, result) ->
-          done error, result
+      Rooms.update { '_id': id }, {
+        $set: {
+          'reboot': true
+        }
+      }
 
   getServerTime: ->
     Math.round new Date() / 1000

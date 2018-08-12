@@ -49,5 +49,7 @@ Meteor.publish 'GalicasterControl', (RoomId) ->
         currentMediaPackage: 1
         currentProfile: 1
         paused: 1
+        reboot: 1
         recording: 1
+        restart: 1
   @stop()
