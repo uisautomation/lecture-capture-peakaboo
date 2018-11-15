@@ -7,13 +7,11 @@ class AudioFader
 
   setLevel: (level) ->
     if @sliderRendered and @allowUpdate
-      level = @_mapValue level
       @tmpl.$('input').slider 'setValue', level
     level
 
   getLevel: ->
-    slider = @tmpl.$('input').slider 'getValue'
-    @_unmapValue slider
+    @tmpl.$('input').slider 'getValue'
 
   saveLevel: ->
     _id = Template.parentData(1)._id
