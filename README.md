@@ -17,6 +17,11 @@ The meteor applcation will build then point a web browser at:
 http://localhost:3000
 ```
 
+optional: if you get errors at runtime, try installing the node packages:
+```shell
+meteor npm install
+```
+
 ### To run in in production
 Peakaboo has been dockerized so its super straight forward to get this running in a production environment. There are however alternatives to running meteor apps in production but they aren't covered here.
 
