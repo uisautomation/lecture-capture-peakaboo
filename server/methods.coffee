@@ -68,11 +68,14 @@ Meteor.methods
   getLogins: () ->
     logins = Meteor.settings.logins
     loginMethods = []
-
-    for own login, settings of logins
-      if settings.active
-        loginMethods.push 'loginWith' + login.charAt(0).toUpperCase() +
-          login.slice(1).toLowerCase()
+    if logins
+      for own login, settings of logins
+        if settings.active
+          loginMethods.push 'loginWith' + login.charAt(0).toUpperCase() +
+            login.slice(1).toLowerCase()
+    else
+      console.log "The login method is not defined in the settings. Using loginWithPassword"
+      loginMethods.push 'loginWithPassword'
 
     loginMethods
 
