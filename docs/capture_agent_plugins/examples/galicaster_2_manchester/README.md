@@ -12,6 +12,19 @@ Things to note
 * Figuring out the alsa/pulse audio sources can be difficult depending on your audio hardware
 
 
+# Requirements
+
+With the same user that runs Galicaster (Normally: "galicaster"), you need to install these dependencies:
+
+* python-Meteor
+* pyscreenshot
+* image
+* requests
+
+```
+$ pip install python-meteor pyscreenshot image requests
+```
+
 # ddp.py
 Loading
 -------
