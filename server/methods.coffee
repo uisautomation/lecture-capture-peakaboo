@@ -73,6 +73,10 @@ Meteor.methods
         if settings.active
           loginMethods.push 'loginWith' + login.charAt(0).toUpperCase() +
             login.slice(1).toLowerCase()
+          #console.log("Enabling auth method", login)
+      if loginMethods.length == 0
+        console.log "No active login mothod in the settings. Using loginWithPassword"
+        loginMethods.push 'loginWithPassword'
     else
       console.log "The login method is not defined in the settings. Using loginWithPassword"
       loginMethods.push 'loginWithPassword'
