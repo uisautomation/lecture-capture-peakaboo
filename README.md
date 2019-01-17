@@ -1,5 +1,6 @@
-Peakaboo
-========
+# Peakaboo
+
+[![CircleCI](https://circleci.com/gh/uisautomation/lecture-capture-peakaboo.svg?style=svg)](https://circleci.com/gh/uisautomation/lecture-capture-peakaboo)
 
 ## A real time dashboard for the remote monitoring of Opencast compatible capture agents
 

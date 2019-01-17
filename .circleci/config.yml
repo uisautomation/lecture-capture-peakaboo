@@ -12,7 +12,6 @@ jobs:
           name: Push images
           command: |
             only_on_branch=master
-            TAGS=sha-$CIRCLE_SHA1 branch-$CIRCLE_BRANCH build-$CIRCLE_BUILD_NUM
             if [ "${CIRCLE_BRANCH}" == "${only_on_branch}" ]; then
               if [ ! -z "${DOCKER_USER}" ] && [ ! -z "${DOCKER_PASS}" ]; then
                 echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin
