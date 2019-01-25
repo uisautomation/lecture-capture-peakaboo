@@ -2,14 +2,15 @@ Meteor.startup ->
 
   if 'accounts' of Meteor.settings
     for user in Meteor.settings.accounts
-      existing = Accounts.findUserByEmail user.email
+      existing = Accounts.findUserByUsername user.username
       if existing
-        console.log('Setting password for ', user.email, existing._id)
+        console.log('Setting password for ', user.username, existing._id)
         Accounts.setPassword existing._id, user.password
       else
-        console.log('Creating user ', user.email)
+        console.log('Creating user ', user.username)
         id = Accounts.createUser
-          email: user.email
+          username: user.username
+          email: user.username
           password: user.password
           profile:
             name: user.name
