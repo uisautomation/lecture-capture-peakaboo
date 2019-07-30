@@ -2,6 +2,10 @@
 
 [![CircleCI](https://circleci.com/gh/uisautomation/lecture-capture-peakaboo.svg?style=svg)](https://circleci.com/gh/uisautomation/lecture-capture-peakaboo)
 
+
+Moved to https://gitlab.developers.cam.ac.uk/uis/devops/lecture-capture/peakaboo
+
+
 ## A real time dashboard for the remote monitoring of Opencast compatible capture agents
 
 ![Alt text](docs/peakaboo.png?raw=true "Peakaboo-roomlist")
